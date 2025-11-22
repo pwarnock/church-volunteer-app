@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 
 interface Opportunity {
@@ -21,7 +21,7 @@ interface Opportunity {
 }
 
 export default function LeaderDashboard() {
-  const { data: session } = useSession()
+  const { user, signOut } = useAuth()
   const router = useRouter()
   const [opportunities, setOpportunities] = useState<Opportunity[]>([])
   const [applications, setApplications] = useState<any[]>([])
@@ -40,12 +40,18 @@ export default function LeaderDashboard() {
   })
 
   useEffect(() => {
-    if (session && session.user.role !== 'MINISTRY_LEADER') {
+    if (!user) {
+      router.push('/auth/signin')
+      return
+    }
+
+    if (user.role !== 'MINISTRY_LEADER') {
       router.push('/dashboard')
       return
     }
+
     fetchOpportunities()
-  }, [session, router])
+  }, [user, router])
 
   useEffect(() => {
     if (session && showApplications) {
@@ -79,14 +85,16 @@ export default function LeaderDashboard() {
     e.preventDefault()
     
     try {
-      const response = await fetch('/api/opportunities', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...formData,
-          requirements: formData.requirements.split(',').map(r => r.trim())
+        const response = await fetch('/api/opportunities', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            requirements: JSON.parse(formData.requirements),
+            leaderId: user.id
+          }),
         })
       })
 
