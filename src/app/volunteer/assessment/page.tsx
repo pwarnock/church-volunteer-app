@@ -110,6 +110,8 @@ export default function VolunteerAssessment() {
       .map(([gift]) => gift)
 
     try {
+      console.log('Submitting assessment with gifts:', topGifts)
+      
       const response = await fetch('/api/volunteer/profile', {
         method: 'POST',
         headers: {
@@ -120,12 +122,16 @@ export default function VolunteerAssessment() {
         })
       })
 
+      console.log('Response status:', response.status)
+      
       if (response.ok) {
+        const responseData = await response.json()
+        console.log('Assessment saved successfully:', responseData)
         router.push('/volunteer/assessment/results')
       } else {
         const errorData = await response.json()
         console.error('Assessment submission error:', errorData)
-        alert('There was an error saving your results. Please try again.')
+        alert(`Error: ${errorData.error || 'Unknown error occurred'}`)
       }
     } catch (error) {
       console.error('Error submitting assessment:', error)

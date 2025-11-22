@@ -21,35 +21,43 @@ export async function POST(request: NextRequest) {
     })
 
     let profile
-    if (existingProfile) {
-      profile = await prisma.volunteerProfile.update({
-        where: { userId: session.user.id },
-        data: {
-          ...(spiritualGifts && { spiritualGifts }),
-          ...(interests && { interests }),
-          ...(skills && { skills }),
-          ...(bio !== undefined && { bio }),
-          ...(availability && { availability })
-        }
-      })
-    } else {
-      profile = await prisma.volunteerProfile.create({
-        data: {
-          userId: session.user.id,
-          spiritualGifts: spiritualGifts || '[]',
-          interests: interests || '[]',
-          skills: skills || '[]',
-          bio: bio || '',
-          availability: availability || {}
-        }
-      })
+    try {
+      if (existingProfile) {
+        profile = await prisma.volunteerProfile.update({
+          where: { userId: session.user.id },
+          data: {
+            ...(spiritualGifts && { spiritualGifts }),
+            ...(interests && { interests }),
+            ...(skills && { skills }),
+            ...(bio !== undefined && { bio }),
+            ...(availability && { availability: typeof availability === 'string' ? availability : JSON.stringify(availability) })
+          }
+        })
+      } else {
+        profile = await prisma.volunteerProfile.create({
+          data: {
+            userId: session.user.id,
+            spiritualGifts: spiritualGifts || '[]',
+            interests: interests || '[]',
+            skills: skills || '[]',
+            bio: bio || '',
+            availability: availability ? (typeof availability === 'string' ? availability : JSON.stringify(availability)) : '{}'
+          }
+        })
+      }
+    } catch (dbError) {
+      console.error('Database operation error:', dbError)
+      return NextResponse.json(
+        { error: 'Database operation failed', details: dbError instanceof Error ? dbError.message : 'Unknown error' },
+        { status: 500 }
+      )
     }
 
     return NextResponse.json({ profile })
   } catch (error) {
     console.error('Profile update error:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
