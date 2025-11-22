@@ -54,10 +54,10 @@ export default function LeaderDashboard() {
   }, [user, router])
 
   useEffect(() => {
-    if (session && showApplications) {
+    if (user && showApplications) {
       fetchApplications()
     }
-  }, [session, showApplications])
+  }, [user, showApplications])
 
   const fetchOpportunities = async () => {
     try {
