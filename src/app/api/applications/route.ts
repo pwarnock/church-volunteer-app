@@ -87,12 +87,14 @@ export async function GET(request: NextRequest) {
         include: {
           opportunity: {
             select: {
+              id: true,
               title: true,
               ministry: true
             }
           },
           volunteer: {
             select: {
+              id: true,
               name: true,
               email: true,
               profile: true

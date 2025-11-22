@@ -24,7 +24,9 @@ export default function LeaderDashboard() {
   const { data: session } = useSession()
   const router = useRouter()
   const [opportunities, setOpportunities] = useState<Opportunity[]>([])
+  const [applications, setApplications] = useState<any[]>([])
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [showApplications, setShowApplications] = useState(false)
   const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     title: '',
@@ -45,6 +47,12 @@ export default function LeaderDashboard() {
     fetchOpportunities()
   }, [session, router])
 
+  useEffect(() => {
+    if (session && showApplications) {
+      fetchApplications()
+    }
+  }, [session, showApplications])
+
   const fetchOpportunities = async () => {
     try {
       const response = await fetch('/api/opportunities')
@@ -54,6 +62,16 @@ export default function LeaderDashboard() {
       console.error('Error fetching opportunities:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchApplications = async () => {
+    try {
+      const response = await fetch('/api/applications')
+      const data = await response.json()
+      setApplications(data.applications || [])
+    } catch (error) {
+      console.error('Error fetching applications:', error)
     }
   }
 
@@ -324,7 +342,10 @@ export default function LeaderDashboard() {
               </div>
               
               <div className="mt-4 flex justify-end">
-                <button className="text-blue-600 hover:text-blue-800 font-medium">
+                <button 
+                  onClick={() => setShowApplications(true)}
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                >
                   View Applications →
                 </button>
               </div>
@@ -347,6 +368,71 @@ export default function LeaderDashboard() {
             >
               Create Your First Opportunity
             </button>
+          </div>
+        )}
+
+        {/* Applications Modal */}
+        {showApplications && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold">Volunteer Applications</h2>
+                <button
+                  onClick={() => setShowApplications(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {applications.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">No applications received yet.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {applications.map((app) => (
+                    <div key={app.id} className="border rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h3 className="font-semibold">{app.volunteer.name}</h3>
+                          <p className="text-sm text-gray-600">{app.volunteer.email}</p>
+                          <p className="text-sm text-blue-600">Applied for: {app.opportunity.title}</p>
+                        </div>
+                        <span className="text-sm text-gray-500">
+                          {new Date(app.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      
+                      {app.message && (
+                        <div className="mb-3">
+                          <p className="text-sm font-medium text-gray-700">Message:</p>
+                          <p className="text-sm text-gray-600">{app.message}</p>
+                        </div>
+                      )}
+
+                      {app.volunteer.profile && (
+                        <div className="mb-3">
+                          <p className="text-sm font-medium text-gray-700">Spiritual Gifts:</p>
+                          <p className="text-sm text-gray-600">{app.volunteer.profile.spiritualGifts || 'Not specified'}</p>
+                        </div>
+                      )}
+
+                      <div className="flex gap-2">
+                        <button className="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700">
+                          Approve
+                        </button>
+                        <button className="bg-red-600 text-white px-4 py-2 rounded text-sm hover:bg-red-700">
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
 
