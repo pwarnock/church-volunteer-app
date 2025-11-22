@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
 export const authOptions = {
-  // adapter: PrismaAdapter(prisma), // Disabled for Vercel serverless demo
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: 'credentials',
