@@ -17,10 +17,11 @@ export default function AssessmentResults() {
   const router = useRouter()
   const [results, setResults] = useState<AssessmentResults | null>(null)
   const [loading, setLoading] = useState(true)
-  const [opportunities, setOpportunities] = useState<any[]>([])
+  const [opportunities, setOpportunities] = useState<Array<{id: string, title: string, description: string, requiredGifts: string[]}>>([])
 
   useEffect(() => {
     fetchResults()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchResults = async () => {
@@ -45,7 +46,7 @@ export default function AssessmentResults() {
         })
 
         // Fetch matching opportunities
-        fetchMatchingOpportunities(gifts)
+        fetchMatchingOpportunities()
       } else {
         // No assessment results found, redirect to assessment
         router.push('/volunteer/assessment')
@@ -58,7 +59,7 @@ export default function AssessmentResults() {
     }
   }
 
-  const fetchMatchingOpportunities = async (gifts: string[]) => {
+  const fetchMatchingOpportunities = async () => {
     try {
       const response = await fetch('/api/opportunities')
       const data = await response.json()
@@ -313,7 +314,7 @@ export default function AssessmentResults() {
         {/* Retake Assessment */}
         <div className="text-center mt-8">
           <p className="text-gray-600 mb-4">
-            Feel these results don't reflect your calling? You can retake the assessment.
+            Feel these results don&apos;t reflect your calling? You can retake the assessment.
           </p>
           <Link
             href="/volunteer/assessment"
