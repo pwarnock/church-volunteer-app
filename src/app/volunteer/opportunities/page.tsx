@@ -98,9 +98,15 @@ export default function VolunteerOpportunities() {
             </button>
             <Link
               href="/volunteer/assessment"
+              className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200"
+            >
+              Retake Assessment
+            </Link>
+            <Link
+              href="/volunteer/assessment/results"
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
             >
-              Take Assessment
+              View My Gifts
             </Link>
           </div>
         </div>

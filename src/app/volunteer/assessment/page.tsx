@@ -81,6 +81,9 @@ export default function VolunteerAssessment() {
   }
 
   const handleAnswer = (gift: string) => {
+    // Prevent multiple submissions
+    if (isSubmitting) return
+
     setAnswers(prev => ({
       ...prev,
       [currentQuestion]: gift
@@ -118,10 +121,15 @@ export default function VolunteerAssessment() {
       })
 
       if (response.ok) {
-        router.push('/volunteer/opportunities')
+        router.push('/volunteer/assessment/results')
+      } else {
+        const errorData = await response.json()
+        console.error('Assessment submission error:', errorData)
+        alert('There was an error saving your results. Please try again.')
       }
     } catch (error) {
       console.error('Error submitting assessment:', error)
+      alert('There was an error saving your results. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -170,7 +178,7 @@ export default function VolunteerAssessment() {
           {isSubmitting && (
             <div className="text-center">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <p className="mt-2 text-gray-600">Saving your results...</p>
+              <p className="mt-2 text-gray-600">Analyzing your spiritual gifts...</p>
             </div>
           )}
         </div>
