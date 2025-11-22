@@ -96,7 +96,7 @@ export default function LeaderDashboard() {
             leaderId: user.id
           }),
         })
-      })
+
       if (response.ok) {
         setShowCreateForm(false)
         setFormData({
