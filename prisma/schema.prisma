@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("VOLUNTEER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile       VolunteerProfile?
+  opportunities Opportunity[]
+  applications  Application[]
+
+  @@map("users")
+}
+
+model VolunteerProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  bio          String?
+  spiritualGifts String // JSON string array
+  interests    String   // JSON string array
+  availability String   // JSON string
+  skills       String   // JSON string array
+  experience   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("volunteer_profiles")
+}
+
+model Opportunity {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  ministry    String
+  location    String
+  requirements String // JSON string array
+  timeCommitment String
+  startDate   DateTime?
+  endDate     DateTime?
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  leaderId String
+  leader   User   @relation(fields: [leaderId], references: [id])
+
+  applications Application[]
+
+  @@map("opportunities")
+}
+
+model Application {
+  id            String   @id @default(cuid())
+  status        String   @default("PENDING")
+  message       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  volunteerId String
+  volunteer   User   @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, volunteerId])
+  @@map("applications")
+}
