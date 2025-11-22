@@ -93,7 +93,7 @@ export default function LeaderDashboard() {
           body: JSON.stringify({
             ...formData,
             requirements: JSON.parse(formData.requirements),
-            leaderId: user.id
+            leaderId: user?.id || ''
           }),
         })
 
