@@ -1,8 +1,12 @@
 'use client'
 
+import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function VolunteerPage() {
+  const { data: session } = useSession()
+  const router = useRouter()
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -83,10 +87,25 @@ export default function VolunteerPage() {
         <div className="mt-12 text-center">
           <Link 
             href="/auth/signin"
-            className="text-gray-600 hover:text-gray-900 underline"
+            className="text-gray-600 hover:text-gray-900 underline mr-4"
           >
             Already have an account? Sign in
           </Link>
+          {session && (
+            <button
+              onClick={async () => {
+                try {
+                  await signOut({ redirect: false })
+                  router.push('/')
+                } catch (error) {
+                  console.error('Sign out error:', error)
+                }
+              }}
+              className="text-gray-600 hover:text-gray-900 underline"
+            >
+              Sign Out
+            </button>
+          )}
         </div>
       </div>
     </div>

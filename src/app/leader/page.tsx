@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 interface Opportunity {
@@ -311,11 +311,16 @@ export default function LeaderDashboard() {
                 {opportunity.startDate && (
                   <div className="flex items-center text-gray-500">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     Starts {new Date(opportunity.startDate).toLocaleDateString()}
                   </div>
                 )}
+              </div>
+              
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-700 mb-1">Requirements:</p>
+                <p className="text-sm text-gray-600">{opportunity.requirements}</p>
               </div>
               
               <div className="mt-4 flex justify-end">
@@ -344,6 +349,22 @@ export default function LeaderDashboard() {
             </button>
           </div>
         )}
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={async () => {
+              try {
+                await signOut({ redirect: false })
+                router.push('/')
+              } catch (error) {
+                console.error('Sign out error:', error)
+              }
+            }}
+            className="text-gray-600 hover:text-gray-900 underline"
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { getSpiritualGift } from '@/data/spiritualGifts'
@@ -317,10 +317,23 @@ export default function AssessmentResults() {
           </p>
           <Link
             href="/volunteer/assessment"
-            className="text-blue-600 hover:text-blue-800 underline"
+            className="text-blue-600 hover:text-blue-800 underline mr-4"
           >
             Retake Assessment
           </Link>
+          <button
+            onClick={async () => {
+              try {
+                await signOut({ redirect: false })
+                router.push('/')
+              } catch (error) {
+                console.error('Sign out error:', error)
+              }
+            }}
+            className="text-gray-600 hover:text-gray-900 underline"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
     </div>

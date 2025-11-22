@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -190,8 +190,13 @@ export default function Dashboard() {
 
         <div className="mt-12 text-center">
           <button
-            onClick={() => {
-              // Implement sign out logic
+            onClick={async () => {
+              try {
+                await signOut({ redirect: false })
+                router.push('/')
+              } catch (error) {
+                console.error('Sign out error:', error)
+              }
             }}
             className="text-gray-600 hover:text-gray-900 underline"
           >
