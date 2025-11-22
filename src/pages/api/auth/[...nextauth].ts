@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
 export const authOptions = {
-  // adapter: PrismaAdapter(prisma), // Disabled for Vercel serverless
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -67,7 +67,8 @@ export const authOptions = {
   pages: {
     signIn: '/auth/signin',
     signUp: '/auth/signup'
-  }
+  },
+  debug: process.env.NODE_ENV === 'development'
 }
 
 export default NextAuth(authOptions)
