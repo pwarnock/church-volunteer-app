@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         timeCommitment,
         startDate: startDate ? new Date(startDate) : null,
         endDate: endDate ? new Date(endDate) : null,
-        leaderId: session.user.id
+        leaderId: session.user.id!
       },
       include: {
         leader: {

@@ -17,7 +17,7 @@ export default function AssessmentResults() {
   const router = useRouter()
   const [results, setResults] = useState<AssessmentResults | null>(null)
   const [loading, setLoading] = useState(true)
-  const [opportunities, setOpportunities] = useState<Array<{id: string, title: string, description: string, requiredGifts: string[]}>>([])
+  const [opportunities, setOpportunities] = useState<Array<{id: string, title: string, description: string, requiredGifts: string[], ministry: string, timeCommitment: string}>>([])
 
   useEffect(() => {
     fetchResults()

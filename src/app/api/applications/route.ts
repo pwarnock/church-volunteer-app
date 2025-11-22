@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       where: {
         opportunityId_volunteerId: {
           opportunityId,
-          volunteerId: session.user.id
+          volunteerId: session.user.id!
         }
       }
     })
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     const application = await prisma.application.create({
       data: {
         opportunityId,
-        volunteerId: session.user.id,
+        volunteerId: session.user.id!,
         message: message || ''
       },
       include: {

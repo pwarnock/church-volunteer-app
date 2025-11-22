@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       } else {
         profile = await prisma.volunteerProfile.create({
           data: {
-            userId: session.user.id,
+            userId: session.user.id!,
             spiritualGifts: spiritualGifts || '[]',
             interests: interests || '[]',
             skills: skills || '[]',
