@@ -97,7 +97,6 @@ export default function LeaderDashboard() {
           }),
         })
       })
-
       if (response.ok) {
         setShowCreateForm(false)
         setFormData({
