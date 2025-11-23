@@ -118,8 +118,15 @@ async function main() {
     })
     
     if (sundaySchool) {
-      await prisma.application.create({
-        data: {
+      await prisma.application.upsert({
+        where: {
+          opportunityId_volunteerId: {
+            opportunityId: sundaySchool.id,
+            volunteerId: volunteer.id
+          }
+        },
+        update: {},
+        create: {
           opportunityId: sundaySchool.id,
           volunteerId: volunteer.id,
           message: 'I have experience teaching children and would love to serve in this role!'
