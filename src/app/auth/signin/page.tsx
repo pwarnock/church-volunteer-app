@@ -24,12 +24,19 @@ export default function SignIn() {
         redirect: false
       })
 
+      console.log('Signin result:', result)
+
       if (result?.error) {
+        console.error('Signin error:', result.error)
         setError('Invalid credentials')
-      } else {
+      } else if (result?.ok) {
+        console.log('Signin successful, redirecting to dashboard')
         router.push('/dashboard')
+      } else {
+        setError('An unexpected error occurred')
       }
     } catch (error) {
+      console.error('Signin catch error:', error)
       setError('An error occurred')
     } finally {
       setIsLoading(false)

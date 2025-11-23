@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from '@/lib/auth'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 interface Opportunity {
@@ -21,7 +21,8 @@ interface Opportunity {
 }
 
 export default function LeaderDashboard() {
-  const { user, signOut } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
   const router = useRouter()
   const [opportunities, setOpportunities] = useState<Opportunity[]>([])
   const [applications, setApplications] = useState<any[]>([])
@@ -132,7 +133,7 @@ export default function LeaderDashboard() {
     )
   }
 
-  if (session.user.role !== 'MINISTRY_LEADER') {
+  if (user?.role !== 'MINISTRY_LEADER') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
