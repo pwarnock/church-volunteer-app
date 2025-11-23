@@ -30,10 +30,16 @@ bunx tsx prisma/seed.ts  # Populate demo data
 
 ### Testing
 ```bash
-bun test                 # Run tests with Vitest
+bun test                 # Run unit tests with Vitest
 bun test:ui             # Run tests with UI dashboard
 bun test:coverage       # Generate coverage report
+bun test:bdd            # Run BDD tests with Cucumber
 ```
+
+### Test Types
+- **Unit Tests**: Test individual functions, utilities, and components (`src/**/*.test.ts`)
+- **BDD Tests**: Test complete user workflows and features (`features/**/*.feature`)
+- See [BDD_TESTING.md](./BDD_TESTING.md) for BDD documentation
 
 ### Vercel Deployment
 ```bash

@@ -1,0 +1,1745 @@
+[
+  {
+    "description": "  As a user\n  I want to sign in securely\n  So that I can access the application",
+    "elements": [
+      {
+        "description": "",
+        "id": "user-authentication;volunteer-signs-in-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Volunteer signs in with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 312081
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 449848
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 111168
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 90985
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I enter email \"volunteer@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 222726
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I enter password \"password123\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 103265
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 75903
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "I should be redirected to the dashboard",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:89"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 78471
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "I should see \"Welcome\" message",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:93"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 131291
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;ministry-leader-signs-in-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Ministry leader signs in with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26884
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79936
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58719
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 20,
+            "name": "I enter email \"leader@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 66407
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "I enter password \"password123\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 57371
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "I should be redirected to the dashboard",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:89"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 65820
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "I should see \"Ministry Leader\" dashboard",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:97"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 164846
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-fails-to-sign-in-with-invalid-email",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "User fails to sign in with invalid email",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 12473
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44263
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38938
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37385
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 28,
+            "name": "I enter email \"nonexistent@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50748
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "I enter password \"password123\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47329
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18706
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "I should see error message \"Invalid credentials\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:102"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 78267
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 32,
+            "name": "I should remain on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:107"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 62089
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-fails-to-sign-in-with-invalid-password",
+        "keyword": "Scenario",
+        "line": 34,
+        "name": "User fails to sign in with invalid password",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14183
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41547
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39105
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 35,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38567
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 36,
+            "name": "I enter email \"volunteer@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54724
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "I enter password \"wrongpassword\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 48510
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18735
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "I should see error message \"Invalid credentials\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:102"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45053
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "I should remain on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:107"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 76567
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-fails-to-sign-in-with-empty-email",
+        "keyword": "Scenario",
+        "line": 42,
+        "name": "User fails to sign in with empty email",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14419
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43842
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38352
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 43,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 68244
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 44,
+            "name": "I leave email empty",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38723
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "I enter password \"password123\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 46,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18863
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 47,
+            "name": "I should see validation error \"Email is required\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:111"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 69631
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-fails-to-sign-in-with-empty-password",
+        "keyword": "Scenario",
+        "line": 49,
+        "name": "User fails to sign in with empty password",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24147
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39680
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35773
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 50,
+            "name": "I am on the sign in page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37219
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 51,
+            "name": "I enter email \"volunteer@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 73734
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "I leave password empty",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38966
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 53,
+            "name": "I click the sign in button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19870
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 54,
+            "name": "I should see validation error \"Password is required\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:111"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45268
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-session-is-maintained-after-sign-in",
+        "keyword": "Scenario",
+        "line": 56,
+        "name": "User session is maintained after sign in",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10735
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38058
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35031
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 57,
+            "name": "I am signed in as \"volunteer@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70754
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 58,
+            "name": "I navigate to the dashboard",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:80"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35088
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 59,
+            "name": "I should remain signed in",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:116"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55612
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 60,
+            "name": "I should see my profile information",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:120"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55084
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-authentication;user-can-sign-out",
+        "keyword": "Scenario",
+        "line": 62,
+        "name": "User can sign out",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10187
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the application is running",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38254
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "demo users exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35148
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 63,
+            "name": "I am signed in as \"volunteer@demo.com\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70324
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 64,
+            "name": "I click the sign out button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 65,
+            "name": "I should be redirected to the home page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:124"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56756
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 66,
+            "name": "the session should be cleared",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:128"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54031
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "user-authentication",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "User Authentication",
+    "tags": [],
+    "uri": "features/authentication.feature"
+  },
+  {
+    "description": "  As a volunteer\n  I want to browse and apply for ministry opportunities\n  So that I can find meaningful ways to serve",
+    "elements": [
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-views-available-opportunities",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Volunteer views available opportunities",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 12533
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 137504
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I am on the opportunities page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58993
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I load the page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101301
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "I should see a list of opportunities",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:148"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 64650
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "each opportunity should display title, description, and ministry type",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:152"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120975
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-filters-opportunities-by-ministry-type",
+        "keyword": "Scenario",
+        "line": 16,
+        "name": "Volunteer filters opportunities by ministry type",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 41527
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41488
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41351
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 17,
+            "name": "I am on the opportunities page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "opportunities from different ministries exist",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 90126
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I select filter \"Children's Ministry\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 84626
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "I should only see opportunities from \"Children's Ministry\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:159"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79311
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-applies-for-an-opportunity",
+        "keyword": "Scenario",
+        "line": 22,
+        "name": "Volunteer applies for an opportunity",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22361
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40970
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42639
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 23,
+            "name": "I am on the opportunities page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 51265
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 24,
+            "name": "I select the \"Sunday School Teacher\" opportunity",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 92178
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 25,
+            "name": "I click the \"Apply Now\" button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:80"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 66280
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "I should see an application form",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56346
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "I can enter a message about why I want to serve",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54362
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-submits-application-for-opportunity",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Volunteer submits application for opportunity",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11263
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63018
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42161
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 30,
+            "name": "I am viewing the \"Community Outreach\" opportunity",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:132"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 84353
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 31,
+            "name": "I enter my application message \"I have experience with community service\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:102"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 82085
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 32,
+            "name": "I click the \"Submit Application\" button",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:80"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37454
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 33,
+            "name": "my application should be recorded",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:173"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 94366
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "I should see confirmation message \"Application submitted successfully\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:177"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 141568
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-cannot-apply-for-same-opportunity-twice",
+        "keyword": "Scenario",
+        "line": 36,
+        "name": "Volunteer cannot apply for same opportunity twice",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10286
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39123
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44155
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 37,
+            "name": "I have already applied for \"Youth Group Mentor\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 107445
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 38,
+            "name": "I navigate to that opportunity",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:121"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 125313
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "the \"Apply Now\" button should be disabled",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:181"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 73509
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "I should see message \"You have already applied for this opportunity\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:185"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67960
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;volunteer-views-their-applications",
+        "keyword": "Scenario",
+        "line": 42,
+        "name": "Volunteer views their applications",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 9661
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40443
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39553
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 43,
+            "name": "I have submitted applications for 2 opportunities",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 116813
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 44,
+            "name": "I navigate to my applications page",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:117"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 48844
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 45,
+            "name": "I should see all my submitted applications",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:189"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59882
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 46,
+            "name": "each should show the status (pending, accepted, rejected)",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:193"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 595638
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;opportunity-displays-requirements-clearly",
+        "keyword": "Scenario",
+        "line": 48,
+        "name": "Opportunity displays requirements clearly",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11009
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42572
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40715
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 49,
+            "name": "I am viewing an opportunity",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:126"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 69240
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 50,
+            "name": "I scroll to the requirements section",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:138"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 83395
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 51,
+            "name": "I should see all requirements listed",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:199"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54930
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "each requirement should be clearly marked as required or optional",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:203"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 187237
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "volunteer-opportunities;ministry-leader-creates-new-opportunity",
+        "keyword": "Scenario",
+        "line": 54,
+        "name": "Ministry leader creates new opportunity",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10276
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am signed in as a volunteer",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39768
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "ministry opportunities exist in the database",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40931
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 55,
+            "name": "I am signed in as a ministry leader",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58035
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 56,
+            "name": "I navigate to \"Create Opportunity\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:107"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54959
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 57,
+            "name": "I fill in all required fields",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:143"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55847
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 58,
+            "name": "I click \"Create\"",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:96"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47543
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 59,
+            "name": "the new opportunity should be visible to volunteers",
+            "match": {
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:207"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 57127
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "volunteer-opportunities",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Volunteer Opportunities",
+    "tags": [],
+    "uri": "features/opportunities.feature"
+  }
+]
