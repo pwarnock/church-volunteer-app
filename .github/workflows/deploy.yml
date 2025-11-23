@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to Vercel Production
         run: |
           npm install -g vercel
-          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod --prebuilt
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -54,4 +54,4 @@ jobs:
       - name: Deployment Summary
         run: |
           echo "✅ Production deployment complete!"
-          echo "View your application at: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app"
+          echo "Check deployment status at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
