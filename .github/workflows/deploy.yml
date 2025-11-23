@@ -45,7 +45,7 @@ jobs:
 
       - name: Deploy to Vercel Production
         run: |
-          npm install -g vercel
+          bun install -g vercel
           vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

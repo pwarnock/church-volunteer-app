@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy to Vercel Preview
         run: |
-          npm install -g vercel
+          bun install -g vercel
           vercel deploy --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt 2>&1
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
