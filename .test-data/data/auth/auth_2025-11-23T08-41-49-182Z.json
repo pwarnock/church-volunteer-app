@@ -1,0 +1,19 @@
+{
+  "id": "auth_2025-11-23T08-41-49-182Z.json",
+  "type": "auth",
+  "timestamp": "2025-11-23T08:41:49.182Z",
+  "version": 34,
+  "tags": [
+    "auth",
+    "generated"
+  ],
+  "data": {
+    "user": {
+      "id": "lead_001",
+      "email": "leader@test.com",
+      "name": "Test Leader",
+      "role": "LEADER"
+    },
+    "scenario": "login_success"
+  }
+}

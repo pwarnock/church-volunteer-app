@@ -13,9 +13,9 @@ export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'happy-dom',
     setupFiles: ['./vitest.setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}'],
+    include: ['src/**/*.{test,test.spec}.{ts,tsx}'],
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
@@ -23,6 +23,7 @@ export default defineConfig({
       '**/.next/**',
       '**/features/**',
       '**/test-results/**',
+      '**/*.spec.ts', // Exclude all spec.ts files (E2E tests)
     ],
     coverage: {
       provider: 'v8',

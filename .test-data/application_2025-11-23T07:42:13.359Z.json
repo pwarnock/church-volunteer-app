@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "id": "application_2025-11-23T07:42:13.359Z",
+    "version": "1.0.0",
+    "createdAt": "2025-11-23T07:42:13.359Z",
+    "description": "application test data",
+    "tags": [
+      "application",
+      "generated"
+    ]
+  },
+  "data": {
+    "opportunityId": "opp_001",
+    "volunteerId": "vol_001",
+    "message": "I am excited to serve in this ministry and believe my skills would be valuable.",
+    "status": "PENDING"
+  }
+}
