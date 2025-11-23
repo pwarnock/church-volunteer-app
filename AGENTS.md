@@ -1,26 +1,45 @@
 # AGENTS.md - Church Volunteer Connect Development Guidelines
 
+## 🥯 Package Manager: Bun
+This project uses Bun as the primary package manager. Always use `bun` instead of `npm` for faster performance.
+
+## 🌐 Deployment: Vercel
+- **Production URL**: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app
+- **Vercel Project**: pete-warnocks-projects/hackathon
+- **Authentication**: Vercel deployment protection enabled
+- **Database**: PostgreSQL on Vercel (production), SQLite (local)
+- **Environment**: Use `vercel env pull` to sync production variables
+
 ## 🚀 Development Commands
 
 ### Build & Development
 ```bash
-npm run dev          # Start development server (localhost:3000)
-npm run build        # Production build with Prisma generation
-npm run start        # Start production server
-npm run lint         # Run ESLint on codebase
+bun run dev          # Start development server (localhost:3000)
+bun run build        # Production build with Prisma generation
+bun run start        # Start production server
+bun run lint         # Run ESLint on codebase
 ```
 
 ### Database Operations
 ```bash
-npx prisma db push   # Sync schema to database
-npx prisma generate  # Generate Prisma client
-npx prisma studio    # Open database browser
-npx tsx prisma/seed.ts  # Populate demo data
+bunx prisma db push   # Sync schema to database
+bunx prisma generate  # Generate Prisma client
+bunx prisma studio    # Open database browser
+bunx tsx prisma/seed.ts  # Populate demo data
 ```
 
 ### Testing
 ```bash
 # No test framework configured yet - add testing commands when implemented
+# Use bun test when test framework is added
+```
+
+### Vercel Deployment
+```bash
+vercel --prod                    # Deploy to production
+vercel env pull .env.production.local  # Pull production env vars
+vercel logs                      # View deployment logs
+vercel ls                        # List deployments
 ```
 
 ## 📋 Code Style Guidelines
@@ -102,6 +121,11 @@ export async function POST(request: NextRequest) {
 }
 ```
 
+### Known Issues & Solutions
+- **Vercel Auth Protection**: Production deployment requires bypass token
+- **Database Sync**: Use `bunx prisma db push` after schema changes
+- **Environment Variables**: Pull with `vercel env pull` for production
+
 ### Naming Conventions
 - **Files**: kebab-case (`user-profile.tsx`, `api-route.ts`)
 - **Components**: PascalCase (`UserProfile`, `ApiRoute`)
@@ -144,15 +168,21 @@ try {
 - Group related classes: `className="bg-white rounded-lg shadow-lg p-6"`
 - Use semantic color classes: `text-blue-600`, `bg-red-50`
 - Add hover states: `hover:bg-blue-700`, `transition-colors`
+- **Input Text**: Ensure `text-gray-900` for visibility
 
 ### Database Patterns
 - Use Prisma client from `@/lib/prisma`
 - Handle JSON fields with `JSON.stringify()` and `JSON.parse()`
 - Use transactions for multiple operations
 - Include proper error handling for database operations
+- Use `bunx` for Prisma CLI commands in development
+- **Production**: Uses PostgreSQL via Vercel Postgres
+- **Local**: Uses SQLite for development
 
 ### Authentication
 - Use `useSession()` for client-side auth state
 - Protect routes with session checks
 - Use `signOut()` for logout functionality
 - Handle loading states during auth operations
+- **NextAuth Configuration**: JWT strategy, no PrismaAdapter
+- **Demo Accounts**: See README for working credentials
