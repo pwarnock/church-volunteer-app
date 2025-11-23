@@ -32,11 +32,13 @@ bun test:bdd --format html:test-results/cucumber-report.html
 ## Structure
 
 ### Feature Files
+
 - **Location**: `features/*.feature`
 - **Format**: Gherkin syntax (human-readable)
 - **Purpose**: Describe user-facing behavior and acceptance criteria
 
 ### Step Definitions
+
 - **Location**: `features/step_definitions/*.ts`
 - **Purpose**: Implement the logic for each Gherkin step
 - **Connect**: Map feature scenarios to test implementation
@@ -44,6 +46,7 @@ bun test:bdd --format html:test-results/cucumber-report.html
 ## Feature Files
 
 ### 1. Authentication (`features/authentication.feature`)
+
 Tests user sign-in, sign-out, and session management:
 
 - **Volunteer sign in** - Valid credentials
@@ -55,6 +58,7 @@ Tests user sign-in, sign-out, and session management:
 - **Sign out** - Session is cleared
 
 ### 2. Opportunities (`features/opportunities.feature`)
+
 Tests volunteer opportunity browsing and application:
 
 - **View opportunities** - List displays correctly
@@ -98,6 +102,7 @@ Feature: User Authentication
 ## Writing New BDD Tests
 
 ### 1. Create a Feature File
+
 ```gherkin
 # features/my-feature.feature
 Feature: New Feature Name
@@ -112,24 +117,26 @@ Feature: New Feature Name
 ```
 
 ### 2. Create Step Definitions
+
 ```typescript
 // features/step_definitions/my-feature.steps.ts
-import { Given, When, Then } from '@cucumber/cucumber'
+import { Given, When, Then } from '@cucumber/cucumber';
 
 Given('a precondition', function () {
   // Setup logic
-})
+});
 
 When('an action', function () {
   // Action logic
-})
+});
 
 Then('expected result', function () {
   // Assertion
-})
+});
 ```
 
 ### 3. Run Tests
+
 ```bash
 bun test:bdd
 ```
@@ -152,6 +159,7 @@ bun test:bdd
 ## Reports
 
 HTML reports are generated in `test-results/cucumber-report.html` showing:
+
 - Scenario status (passed/failed)
 - Execution time
 - Step-by-step results

@@ -9,4 +9,4 @@ module.exports = {
     ],
     formatOptions: { snippetInterface: 'async-await' },
   },
-}
+};

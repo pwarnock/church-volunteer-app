@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run lint-staged
+bunx lint-staged
+
+# Run type check (skip test files)
+bunx tsc --noEmit --skipLibCheck
+
+# Exit with error code if any command failed
+exit $?

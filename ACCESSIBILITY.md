@@ -18,6 +18,7 @@ bun test && bun test:e2e
 ## Accessibility Checklist
 
 ### Perceivable
+
 - [x] Images have alt text
 - [x] Color is not the only means of conveying information
 - [x] Text has sufficient contrast (4.5:1 for normal text)
@@ -25,6 +26,7 @@ bun test && bun test:e2e
 - [x] Text size is at least 12px
 
 ### Operable
+
 - [x] Keyboard navigation works throughout the site
 - [x] Focus indicators are visible
 - [x] No keyboard traps
@@ -34,6 +36,7 @@ bun test && bun test:e2e
 - [x] Required fields are marked
 
 ### Understandable
+
 - [x] Heading hierarchy is proper (H1, H2, H3...)
 - [x] Form validation errors are clearly marked
 - [x] Error messages are associated with fields
@@ -41,6 +44,7 @@ bun test && bun test:e2e
 - [x] Language is clear and simple
 
 ### Robust
+
 - [x] HTML is valid and semantic
 - [x] ARIA attributes are used correctly
 - [x] Components work with assistive technologies
@@ -92,8 +96,8 @@ button:focus {
 
 ```typescript
 // Good: Descriptive alt text
-<img 
-  src="volunteers.jpg" 
+<img
+  src="volunteers.jpg"
   alt="Volunteers serving meals at community center"
 />
 
@@ -166,12 +170,14 @@ button:focus {
 ## Tools for Testing
 
 ### Automated Testing
+
 - **Axe DevTools** - Browser extension for Chrome/Firefox
 - **WAVE** - Web Accessibility Evaluation Tool
 - **axe-playwright** - Automated testing in E2E tests
 - **jest-axe** - Automated testing in unit tests
 
 ### Manual Testing
+
 - Keyboard-only navigation (unplug mouse)
 - Screen reader testing (NVDA, JAWS, VoiceOver)
 - Zoom to 200% and test usability
@@ -179,6 +185,7 @@ button:focus {
 - Color contrast checkers
 
 ### Browser Extensions
+
 - [axe DevTools](https://www.deque.com/axe/devtools/)
 - [WAVE](https://wave.webaim.org/)
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse)
@@ -194,6 +201,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ## Common Issues & Fixes
 
 ### Missing Alt Text
+
 ```typescript
 // ❌ Bad
 <img src="icon.svg" />
@@ -206,6 +214,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ```
 
 ### Poor Color Contrast
+
 ```typescript
 // ❌ Bad (2.4:1 ratio)
 <p style={{ color: '#999999' }}>Light gray text</p>
@@ -215,6 +224,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ```
 
 ### Missing Form Labels
+
 ```typescript
 // ❌ Bad
 <input placeholder="Email" />
@@ -225,6 +235,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ```
 
 ### Keyboard Inaccessible
+
 ```typescript
 // ❌ Bad
 <div onClick={handleSubmit}>Submit</div>
@@ -234,6 +245,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ```
 
 ### Not Announcing Errors
+
 ```typescript
 // ❌ Bad
 <input type="email" />
@@ -255,16 +267,19 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ## Resources
 
 ### Standards
+
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [WebAIM](https://webaim.org/)
 
 ### Testing
+
 - [Axe Documentation](https://github.com/dequelabs/axe-core)
 - [WAVE Tool](https://wave.webaim.org/)
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse)
 
 ### Learning
+
 - [A11Y Project](https://www.a11yproject.com/)
 - [WebAIM Articles](https://webaim.org/articles/)
 - [Inclusive Design](https://www.inclusivedesignprinciples.org/)
@@ -272,6 +287,7 @@ We target **Level AA** which provides reasonable accessibility for most users.
 ## Continuous Improvement
 
 We review and improve accessibility regularly:
+
 1. Run accessibility tests in CI/CD
 2. Test with real users and assistive technologies
 3. Fix accessibility issues promptly
@@ -281,6 +297,7 @@ We review and improve accessibility regularly:
 ## Reporting Accessibility Issues
 
 Found an accessibility issue? Please:
+
 1. Document the issue clearly
 2. Provide steps to reproduce
 3. Include what assistive tech you're using

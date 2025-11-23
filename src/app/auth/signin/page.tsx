@@ -1,47 +1,47 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
 
     try {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: false
-      })
+        redirect: false,
+      });
 
-      console.log('Signin result:', result)
+      console.log('Signin result:', result);
 
       if (result?.error) {
-        console.error('Signin error:', result.error)
-        setError('Invalid credentials')
+        console.error('Signin error:', result.error);
+        setError('Invalid credentials');
       } else if (result?.ok) {
-        console.log('Signin successful, redirecting to dashboard')
-        router.push('/dashboard')
+        console.log('Signin successful, redirecting to dashboard');
+        router.push('/dashboard');
       } else {
-        setError('An unexpected error occurred')
+        setError('An unexpected error occurred');
       }
     } catch (error) {
-      console.error('Signin catch error:', error)
-      setError('An error occurred')
+      console.error('Signin catch error:', error);
+      setError('An error occurred');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -59,9 +59,12 @@ export default function SignIn() {
                 {error}
               </div>
             )}
-            
+
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email address
               </label>
               <input
@@ -77,7 +80,10 @@ export default function SignIn() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
@@ -109,7 +115,9 @@ export default function SignIn() {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">New to our platform?</span>
+                <span className="px-2 bg-white text-gray-500">
+                  New to our platform?
+                </span>
               </div>
             </div>
 
@@ -125,5 +133,5 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-  )
+  );
 }

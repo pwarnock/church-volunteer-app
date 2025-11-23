@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -26,6 +26,8 @@ body {
 }
 
 /* Accessibility fixes for form elements */
-input, select, textarea {
+input,
+select,
+textarea {
   color: #000000 !important;
 }

@@ -5,6 +5,7 @@ This project uses **Playwright** for End-to-End (E2E) testing. E2E tests simulat
 ## What is E2E Testing?
 
 E2E tests validate the entire application flow from a user's perspective:
+
 - User authentication (sign in/out)
 - Navigation between pages
 - Form submissions
@@ -40,6 +41,7 @@ bun test:e2e --project=webkit
 ## Project Setup
 
 The E2E tests are configured to:
+
 - Run against `http://localhost:3000` (automatically started)
 - Test in multiple browsers (Chromium, Firefox, WebKit)
 - Test on mobile viewports (Pixel 5, iPhone 12)
@@ -50,6 +52,7 @@ The E2E tests are configured to:
 ## Test Files
 
 ### 1. Authentication (`e2e/auth.spec.ts`)
+
 Tests user sign-in, sign-out, and session management:
 
 - **Sign-in page display** - Verify form elements
@@ -61,6 +64,7 @@ Tests user sign-in, sign-out, and session management:
 - **Session persistence** - Stays signed in after refresh
 
 ### 2. Opportunities (`e2e/opportunities.spec.ts`)
+
 Tests volunteer opportunity browsing and management:
 
 - **View opportunities** - List displays correctly
@@ -74,77 +78,86 @@ Tests volunteer opportunity browsing and management:
 ## Test Structure
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('Feature Name', () => {
   test('specific behavior', async ({ page }) => {
     // Navigate
-    await page.goto('/path')
+    await page.goto('/path');
 
     // Interact
-    await page.fill('input[type="email"]', 'test@example.com')
-    await page.click('button:has-text("Sign In")')
+    await page.fill('input[type="email"]', 'test@example.com');
+    await page.click('button:has-text("Sign In")');
 
     // Assert
-    await expect(page).toHaveURL('/dashboard')
-  })
-})
+    await expect(page).toHaveURL('/dashboard');
+  });
+});
 ```
 
 ## Common Patterns
 
 ### Navigate to page
+
 ```typescript
-await page.goto('/auth/signin')
+await page.goto('/auth/signin');
 ```
 
 ### Fill form fields
+
 ```typescript
-await page.fill('input[type="email"]', 'volunteer@demo.com')
-await page.fill('input[type="password"]', 'password123')
+await page.fill('input[type="email"]', 'volunteer@demo.com');
+await page.fill('input[type="password"]', 'password123');
 ```
 
 ### Click buttons
+
 ```typescript
-await page.click('button:has-text("Sign In")')
+await page.click('button:has-text("Sign In")');
 ```
 
 ### Wait for navigation
+
 ```typescript
-await page.waitForURL('/dashboard')
+await page.waitForURL('/dashboard');
 ```
 
 ### Check visibility
+
 ```typescript
-await expect(page.locator('text=Welcome')).toBeVisible()
+await expect(page.locator('text=Welcome')).toBeVisible();
 ```
 
 ### Take screenshot
+
 ```typescript
-await page.screenshot({ path: 'screenshot.png' })
+await page.screenshot({ path: 'screenshot.png' });
 ```
 
 ## Writing New E2E Tests
 
 ### 1. Create a test file
+
 ```typescript
 // e2e/my-feature.spec.ts
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('My Feature', () => {
   test('does something', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/');
     // Your test steps...
-  })
-})
+  });
+});
 ```
 
 ### 2. Run tests
+
 ```bash
 bun test:e2e
 ```
 
 ### 3. Debug failures
+
 ```bash
 bun test:e2e:debug
 ```
@@ -152,6 +165,7 @@ bun test:e2e:debug
 ## Reports
 
 After running tests, an HTML report is generated at `playwright-report/index.html`:
+
 - Test results (passed/failed)
 - Execution time
 - Screenshots of failures
@@ -159,6 +173,7 @@ After running tests, an HTML report is generated at `playwright-report/index.htm
 - Full trace for debugging
 
 View the report:
+
 ```bash
 npx playwright show-report
 ```
@@ -176,6 +191,7 @@ npx playwright show-report
 ## Testing with localhost
 
 The tests automatically start the dev server before running:
+
 ```typescript
 webServer: {
   command: 'bun run dev',
@@ -185,6 +201,7 @@ webServer: {
 ```
 
 To manually start and test:
+
 ```bash
 # Terminal 1: Start dev server
 bun run dev
@@ -196,6 +213,7 @@ bun test:e2e
 ## Testing on Production
 
 To test against production:
+
 ```bash
 # Update playwright.config.ts baseURL
 use: {
@@ -209,6 +227,7 @@ bun test:e2e
 ## Continuous Integration
 
 In CI/CD pipelines, tests run with:
+
 - `retries: 2` - Retry failed tests
 - `workers: 1` - Sequential execution
 - Video/screenshot recording enabled
@@ -220,24 +239,24 @@ Common selector patterns:
 
 ```typescript
 // By text
-page.locator('text=Sign In')
-page.locator('button:has-text("Click me")')
+page.locator('text=Sign In');
+page.locator('button:has-text("Click me")');
 
 // By role
-page.locator('role=button[name="Submit"]')
-page.locator('role=textbox[name="Email"]')
+page.locator('role=button[name="Submit"]');
+page.locator('role=textbox[name="Email"]');
 
 // By test ID
-page.locator('[data-testid="submit-btn"]')
+page.locator('[data-testid="submit-btn"]');
 
 // By CSS
-page.locator('input[type="email"]')
+page.locator('input[type="email"]');
 
 // By XPath
-page.locator('//button[@class="submit"]')
+page.locator('//button[@class="submit"]');
 
 // Combined
-page.locator('form input[type="email"]').first()
+page.locator('form input[type="email"]').first();
 ```
 
 ## Resources

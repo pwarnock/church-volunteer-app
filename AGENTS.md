@@ -1,9 +1,11 @@
 # AGENTS.md - Church Volunteer Connect Development Guidelines
 
 ## 🥯 Package Manager: Bun
+
 This project uses Bun as the primary package manager. Always use `bun` instead of `npm` for faster performance.
 
 ## 🌐 Deployment: Vercel
+
 - **Production URL**: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app
 - **Vercel Project**: pete-warnocks-projects/hackathon
 - **Authentication**: Vercel deployment protection enabled
@@ -13,14 +15,27 @@ This project uses Bun as the primary package manager. Always use `bun` instead o
 ## 🚀 Development Commands
 
 ### Build & Development
+
 ```bash
 bun run dev          # Start development server (localhost:3000)
 bun run build        # Production build with Prisma generation
 bun run start        # Start production server
-bun run lint         # Run ESLint on codebase
+bun run lint         # Run ESLint
+bun run lint:fix     # Fix ESLint issues automatically
+bun run format       # Format code with Prettier
+bun run format:check # Check code formatting
 ```
 
+### Pre-commit Hooks
+
+- **Automatically runs** before each commit:
+  - ESLint on changed files
+  - Prettier formatting
+  - TypeScript type checking
+- To bypass: `git commit --no-verify` (not recommended)
+
 ### Database Operations
+
 ```bash
 bunx prisma db push   # Sync schema to database
 bunx prisma generate  # Generate Prisma client
@@ -29,6 +44,7 @@ bunx tsx prisma/seed.ts  # Populate demo data
 ```
 
 ### Testing
+
 ```bash
 bun test                 # Run unit tests with Vitest
 bun test:ui             # Run tests with UI dashboard
@@ -40,6 +56,7 @@ bun test:e2e:debug      # Run E2E tests in debug mode
 ```
 
 ### Test Types
+
 - **Unit Tests**: Test individual functions, utilities, and components (`src/**/*.test.ts`)
 - **BDD Tests**: Test complete user workflows and features (`features/**/*.feature`)
 - **E2E Tests**: Test entire application flows in real browsers (`e2e/**/*.spec.ts`)
@@ -48,6 +65,7 @@ bun test:e2e:debug      # Run E2E tests in debug mode
 - See [BDD_TESTING.md](./BDD_TESTING.md), [E2E_TESTING.md](./E2E_TESTING.md), and [ACCESSIBILITY.md](./ACCESSIBILITY.md) for documentation
 
 ### Vercel Deployment
+
 ```bash
 vercel --prod                    # Deploy to production
 vercel env pull .env.production.local  # Pull production env vars
@@ -58,17 +76,19 @@ vercel ls                        # List deployments
 ## 📋 Code Style Guidelines
 
 ### Import Organization
+
 ```typescript
 // External libraries first
-import { NextRequest, NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
+import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 
 // Internal imports with @ alias
-import { prisma } from '@/lib/prisma'
-import { useSession } from 'next-auth/react'
+import { prisma } from '@/lib/prisma';
+import { useSession } from 'next-auth/react';
 ```
 
 ### Component Structure
+
 ```typescript
 'use client'  // Add for client components
 
@@ -80,20 +100,20 @@ export default function ComponentName() {
   const { data: session } = useSession()
   const router = useRouter()
   const [state, setState] = useState()
-  
+
   // Effects
   useEffect(() => {
     // effect logic
   }, [dependencies])
-  
+
   // Event handlers
   const handleSubmit = async () => {
     // handler logic
   }
-  
+
   // Conditional renders for auth/loading
   if (!session) return <div>Please sign in</div>
-  
+
   // Main JSX return
   return (
     <div className="tailwind-classes">
@@ -104,42 +124,45 @@ export default function ComponentName() {
 ```
 
 ### API Routes Structure
+
 ```typescript
-import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json()
-    
+    const data = await request.json();
+
     // Validation
     if (!data.required) {
       return NextResponse.json(
         { error: 'Validation message' },
         { status: 400 }
-      )
+      );
     }
-    
+
     // Database operations
-    const result = await prisma.model.create({ data })
-    
-    return NextResponse.json({ message: 'Success', data: result })
+    const result = await prisma.model.create({ data });
+
+    return NextResponse.json({ message: 'Success', data: result });
   } catch (error) {
-    console.error('API Error:', error)
+    console.error('API Error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
-    )
+    );
   }
 }
 ```
 
 ### Known Issues & Solutions
+
 - **Vercel Auth Protection**: Production deployment requires bypass token
 - **Database Sync**: Use `bunx prisma db push` after schema changes
 - **Environment Variables**: Pull with `vercel env pull` for production
 
 ### Naming Conventions
+
 - **Files**: kebab-case (`user-profile.tsx`, `api-route.ts`)
 - **Components**: PascalCase (`UserProfile`, `ApiRoute`)
 - **Variables**: camelCase (`userData`, `apiResponse`)
@@ -147,6 +170,7 @@ export async function POST(request: NextRequest) {
 - **Database Models**: PascalCase (`User`, `Opportunity`)
 
 ### Error Handling
+
 ```typescript
 // API routes - structured error responses
 return NextResponse.json(
@@ -170,6 +194,7 @@ try {
 ```
 
 ### TypeScript Guidelines
+
 - Use `interface` for object shapes
 - Add proper return types to functions
 - Use `any` sparingly - prefer `unknown` with type guards
@@ -177,6 +202,7 @@ try {
 - Use `const` by default, `let` only when reassignment needed
 
 ### Styling with Tailwind
+
 - Use responsive prefixes: `md:grid-cols-2`, `lg:grid-cols-3`
 - Group related classes: `className="bg-white rounded-lg shadow-lg p-6"`
 - Use semantic color classes: `text-blue-600`, `bg-red-50`
@@ -184,6 +210,7 @@ try {
 - **Input Text**: Ensure `text-gray-900` for visibility
 
 ### Database Patterns
+
 - Use Prisma client from `@/lib/prisma`
 - Handle JSON fields with `JSON.stringify()` and `JSON.parse()`
 - Use transactions for multiple operations
@@ -193,6 +220,7 @@ try {
 - **Local**: Uses SQLite for development
 
 ### Authentication
+
 - Use `useSession()` for client-side auth state
 - Protect routes with session checks
 - Use `signOut()` for logout functionality
