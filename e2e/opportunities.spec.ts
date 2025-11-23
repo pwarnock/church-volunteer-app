@@ -1,17 +1,21 @@
 import { test, expect, Page } from '@playwright/test';
+import { TEST_CREDENTIALS } from './test-credentials';
 
 const signInAsVolunteer = async (page: Page) => {
   await page.goto('/auth/signin');
-  await page.fill('input[type="email"]', 'volunteer@demo.com');
-  await page.fill('input[type="password"]', 'password123');
+  await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+  await page.fill(
+    'input[type="password"]',
+    TEST_CREDENTIALS.volunteer.password
+  );
   await page.click('button:has-text("Sign In")');
   await page.waitForURL(/\/dashboard|\/volunteer/, { timeout: 5000 });
 };
 
 const signInAsLeader = async (page: Page) => {
   await page.goto('/auth/signin');
-  await page.fill('input[type="email"]', 'leader@demo.com');
-  await page.fill('input[type="password"]', 'password123');
+  await page.fill('input[type="email"]', TEST_CREDENTIALS.leader.email);
+  await page.fill('input[type="password"]', TEST_CREDENTIALS.leader.password);
   await page.click('button:has-text("Sign In")');
   await page.waitForURL(/\/dashboard|\/leader/, { timeout: 5000 });
 };

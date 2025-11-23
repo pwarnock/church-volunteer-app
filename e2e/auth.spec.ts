@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { TEST_CREDENTIALS } from './test-credentials';
 
 test.describe('Authentication', () => {
   test.beforeEach(async ({ page }) => {
@@ -17,10 +18,13 @@ test.describe('Authentication', () => {
     await page.goto('/auth/signin');
 
     // Fill in email
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
 
     // Fill in password
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill(
+      'input[type="password"]',
+      TEST_CREDENTIALS.volunteer.password
+    );
 
     // Click sign in button
     await page.click('button:has-text("Sign In")');
@@ -36,8 +40,8 @@ test.describe('Authentication', () => {
     await page.goto('/auth/signin');
 
     // Fill in credentials
-    await page.fill('input[type="email"]', 'leader@demo.com');
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.leader.email);
+    await page.fill('input[type="password"]', TEST_CREDENTIALS.leader.password);
 
     // Click sign in button
     await page.click('button:has-text("Sign In")');
@@ -80,7 +84,7 @@ test.describe('Authentication', () => {
     await page.goto('/auth/signin');
 
     // Fill email, leave password empty
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
 
     // Try to submit
     const submitButton = page.locator('button:has-text("Sign In")');
@@ -93,8 +97,11 @@ test.describe('Authentication', () => {
   test('can sign out', async ({ page }) => {
     // Sign in first
     await page.goto('/auth/signin');
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+    await page.fill(
+      'input[type="password"]',
+      TEST_CREDENTIALS.volunteer.password
+    );
     await page.click('button:has-text("Sign In")');
 
     // Wait for dashboard
@@ -115,8 +122,11 @@ test.describe('Authentication', () => {
   test('maintains session after refresh', async ({ page }) => {
     // Sign in
     await page.goto('/auth/signin');
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+    await page.fill(
+      'input[type="password"]',
+      TEST_CREDENTIALS.volunteer.password
+    );
     await page.click('button:has-text("Sign In")');
 
     // Wait for dashboard

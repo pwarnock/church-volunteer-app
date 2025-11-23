@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { injectAxe, checkA11y } from 'axe-playwright';
+import { TEST_CREDENTIALS } from './test-credentials';
 
 test.describe('Accessibility (WCAG 2.1 AA)', () => {
   test('sign in page has no accessibility violations', async ({ page }) => {
@@ -18,8 +19,11 @@ test.describe('Accessibility (WCAG 2.1 AA)', () => {
   test('dashboard page has no accessibility violations', async ({ page }) => {
     // Sign in first
     await page.goto('/auth/signin');
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+    await page.fill(
+      'input[type="password"]',
+      TEST_CREDENTIALS.volunteer.password
+    );
     await page.click('button:has-text("Sign In")');
 
     // Wait for dashboard
@@ -197,8 +201,11 @@ test.describe('Accessibility (WCAG 2.1 AA)', () => {
     await page.goto('/auth/signin');
 
     // Sign in
-    await page.fill('input[type="email"]', 'volunteer@demo.com');
-    await page.fill('input[type="password"]', 'password123');
+    await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+    await page.fill(
+      'input[type="password"]',
+      TEST_CREDENTIALS.volunteer.password
+    );
     await page.click('button:has-text("Sign In")');
 
     // Wait for dashboard
