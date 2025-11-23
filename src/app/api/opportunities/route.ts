@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
 import { opportunitySchema } from '@/lib/validators';
+import { rateLimit } from '@/lib/rate-limit';
 
 export async function GET() {
   try {
@@ -44,6 +45,14 @@ export async function POST(request: NextRequest) {
 
     if (!session || session.user.role !== 'MINISTRY_LEADER') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limiting: 20 opportunities per 60 minutes per leader
+    if (!rateLimit(`opportunities:${session.user.id}`, 20, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: 'Too many opportunities created. Please try again later.' },
+        { status: 429 }
+      );
     }
 
     const body = await request.json();

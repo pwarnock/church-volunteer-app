@@ -3,13 +3,22 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
 import { applicationSchema } from '@/lib/validators';
+import { rateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting: 10 applications per 60 minutes per user
     const session = await getServerSession(authOptions);
 
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!rateLimit(`apply:${session.user.id}`, 10, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: 'Too many applications. Please try again later.' },
+        { status: 429 }
+      );
     }
 
     const body = await request.json();
