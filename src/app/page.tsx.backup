@@ -45,8 +45,7 @@ export default function HomePage() {
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
                 Connecting volunteers with meaningful ministry opportunities.
-                Discover your spiritual gifts and find the perfect place to
-                serve.
+                Discover your spiritual gifts and find perfect place to serve.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
@@ -105,16 +104,16 @@ export default function HomePage() {
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          d="M21 13.255A23.931 23.931 0 0112 15v7.372a23.93 23.93 0 01-3.255 9.255L12 18.177l-6.745 3.45A23.93 23.93 0 012 22.372V15a23.93 23.93 0 0112-2.745L21 13.255z"
                         />
                       </svg>
                     </div>
-                    Ministry Opportunities
+                    Opportunity Matching
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <p className="flex-auto">
-                      Browse and apply to various ministry opportunities that
-                      match your gifts and availability.
+                      Get matched with ministry opportunities that align with
+                      your spiritual gifts and availability.
                     </p>
                   </dd>
                 </div>
@@ -131,11 +130,11 @@ export default function HomePage() {
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                          d="M17 20h5v-2a3 3 0 00-5.356-3H7a3 3 0 00-5.356 3v14a3 3 0 005.356 3h5a3 3 0 005.356-3V6a3 3 0 00-5.356-3h5a3 3 0 015.356 3v14z"
                         />
                       </svg>
                     </div>
-                    Volunteer Management
+                    Ministry Management
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <p className="flex-auto">

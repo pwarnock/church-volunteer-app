@@ -12,10 +12,14 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log('Authorize called with:', { email: credentials?.email });
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Authorize called with:', { email: credentials?.email });
+        }
 
         if (!credentials?.email || !credentials?.password) {
-          console.log('Missing credentials');
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Missing credentials');
+          }
           return null;
         }
 
@@ -24,10 +28,14 @@ export const authOptions = {
             where: { email: credentials.email },
           });
 
-          console.log('User found:', !!user);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('User found:', !!user);
+          }
 
           if (!user) {
-            console.log('No user found with email:', credentials.email);
+            if (process.env.NODE_ENV === 'development') {
+              console.log('No user found with email:', credentials.email);
+            }
             return null;
           }
 
@@ -36,10 +44,14 @@ export const authOptions = {
             user.password
           );
 
-          console.log('Password valid:', isPasswordValid);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Password valid:', isPasswordValid);
+          }
 
           if (!isPasswordValid) {
-            console.log('Invalid password for user:', credentials.email);
+            if (process.env.NODE_ENV === 'development') {
+              console.log('Invalid password for user:', credentials.email);
+            }
             return null;
           }
 
