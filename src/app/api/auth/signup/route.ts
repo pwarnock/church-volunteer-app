@@ -1,17 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { signupSchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
+import { logger } from '@/lib/logger';
+import {
+  rateLimitResponse,
+  validationErrorResponse,
+  internalErrorResponse,
+  createdResponse,
+  errorResponse,
+} from '@/lib/api-response';
 
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting: 5 signup attempts per 15 minutes per IP
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
     if (!rateLimit(`signup:${ip}`, 5, 15 * 60 * 1000)) {
-      return NextResponse.json(
-        { error: 'Too many signup attempts. Please try again later.' },
-        { status: 429 }
+      logger.warn('Signup rate limit exceeded', { ip });
+      return rateLimitResponse(
+        'Too many signup attempts. Please try again later.'
       );
     }
 
@@ -20,13 +28,8 @@ export async function POST(request: NextRequest) {
     // Validate request body
     const validationResult = signupSchema.safeParse(body);
     if (!validationResult.success) {
-      return NextResponse.json(
-        {
-          error: 'Validation failed',
-          details: validationResult.error.flatten(),
-        },
-        { status: 400 }
-      );
+      logger.warn('Signup validation failed', { email: body.email });
+      return validationErrorResponse(validationResult.error.flatten());
     }
 
     const { name, email, password, role } = validationResult.data;
@@ -36,10 +39,8 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'User already exists' },
-        { status: 400 }
-      );
+      logger.warn('Signup attempted with existing email', { email });
+      return errorResponse('User already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -53,20 +54,27 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({
-      message: 'User created successfully',
-      user: {
+    logger.info('User registered successfully', {
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
+    return createdResponse(
+      {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
       },
-    });
-  } catch (error) {
-    console.error('Signup error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+      'User created successfully'
     );
+  } catch (error) {
+    const context =
+      error instanceof Error && 'email' in error
+        ? { email: (error as Record<string, unknown>).email }
+        : undefined;
+    logger.error('Signup error', error, context);
+    return internalErrorResponse();
   }
 }
