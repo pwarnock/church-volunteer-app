@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
+import { opportunitySchema } from '@/lib/validators';
 
 export async function GET() {
   try {
@@ -45,6 +46,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const body = await request.json();
+
+    // Validate request body
+    const validationResult = opportunitySchema.safeParse({
+      ...body,
+      leaderId: session.user.id!,
+    });
+
+    if (!validationResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Validation failed',
+          details: validationResult.error.flatten(),
+        },
+        { status: 400 }
+      );
+    }
+
     const {
       title,
       description,
@@ -54,7 +73,7 @@ export async function POST(request: NextRequest) {
       timeCommitment,
       startDate,
       endDate,
-    } = await request.json();
+    } = validationResult.data;
 
     const opportunity = await prisma.opportunity.create({
       data: {

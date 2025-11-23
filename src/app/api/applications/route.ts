@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
+import { applicationSchema } from '@/lib/validators';
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,7 +12,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { opportunityId, message } = await request.json();
+    const body = await request.json();
+
+    // Validate request body
+    const validationResult = applicationSchema.safeParse({
+      ...body,
+      volunteerId: session.user.id!,
+    });
+
+    if (!validationResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Validation failed',
+          details: validationResult.error.flatten(),
+        },
+        { status: 400 }
+      );
+    }
+
+    const { opportunityId, message } = validationResult.data;
 
     const existingApplication = await prisma.application.findUnique({
       where: {
