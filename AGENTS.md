@@ -43,7 +43,9 @@ bun test:e2e:debug      # Run E2E tests in debug mode
 - **Unit Tests**: Test individual functions, utilities, and components (`src/**/*.test.ts`)
 - **BDD Tests**: Test complete user workflows and features (`features/**/*.feature`)
 - **E2E Tests**: Test entire application flows in real browsers (`e2e/**/*.spec.ts`)
-- See [BDD_TESTING.md](./BDD_TESTING.md) and [E2E_TESTING.md](./E2E_TESTING.md) for documentation
+- **Security Tests**: Validate secure coding practices (`src/__tests__/security.test.ts`)
+- **Accessibility Tests**: WCAG 2.1 AA compliance (`src/__tests__/accessibility.test.ts`, `e2e/accessibility.spec.ts`)
+- See [BDD_TESTING.md](./BDD_TESTING.md), [E2E_TESTING.md](./E2E_TESTING.md), and [ACCESSIBILITY.md](./ACCESSIBILITY.md) for documentation
 
 ### Vercel Deployment
 ```bash
