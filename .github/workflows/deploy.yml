@@ -37,15 +37,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
       - name: Deploy to Vercel Production
-        uses: vercel/action@v7
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: true
+        run: |
+          npm install -g vercel
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod --prebuilt
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Deployment Summary
         run: |
           echo "✅ Production deployment complete!"
-          echo "View your application at: https://church-volunteer-app-pete-warnocks-projects.vercel.app"
+          echo "View your application at: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app"
