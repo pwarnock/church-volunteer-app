@@ -1,31 +1,30 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+
+export const revalidate = 0; // Don't cache health checks
 
 export async function GET() {
   try {
-    console.log('Health check called');
-    console.log('Environment variables:', {
-      NODE_ENV: process.env.NODE_ENV,
-      DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'NOT SET',
-      NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-      NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ? 'SET' : 'NOT SET',
-    });
+    // Check database connection
+    await prisma.$queryRaw`SELECT 1`;
 
     return NextResponse.json({
       status: 'ok',
       timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV,
-      hasDatabaseUrl: !!process.env.DATABASE_URL,
-      hasNextAuthUrl: !!process.env.NEXTAUTH_URL,
-      hasNextAuthSecret: !!process.env.NEXTAUTH_SECRET,
+      database: 'connected',
+      version: '1.0.0',
     });
   } catch (error) {
-    console.error('Health check error:', error);
+    console.error('Health check failed:', error);
+
     return NextResponse.json(
       {
-        error: 'Health check failed',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        status: 'error',
+        timestamp: new Date().toISOString(),
+        database: 'disconnected',
+        error: error instanceof Error ? error.message : 'Unknown error',
       },
-      { status: 500 }
+      { status: 503 }
     );
   }
 }
