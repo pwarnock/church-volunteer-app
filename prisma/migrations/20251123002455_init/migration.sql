@@ -16,7 +16,7 @@ CREATE TABLE "volunteer_profiles" (
     "bio" TEXT,
     "spiritualGifts" TEXT NOT NULL,
     "interests" TEXT NOT NULL,
-    "availability" JSONB NOT NULL,
+    "availability" TEXT NOT NULL,
     "skills" TEXT NOT NULL,
     "experience" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
