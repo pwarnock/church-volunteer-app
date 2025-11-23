@@ -18,12 +18,14 @@
 ## 🔧 Development Environment Setup
 
 ### Required Tools
+
 - **Package Manager**: Bun (required)
 - **IDE**: VS Code with recommended extensions
 - **Node.js**: Version 18+ (Bun includes compatible Node)
 - **Git**: Latest version with hooks configured
 
 ### VS Code Extensions
+
 ```json
 {
   "recommendations": [
@@ -38,6 +40,7 @@
 ```
 
 ### Environment Configuration
+
 ```bash
 # Copy environment template
 cp .env.example .env.local
@@ -58,6 +61,7 @@ bunx tsx prisma/seed.ts
 ## 📝 Code Style & Formatting
 
 ### Formatting Rules
+
 - **Tool**: Prettier (configured in `.prettierrc`)
 - **Line Width**: 100 characters
 - **Indentation**: 2 spaces (no tabs)
@@ -65,12 +69,13 @@ bunx tsx prisma/seed.ts
 - **Quotes**: Single quotes for strings, double quotes for JSX
 
 ### ESLint Configuration
+
 ```javascript
 module.exports = {
   extends: [
     '@next/eslint-config-next',
     '@typescript-eslint/recommended',
-    'prettier'
+    'prettier',
   ],
   rules: {
     // Custom rules for this project
@@ -78,12 +83,13 @@ module.exports = {
     'no-var': 'error',
     'no-console': 'warn', // Allow in development
     'react-hooks/exhaustive-deps': 'error',
-    '@typescript-eslint/no-unused-vars': 'error'
-  }
+    '@typescript-eslint/no-unused-vars': 'error',
+  },
 };
 ```
 
 ### Code Organization
+
 ```typescript
 // ✅ GOOD: Proper import organization
 import { NextRequest, NextResponse } from 'next/server';
@@ -102,6 +108,7 @@ import prisma from '@/lib/prisma';
 ## 🏗️ Component Architecture
 
 ### Component Structure Template
+
 ```typescript
 'use client';
 
@@ -144,11 +151,13 @@ export default function ComponentName({ prop }: ComponentProps) {
 ### Component Best Practices
 
 #### Single Responsibility
+
 - Each component should have one clear purpose
 - Extract complex logic into custom hooks
 - Keep components under 200 lines when possible
 
 #### Props Interface
+
 ```typescript
 // ✅ GOOD: Descriptive prop names
 interface UserCardProps {
@@ -167,6 +176,7 @@ interface Props {
 ```
 
 #### State Management
+
 ```typescript
 // ✅ GOOD: Specific state types
 const [users, setUsers] = useState<User[]>([]);
@@ -183,6 +193,7 @@ const [isLoading, setIsLoading] = useState();
 ## 🎯 TypeScript Best Practices
 
 ### Type Definitions
+
 ```typescript
 // ✅ GOOD: Specific interfaces
 interface User {
@@ -202,6 +213,7 @@ interface User {
 ```
 
 ### Generic Types
+
 ```typescript
 // ✅ GOOD: Proper generics
 interface ApiResponse<T> {
@@ -221,10 +233,14 @@ function fetchSomething(url: string): Promise<any> {
 ```
 
 ### Error Handling
+
 ```typescript
 // ✅ GOOD: Specific error types
 class ValidationError extends Error {
-  constructor(message: string, public field: string) {
+  constructor(
+    message: string,
+    public field: string
+  ) {
     super(message);
   }
 }
@@ -246,6 +262,7 @@ function validateUser(data: unknown): Result<User, ValidationError> {
 ## 🎨 CSS & Tailwind Guidelines
 
 ### Class Organization
+
 ```typescript
 // ✅ GOOD: Group related classes
 <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
@@ -263,6 +280,7 @@ function validateUser(data: unknown): Result<User, ValidationError> {
 ```
 
 ### Responsive Design
+
 ```typescript
 // ✅ GOOD: Responsive prefixes
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -280,6 +298,7 @@ function validateUser(data: unknown): Result<User, ValidationError> {
 ```
 
 ### Component Variants
+
 ```typescript
 // ✅ GOOD: Consistent variant patterns
 const buttonVariants = {
@@ -298,23 +317,25 @@ const buttonVariants = {
 ## 📁 File & Directory Naming
 
 ### File Naming
+
 ```typescript
 // ✅ GOOD: Consistent naming
-components/UserCard.tsx          // React component
-hooks/useUserData.ts            // Custom hook
-utils/validationHelpers.ts        // Utility functions
-types/user.types.ts             // Type definitions
-lib/api-client.ts              // Library module
+components / UserCard.tsx; // React component
+hooks / useUserData.ts; // Custom hook
+utils / validationHelpers.ts; // Utility functions
+types / user.types.ts; // Type definitions
+lib / api - client.ts; // Library module
 
 // ❌ BAD: Inconsistent naming
-components/usercard.tsx
-hooks/userData.ts
-utils/ValidationHelpers.ts
-types/UserTypes.ts
-lib/ApiClient.ts
+components / usercard.tsx;
+hooks / userData.ts;
+utils / ValidationHelpers.ts;
+types / UserTypes.ts;
+lib / ApiClient.ts;
 ```
 
 ### Directory Structure
+
 ```
 src/
 ├── app/                    # Next.js pages
@@ -331,6 +352,7 @@ src/
 ## 🔒 Security & Best Practices
 
 ### Input Validation
+
 ```typescript
 // ✅ GOOD: Comprehensive validation
 import { z } from 'zod';
@@ -346,6 +368,7 @@ const userData = JSON.parse(request.body);
 ```
 
 ### Environment Variables
+
 ```typescript
 // ✅ GOOD: Secure environment handling
 const dbUrl = process.env.DATABASE_URL;
@@ -359,6 +382,7 @@ console.log('Database URL:', dbUrl); // Security risk
 ```
 
 ### Authentication
+
 ```typescript
 // ✅ GOOD: Secure session handling
 import { getServerSession } from 'next-auth';
@@ -381,6 +405,7 @@ if (session) {
 ## 🧪 Testing Guidelines
 
 ### Test Structure
+
 ```typescript
 // ✅ GOOD: Organized test file
 describe('User Management', () => {
@@ -401,6 +426,7 @@ describe('User Management', () => {
 ```
 
 ### Test Data Management
+
 ```typescript
 // ✅ GOOD: Using test data factory
 import { testDataFactory } from '@/test-data/factory';
@@ -414,6 +440,7 @@ describe('User API', () => {
 ```
 
 ### Mock Management
+
 ```typescript
 // ✅ GOOD: Proper mocking
 import { vi } from 'vitest';
@@ -437,6 +464,7 @@ afterEach(() => {
 ## 📊 Performance Guidelines
 
 ### React Performance
+
 ```typescript
 // ✅ GOOD: Optimized components
 import { memo, useMemo, useCallback } from 'react';
@@ -455,6 +483,7 @@ const ExpensiveComponent = memo(({ data, onAction }) => {
 ```
 
 ### API Performance
+
 ```typescript
 // ✅ GOOD: Efficient database queries
 const users = await prisma.user.findMany({
@@ -472,6 +501,7 @@ const users = await prisma.user.findMany({
 ```
 
 ### Bundle Optimization
+
 ```typescript
 // ✅ GOOD: Dynamic imports
 const loadHeavyComponent = () => import('./HeavyComponent');
@@ -485,6 +515,7 @@ const LazyComponent = dynamic(() => import('./LazyComponent'));
 ## 📚 Documentation Standards
 
 ### Code Comments
+
 ```typescript
 // ✅ GOOD: Clear, concise comments
 /**
@@ -497,7 +528,7 @@ function validateUser(data: UserInput): ValidationResult {
   if (!isValidEmail(data.email)) {
     return { valid: false, error: 'Invalid email format' };
   }
-  
+
   return { valid: true };
 }
 
@@ -513,11 +544,12 @@ function validateUser(data) {
 ```
 
 ### Function Documentation
-```typescript
+
+````typescript
 // ✅ GOOD: JSDoc comments
 /**
  * Creates a new user in the database
- * 
+ *
  * @example
  * ```typescript
  * const user = await createUser({
@@ -530,13 +562,14 @@ function validateUser(data) {
 export async function createUser(userData: CreateUserInput): Promise<User> {
   // Implementation
 }
-```
+````
 
 ---
 
 ## 🚀 Development Workflow
 
 ### Git Workflow
+
 ```bash
 # Feature branch workflow
 git checkout -b feature/user-authentication
@@ -548,6 +581,7 @@ git push origin feature/user-authentication
 ```
 
 ### Code Review Checklist
+
 - [ ] Code follows style guide
 - [ ] Tests are included and passing
 - [ ] Documentation is updated
@@ -557,6 +591,7 @@ git push origin feature/user-authentication
 - [ ] Environment variables are handled
 
 ### Pre-commit Validation
+
 ```bash
 # Automatically runs before each commit:
 - ESLint checking
@@ -570,6 +605,7 @@ git push origin feature/user-authentication
 ## 🎯 Quick Reference
 
 ### Common Patterns
+
 ```typescript
 // API Route Pattern
 export async function POST(request: NextRequest) {
@@ -578,7 +614,10 @@ export async function POST(request: NextRequest) {
     // Validation and processing
     return NextResponse.json({ success: true, data });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -609,6 +648,7 @@ export function useApiData<T>(url: string) {
 ```
 
 ### Error Handling Patterns
+
 ```typescript
 // Result Pattern
 type Result<T, E = Error> = {
@@ -629,4 +669,4 @@ try {
 
 ---
 
-*Last Updated: November 23, 2024*
+_Last Updated: November 23, 2024_
