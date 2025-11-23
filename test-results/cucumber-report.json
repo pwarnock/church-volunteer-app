@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 312081
+              "duration": 416056
             }
           },
           {
@@ -27,7 +27,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 449848
+              "duration": 468260
             }
           },
           {
@@ -40,7 +40,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 111168
+              "duration": 108320
             }
           },
           {
@@ -53,7 +53,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 90985
+              "duration": 97343
             }
           },
           {
@@ -66,7 +66,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 222726
+              "duration": 231439
             }
           },
           {
@@ -79,7 +79,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 103265
+              "duration": 104712
             }
           },
           {
@@ -92,7 +92,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 75903
+              "duration": 64622
             }
           },
           {
@@ -101,11 +101,11 @@
             "line": 15,
             "name": "I should be redirected to the dashboard",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:89"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:92"
             },
             "result": {
               "status": "passed",
-              "duration": 78471
+              "duration": 78202
             }
           },
           {
@@ -114,11 +114,11 @@
             "line": 16,
             "name": "I should see \"Welcome\" message",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:93"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:96"
             },
             "result": {
               "status": "passed",
-              "duration": 131291
+              "duration": 126806
             }
           }
         ],
@@ -137,7 +137,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 26884
+              "duration": 27106
             }
           },
           {
@@ -150,7 +150,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 91699
+              "duration": 92625
             }
           },
           {
@@ -163,7 +163,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 79936
+              "duration": 68282
             }
           },
           {
@@ -176,7 +176,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 58719
+              "duration": 59341
             }
           },
           {
@@ -189,7 +189,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 66407
+              "duration": 66629
             }
           },
           {
@@ -202,7 +202,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 57371
+              "duration": 57123
             }
           },
           {
@@ -215,7 +215,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 25125
+              "duration": 26430
             }
           },
           {
@@ -224,11 +224,11 @@
             "line": 23,
             "name": "I should be redirected to the dashboard",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:89"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:92"
             },
             "result": {
               "status": "passed",
-              "duration": 65820
+              "duration": 68856
             }
           },
           {
@@ -237,11 +237,11 @@
             "line": 24,
             "name": "I should see \"Ministry Leader\" dashboard",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:97"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 164846
+              "duration": 183800
             }
           }
         ],
@@ -260,7 +260,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 12473
+              "duration": 13517
             }
           },
           {
@@ -273,7 +273,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 44263
+              "duration": 46861
             }
           },
           {
@@ -286,7 +286,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38938
+              "duration": 41297
             }
           },
           {
@@ -299,7 +299,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 37385
+              "duration": 39543
             }
           },
           {
@@ -312,7 +312,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 50748
+              "duration": 50824
             }
           },
           {
@@ -325,7 +325,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 47329
+              "duration": 49230
             }
           },
           {
@@ -338,7 +338,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 18706
+              "duration": 18769
             }
           },
           {
@@ -347,11 +347,11 @@
             "line": 31,
             "name": "I should see error message \"Invalid credentials\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:102"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:105"
             },
             "result": {
               "status": "passed",
-              "duration": 78267
+              "duration": 79643
             }
           },
           {
@@ -360,11 +360,11 @@
             "line": 32,
             "name": "I should remain on the sign in page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:107"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:110"
             },
             "result": {
               "status": "passed",
-              "duration": 62089
+              "duration": 64119
             }
           }
         ],
@@ -383,7 +383,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 14183
+              "duration": 18780
             }
           },
           {
@@ -396,7 +396,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 41547
+              "duration": 44070
             }
           },
           {
@@ -409,7 +409,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 39105
+              "duration": 38102
             }
           },
           {
@@ -422,7 +422,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38567
+              "duration": 37074
             }
           },
           {
@@ -435,7 +435,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 54724
+              "duration": 63525
             }
           },
           {
@@ -448,7 +448,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 48510
+              "duration": 46448
             }
           },
           {
@@ -461,7 +461,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 18735
+              "duration": 19685
             }
           },
           {
@@ -470,11 +470,11 @@
             "line": 39,
             "name": "I should see error message \"Invalid credentials\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:102"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:105"
             },
             "result": {
               "status": "passed",
-              "duration": 45053
+              "duration": 46347
             }
           },
           {
@@ -483,11 +483,11 @@
             "line": 40,
             "name": "I should remain on the sign in page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:107"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:110"
             },
             "result": {
               "status": "passed",
-              "duration": 76567
+              "duration": 83110
             }
           }
         ],
@@ -506,7 +506,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 14419
+              "duration": 11894
             }
           },
           {
@@ -519,7 +519,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 43842
+              "duration": 44805
             }
           },
           {
@@ -532,7 +532,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38352
+              "duration": 38193
             }
           },
           {
@@ -545,7 +545,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 68244
+              "duration": 68906
             }
           },
           {
@@ -554,11 +554,11 @@
             "line": 44,
             "name": "I leave email empty",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:67"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:70"
             },
             "result": {
               "status": "passed",
-              "duration": 38723
+              "duration": 38616
             }
           },
           {
@@ -571,7 +571,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 79332
+              "duration": 52053
             }
           },
           {
@@ -584,7 +584,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 18863
+              "duration": 21189
             }
           },
           {
@@ -593,11 +593,11 @@
             "line": 47,
             "name": "I should see validation error \"Email is required\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:111"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:114"
             },
             "result": {
               "status": "passed",
-              "duration": 69631
+              "duration": 72154
             }
           }
         ],
@@ -616,7 +616,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 24147
+              "duration": 11794
             }
           },
           {
@@ -629,7 +629,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 39680
+              "duration": 41206
             }
           },
           {
@@ -642,7 +642,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 35773
+              "duration": 36650
             }
           },
           {
@@ -655,7 +655,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 37219
+              "duration": 36299
             }
           },
           {
@@ -668,7 +668,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 73734
+              "duration": 75771
             }
           },
           {
@@ -677,11 +677,11 @@
             "line": 52,
             "name": "I leave password empty",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:71"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:74"
             },
             "result": {
               "status": "passed",
-              "duration": 38966
+              "duration": 41611
             }
           },
           {
@@ -694,7 +694,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 19870
+              "duration": 20150
             }
           },
           {
@@ -703,11 +703,11 @@
             "line": 54,
             "name": "I should see validation error \"Password is required\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:111"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:114"
             },
             "result": {
               "status": "passed",
-              "duration": 45268
+              "duration": 47638
             }
           }
         ],
@@ -726,7 +726,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 10735
+              "duration": 11087
             }
           },
           {
@@ -739,7 +739,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38058
+              "duration": 40401
             }
           },
           {
@@ -752,7 +752,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 35031
+              "duration": 39463
             }
           },
           {
@@ -765,7 +765,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 70754
+              "duration": 71216
             }
           },
           {
@@ -774,11 +774,11 @@
             "line": 58,
             "name": "I navigate to the dashboard",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:80"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:83"
             },
             "result": {
               "status": "passed",
-              "duration": 35088
+              "duration": 36297
             }
           },
           {
@@ -787,11 +787,11 @@
             "line": 59,
             "name": "I should remain signed in",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:116"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:119"
             },
             "result": {
               "status": "passed",
-              "duration": 55612
+              "duration": 56287
             }
           },
           {
@@ -800,11 +800,11 @@
             "line": 60,
             "name": "I should see my profile information",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:120"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:123"
             },
             "result": {
               "status": "passed",
-              "duration": 55084
+              "duration": 56165
             }
           }
         ],
@@ -823,7 +823,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 10187
+              "duration": 11118
             }
           },
           {
@@ -836,7 +836,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38254
+              "duration": 39363
             }
           },
           {
@@ -849,7 +849,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 35148
+              "duration": 36066
             }
           },
           {
@@ -862,7 +862,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 70324
+              "duration": 72627
             }
           },
           {
@@ -871,11 +871,11 @@
             "line": 64,
             "name": "I click the sign out button",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:75"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:78"
             },
             "result": {
               "status": "passed",
-              "duration": 60400
+              "duration": 64855
             }
           },
           {
@@ -884,11 +884,11 @@
             "line": 65,
             "name": "I should be redirected to the home page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:124"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:127"
             },
             "result": {
               "status": "passed",
-              "duration": 56756
+              "duration": 57225
             }
           },
           {
@@ -897,11 +897,11 @@
             "line": 66,
             "name": "the session should be cleared",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:128"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/authentication.steps.ts:131"
             },
             "result": {
               "status": "passed",
-              "duration": 54031
+              "duration": 64249
             }
           }
         ],
@@ -931,7 +931,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 12533
+              "duration": 14042
             }
           },
           {
@@ -940,11 +940,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 60458
+              "duration": 62969
             }
           },
           {
@@ -953,11 +953,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 137504
+              "duration": 143127
             }
           },
           {
@@ -966,11 +966,11 @@
             "line": 11,
             "name": "I am on the opportunities page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 58993
+              "duration": 60711
             }
           },
           {
@@ -979,11 +979,11 @@
             "line": 12,
             "name": "I load the page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:66"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:95"
             },
             "result": {
               "status": "passed",
-              "duration": 101301
+              "duration": 101053
             }
           },
           {
@@ -992,11 +992,11 @@
             "line": 13,
             "name": "I should see a list of opportunities",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:148"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:177"
             },
             "result": {
               "status": "passed",
-              "duration": 64650
+              "duration": 61609
             }
           },
           {
@@ -1005,11 +1005,11 @@
             "line": 14,
             "name": "each opportunity should display title, description, and ministry type",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:152"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:181"
             },
             "result": {
               "status": "passed",
-              "duration": 120975
+              "duration": 119922
             }
           }
         ],
@@ -1028,7 +1028,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 41527
+              "duration": 42941
             }
           },
           {
@@ -1037,11 +1037,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 41488
+              "duration": 44251
             }
           },
           {
@@ -1050,11 +1050,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 41351
+              "duration": 43364
             }
           },
           {
@@ -1063,11 +1063,11 @@
             "line": 17,
             "name": "I am on the opportunities page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 36290
+              "duration": 36882
             }
           },
           {
@@ -1076,11 +1076,11 @@
             "line": 18,
             "name": "opportunities from different ministries exist",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:32"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:49"
             },
             "result": {
               "status": "passed",
-              "duration": 90126
+              "duration": 81155
             }
           },
           {
@@ -1089,11 +1089,11 @@
             "line": 19,
             "name": "I select filter \"Children's Ministry\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:70"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:99"
             },
             "result": {
               "status": "passed",
-              "duration": 84626
+              "duration": 137825
             }
           },
           {
@@ -1102,11 +1102,11 @@
             "line": 20,
             "name": "I should only see opportunities from \"Children's Ministry\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:159"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:191"
             },
             "result": {
               "status": "passed",
-              "duration": 79311
+              "duration": 127402
             }
           }
         ],
@@ -1125,7 +1125,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 22361
+              "duration": 19706
             }
           },
           {
@@ -1134,11 +1134,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 40970
+              "duration": 42970
             }
           },
           {
@@ -1147,11 +1147,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 42639
+              "duration": 41469
             }
           },
           {
@@ -1160,11 +1160,11 @@
             "line": 23,
             "name": "I am on the opportunities page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:61"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 51265
+              "duration": 36812
             }
           },
           {
@@ -1173,11 +1173,11 @@
             "line": 24,
             "name": "I select the \"Sunday School Teacher\" opportunity",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:75"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:104"
             },
             "result": {
               "status": "passed",
-              "duration": 92178
+              "duration": 91284
             }
           },
           {
@@ -1186,11 +1186,11 @@
             "line": 25,
             "name": "I click the \"Apply Now\" button",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:80"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:109"
             },
             "result": {
               "status": "passed",
-              "duration": 66280
+              "duration": 65702
             }
           },
           {
@@ -1199,11 +1199,11 @@
             "line": 26,
             "name": "I should see an application form",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:165"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:200"
             },
             "result": {
               "status": "passed",
-              "duration": 56346
+              "duration": 58555
             }
           },
           {
@@ -1212,11 +1212,11 @@
             "line": 27,
             "name": "I can enter a message about why I want to serve",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:169"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:204"
             },
             "result": {
               "status": "passed",
-              "duration": 54362
+              "duration": 56700
             }
           }
         ],
@@ -1235,7 +1235,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 11263
+              "duration": 10856
             }
           },
           {
@@ -1244,11 +1244,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 63018
+              "duration": 41803
             }
           },
           {
@@ -1257,11 +1257,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 42161
+              "duration": 41428
             }
           },
           {
@@ -1270,11 +1270,11 @@
             "line": 30,
             "name": "I am viewing the \"Community Outreach\" opportunity",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:132"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:161"
             },
             "result": {
               "status": "passed",
-              "duration": 84353
+              "duration": 111284
             }
           },
           {
@@ -1283,11 +1283,11 @@
             "line": 31,
             "name": "I enter my application message \"I have experience with community service\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:102"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:131"
             },
             "result": {
               "status": "passed",
-              "duration": 82085
+              "duration": 69764
             }
           },
           {
@@ -1296,11 +1296,11 @@
             "line": 32,
             "name": "I click the \"Submit Application\" button",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:80"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:109"
             },
             "result": {
               "status": "passed",
-              "duration": 37454
+              "duration": 45753
             }
           },
           {
@@ -1309,11 +1309,11 @@
             "line": 33,
             "name": "my application should be recorded",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:173"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:208"
             },
             "result": {
               "status": "passed",
-              "duration": 94366
+              "duration": 65147
             }
           },
           {
@@ -1322,11 +1322,11 @@
             "line": 34,
             "name": "I should see confirmation message \"Application submitted successfully\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:177"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:212"
             },
             "result": {
               "status": "passed",
-              "duration": 141568
+              "duration": 126777
             }
           }
         ],
@@ -1345,7 +1345,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 10286
+              "duration": 10048
             }
           },
           {
@@ -1354,11 +1354,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 39123
+              "duration": 40381
             }
           },
           {
@@ -1367,11 +1367,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 44155
+              "duration": 45591
             }
           },
           {
@@ -1380,11 +1380,11 @@
             "line": 37,
             "name": "I have already applied for \"Youth Group Mentor\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:41"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:62"
             },
             "result": {
               "status": "passed",
-              "duration": 107445
+              "duration": 144115
             }
           },
           {
@@ -1393,11 +1393,11 @@
             "line": 38,
             "name": "I navigate to that opportunity",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:121"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:150"
             },
             "result": {
               "status": "passed",
-              "duration": 125313
+              "duration": 92928
             }
           },
           {
@@ -1406,11 +1406,11 @@
             "line": 39,
             "name": "the \"Apply Now\" button should be disabled",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:181"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:216"
             },
             "result": {
               "status": "passed",
-              "duration": 73509
+              "duration": 73787
             }
           },
           {
@@ -1419,11 +1419,11 @@
             "line": 40,
             "name": "I should see message \"You have already applied for this opportunity\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:185"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:220"
             },
             "result": {
               "status": "passed",
-              "duration": 67960
+              "duration": 68997
             }
           }
         ],
@@ -1442,7 +1442,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 9661
+              "duration": 9596
             }
           },
           {
@@ -1451,11 +1451,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 40443
+              "duration": 40240
             }
           },
           {
@@ -1464,11 +1464,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 39553
+              "duration": 40612
             }
           },
           {
@@ -1477,11 +1477,11 @@
             "line": 43,
             "name": "I have submitted applications for 2 opportunities",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:52"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:76"
             },
             "result": {
               "status": "passed",
-              "duration": 116813
+              "duration": 122865
             }
           },
           {
@@ -1490,11 +1490,11 @@
             "line": 44,
             "name": "I navigate to my applications page",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:117"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:146"
             },
             "result": {
               "status": "passed",
-              "duration": 48844
+              "duration": 37547
             }
           },
           {
@@ -1503,11 +1503,11 @@
             "line": 45,
             "name": "I should see all my submitted applications",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:189"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:224"
             },
             "result": {
               "status": "passed",
-              "duration": 59882
+              "duration": 59422
             }
           },
           {
@@ -1516,11 +1516,11 @@
             "line": 46,
             "name": "each should show the status (pending, accepted, rejected)",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:193"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:228"
             },
             "result": {
               "status": "passed",
-              "duration": 595638
+              "duration": 623585
             }
           }
         ],
@@ -1539,7 +1539,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 11009
+              "duration": 10573
             }
           },
           {
@@ -1548,11 +1548,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 42572
+              "duration": 44000
             }
           },
           {
@@ -1561,11 +1561,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 40715
+              "duration": 41742
             }
           },
           {
@@ -1574,11 +1574,11 @@
             "line": 49,
             "name": "I am viewing an opportunity",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:126"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:155"
             },
             "result": {
               "status": "passed",
-              "duration": 69240
+              "duration": 69925
             }
           },
           {
@@ -1587,11 +1587,11 @@
             "line": 50,
             "name": "I scroll to the requirements section",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:138"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:167"
             },
             "result": {
               "status": "passed",
-              "duration": 83395
+              "duration": 57054
             }
           },
           {
@@ -1600,11 +1600,11 @@
             "line": 51,
             "name": "I should see all requirements listed",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:199"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:237"
             },
             "result": {
               "status": "passed",
-              "duration": 54930
+              "duration": 53949
             }
           },
           {
@@ -1613,11 +1613,11 @@
             "line": 52,
             "name": "each requirement should be clearly marked as required or optional",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:203"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:241"
             },
             "result": {
               "status": "passed",
-              "duration": 187237
+              "duration": 56509
             }
           }
         ],
@@ -1636,7 +1636,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 10276
+              "duration": 9706
             }
           },
           {
@@ -1645,11 +1645,11 @@
             "line": 7,
             "name": "I am signed in as a volunteer",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:13"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 39768
+              "duration": 39817
             }
           },
           {
@@ -1658,11 +1658,11 @@
             "line": 8,
             "name": "ministry opportunities exist in the database",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:23"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 40931
+              "duration": 41217
             }
           },
           {
@@ -1671,11 +1671,11 @@
             "line": 55,
             "name": "I am signed in as a ministry leader",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:18"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:20"
             },
             "result": {
               "status": "passed",
-              "duration": 58035
+              "duration": 58293
             }
           },
           {
@@ -1684,11 +1684,11 @@
             "line": 56,
             "name": "I navigate to \"Create Opportunity\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:107"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:136"
             },
             "result": {
               "status": "passed",
-              "duration": 54959
+              "duration": 53625
             }
           },
           {
@@ -1697,11 +1697,11 @@
             "line": 57,
             "name": "I fill in all required fields",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:143"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:172"
             },
             "result": {
               "status": "passed",
-              "duration": 55847
+              "duration": 90398
             }
           },
           {
@@ -1710,11 +1710,11 @@
             "line": 58,
             "name": "I click \"Create\"",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:96"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:125"
             },
             "result": {
               "status": "passed",
-              "duration": 47543
+              "duration": 49058
             }
           },
           {
@@ -1723,11 +1723,11 @@
             "line": 59,
             "name": "the new opportunity should be visible to volunteers",
             "match": {
-              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:207"
+              "location": "file:/home/pwarnock/github/hackathon/church-volunteer-app/features/step_definitions/opportunities.steps.ts:248"
             },
             "result": {
               "status": "passed",
-              "duration": 57127
+              "duration": 60541
             }
           }
         ],
