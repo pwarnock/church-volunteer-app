@@ -35,7 +35,9 @@ Given('I am on the sign in page', function () {
   expect(currentPage).toBe('sign-in');
 });
 
-Given('I am signed in as {string}', function (email: string) {
+Given('I am signed in as {string}', function () {
+  // Mark user as signed in for this test
+  // In a real scenario, this would perform actual login
   isSignedIn = true;
   expect(isSignedIn).toBe(true);
 });

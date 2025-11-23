@@ -70,7 +70,6 @@ test.describe('Accessibility (WCAG 2.1 AA)', () => {
 
     // Tab to email field
     await page.keyboard.press('Tab');
-    const emailInput = page.locator('input[type="email"]');
 
     // Check if focused
     const focused = await page.evaluate(() => document.activeElement?.tagName);
@@ -145,18 +144,6 @@ test.describe('Accessibility (WCAG 2.1 AA)', () => {
 
     // Focus the input
     await emailInput.focus();
-
-    // Check if focus is visible (has outline or focus styles)
-    const hasVisibleFocus = await page.evaluate(() => {
-      const element = document.activeElement as HTMLElement;
-      if (!element) return false;
-
-      const style = window.getComputedStyle(element);
-      const outline = style.outline;
-      const boxShadow = style.boxShadow;
-
-      return outline !== 'none' || boxShadow !== 'none';
-    });
 
     // Focus should be visible
     expect(emailInput).toBeFocused();

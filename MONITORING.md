@@ -184,7 +184,7 @@ recordError(error, { endpoint: 'signup' });
 **Integration Points:**
 
 - Logs can be sent to external services (Logfire, DataDog, etc.)
-- See `src/lib/logger.ts` for TODO hooks
+- See `src/lib/logger.ts` for integration hooks
 
 **Example:**
 

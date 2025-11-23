@@ -1,6 +1,9 @@
 /**
- * Test credentials and configuration
- * These are demo accounts used for testing and should only be used in development/staging
+ * Test Credentials Module
+ *
+ * Domain: Test authentication
+ * Responsibility: Provide test user credentials for E2E tests
+ * Boundaries: Credentials only, no authentication logic
  */
 
 export const TEST_CREDENTIALS = {
@@ -16,4 +19,8 @@ export const TEST_CREDENTIALS = {
     email: process.env.TEST_SECOND_VOLUNTEER_EMAIL || 'mike@demo.com',
     password: process.env.TEST_SECOND_VOLUNTEER_PASSWORD || 'password123',
   },
-};
+  invalid: {
+    email: 'invalid@test.com',
+    password: 'wrongpassword',
+  },
+} as const;

@@ -5,22 +5,28 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from './logger';
+import { recordApiResponse, recordError } from './metrics';
 
 /**
- * Wrap an API route handler with error handling and logging
+ * Wrap an API route handler with error handling, logging, and metrics recording
+ * Automatically captures:
+ * - Request/response times
+ * - HTTP status codes
+ * - Errors with context
+ * - Performance metrics (X-Response-Time header)
  */
-export function withErrorHandling<
-  T extends (...args: unknown[]) => Promise<NextResponse>,
->(handler: T, routeName: string) {
-  return async (...args: unknown[]): Promise<NextResponse> => {
-    const request = args[0] as NextRequest;
-    const method = request.method || 'UNKNOWN';
-    const pathname = request.nextUrl.pathname;
+export function withErrorHandling(
+  handler: (request?: NextRequest | undefined) => Promise<NextResponse>,
+  routeName: string
+) {
+  return async (request?: NextRequest | undefined): Promise<NextResponse> => {
+    const method = request?.method || 'UNKNOWN';
+    const pathname = request?.nextUrl.pathname || '/unknown';
     const startTime = Date.now();
 
     try {
       logger.debug(`${method} ${pathname}`, { routeName });
-      const response = await handler(...args);
+      const response = await handler(request);
       const duration = Date.now() - startTime;
 
       logger.info(`${method} ${pathname} ${response.status}`, {
@@ -30,6 +36,9 @@ export function withErrorHandling<
         status: response.status,
         duration: `${duration}ms`,
       });
+
+      // Record performance metrics
+      recordApiResponse(pathname, method, response.status, duration);
 
       // Add performance headers
       const newResponse = new NextResponse(response.body, response);
@@ -43,6 +52,11 @@ export function withErrorHandling<
         pathname,
         duration: `${duration}ms`,
       });
+
+      // Record error metrics
+      if (error instanceof Error) {
+        recordError(error, { routeName, method, pathname });
+      }
 
       // Return generic error response
       return NextResponse.json(

@@ -17,6 +17,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
+    "test:smoke": "bunx tsx scripts/smoke-test.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

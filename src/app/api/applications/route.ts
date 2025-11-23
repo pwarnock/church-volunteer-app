@@ -4,158 +4,173 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
 import { applicationSchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
+import { withErrorHandling } from '@/lib/api-middleware';
+import { logger } from '@/lib/logger';
+import { recordRateLimitHit } from '@/lib/metrics';
+import {
+  rateLimitResponse,
+  validationErrorResponse,
+  createdResponse,
+  unauthorizedResponse,
+  errorResponse,
+} from '@/lib/api-response';
 
-export async function POST(request: NextRequest) {
-  try {
-    // Rate limiting: 10 applications per 60 minutes per user
-    const session = await getServerSession(authOptions);
+const handlePost = async (request: NextRequest) => {
+  // Rate limiting: 10 applications per 60 minutes per user
+  const session = await getServerSession(authOptions);
 
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  if (!session) {
+    return unauthorizedResponse();
+  }
 
-    if (!rateLimit(`apply:${session.user.id}`, 10, 60 * 60 * 1000)) {
-      return NextResponse.json(
-        { error: 'Too many applications. Please try again later.' },
-        { status: 429 }
-      );
-    }
-
-    const body = await request.json();
-
-    // Validate request body
-    const validationResult = applicationSchema.safeParse({
-      ...body,
-      volunteerId: session.user.id!,
+  if (!rateLimit(`apply:${session.user.id}`, 10, 60 * 60 * 1000)) {
+    logger.warn('Application rate limit exceeded', {
+      userId: session.user.id,
     });
+    recordRateLimitHit('/api/applications', session.user.id);
+    return rateLimitResponse('Too many applications. Please try again later.');
+  }
 
-    if (!validationResult.success) {
-      return NextResponse.json(
-        {
-          error: 'Validation failed',
-          details: validationResult.error.flatten(),
-        },
-        { status: 400 }
-      );
-    }
+  const body = await request.json();
 
-    const { opportunityId, message } = validationResult.data;
+  // Validate request body
+  const validationResult = applicationSchema.safeParse({
+    ...body,
+    volunteerId: session.user.id!,
+  });
 
-    const existingApplication = await prisma.application.findUnique({
-      where: {
-        opportunityId_volunteerId: {
-          opportunityId,
-          volunteerId: session.user.id!,
-        },
-      },
+  if (!validationResult.success) {
+    logger.warn('Application validation failed', {
+      userId: session.user.id,
+      errors: validationResult.error.flatten(),
     });
+    return validationErrorResponse(validationResult.error.flatten());
+  }
 
-    if (existingApplication) {
-      return NextResponse.json(
-        { error: 'You have already applied for this opportunity' },
-        { status: 400 }
-      );
-    }
+  const { opportunityId, message } = validationResult.data;
 
-    const application = await prisma.application.create({
-      data: {
+  const existingApplication = await prisma.application.findUnique({
+    where: {
+      opportunityId_volunteerId: {
         opportunityId,
         volunteerId: session.user.id!,
-        message: message || '',
+      },
+    },
+  });
+
+  if (existingApplication) {
+    logger.warn('Duplicate application attempt', {
+      userId: session.user.id,
+      opportunityId,
+    });
+    return errorResponse('You have already applied for this opportunity', 400);
+  }
+
+  const application = await prisma.application.create({
+    data: {
+      opportunityId,
+      volunteerId: session.user.id!,
+      message: message || '',
+    },
+    include: {
+      opportunity: {
+        include: {
+          leader: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  logger.info('Application created successfully', {
+    userId: session.user.id,
+    applicationId: application.id,
+    opportunityId,
+  });
+
+  return createdResponse(application, 'Application submitted successfully');
+};
+
+const handleGet = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return unauthorizedResponse();
+  }
+
+  const role = session.user.role;
+
+  let applications;
+  if (role === 'MINISTRY_LEADER') {
+    applications = await prisma.application.findMany({
+      where: {
+        opportunity: {
+          leaderId: session.user.id,
+        },
       },
       include: {
         opportunity: {
-          include: {
+          select: {
+            id: true,
+            title: true,
+            ministry: true,
+          },
+        },
+        volunteer: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            profile: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  } else {
+    applications = await prisma.application.findMany({
+      where: {
+        volunteerId: session.user.id,
+      },
+      include: {
+        opportunity: {
+          select: {
+            title: true,
+            ministry: true,
             leader: {
               select: {
                 name: true,
-                email: true,
               },
             },
           },
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
-
-    return NextResponse.json({ application });
-  } catch (error) {
-    console.error('Application error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
   }
-}
 
-export async function GET() {
-  try {
-    const session = await getServerSession(authOptions);
+  logger.info('Applications fetched', {
+    userId: session.user.id,
+    count: applications.length,
+    role,
+  });
 
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  return NextResponse.json({ applications });
+};
 
-    const role = session.user.role;
-
-    let applications;
-    if (role === 'MINISTRY_LEADER') {
-      applications = await prisma.application.findMany({
-        where: {
-          opportunity: {
-            leaderId: session.user.id,
-          },
-        },
-        include: {
-          opportunity: {
-            select: {
-              id: true,
-              title: true,
-              ministry: true,
-            },
-          },
-          volunteer: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              profile: true,
-            },
-          },
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
-    } else {
-      applications = await prisma.application.findMany({
-        where: {
-          volunteerId: session.user.id,
-        },
-        include: {
-          opportunity: {
-            select: {
-              title: true,
-              ministry: true,
-              leader: {
-                select: {
-                  name: true,
-                },
-              },
-            },
-          },
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
-    }
-
-    return NextResponse.json({ applications });
-  } catch (error) {
-    console.error('Applications fetch error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+export const POST = withErrorHandling(
+  handlePost as (request?: NextRequest | undefined) => Promise<NextResponse>,
+  'POST /api/applications'
+);
+export const GET = withErrorHandling(
+  handleGet as (request?: NextRequest | undefined) => Promise<NextResponse>,
+  'GET /api/applications'
+);

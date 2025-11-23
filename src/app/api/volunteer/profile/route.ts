@@ -3,121 +3,119 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/lib/prisma';
 import { profileSchema } from '@/lib/validators';
+import { withErrorHandling } from '@/lib/api-middleware';
+import { logger } from '@/lib/logger';
+import {
+  validationErrorResponse,
+  unauthorizedResponse,
+} from '@/lib/api-response';
 
-export async function POST(request: NextRequest) {
-  try {
-    const session = await getServerSession(authOptions);
+const handlePost = async (request: NextRequest) => {
+  const session = await getServerSession(authOptions);
 
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const body = await request.json();
-
-    // Validate request body
-    const validationResult = profileSchema.safeParse(body);
-
-    if (!validationResult.success) {
-      return NextResponse.json(
-        {
-          error: 'Validation failed',
-          details: validationResult.error.flatten(),
-        },
-        { status: 400 }
-      );
-    }
-
-    const { spiritualGifts, interests, skills, bio, availability } =
-      validationResult.data;
-
-    const existingProfile = await prisma.volunteerProfile.findUnique({
-      where: { userId: session.user.id },
-    });
-
-    let profile;
-    try {
-      if (existingProfile) {
-        profile = await prisma.volunteerProfile.update({
-          where: { userId: session.user.id },
-          data: {
-            ...(spiritualGifts && { spiritualGifts }),
-            ...(interests && { interests }),
-            ...(skills && { skills }),
-            ...(bio !== undefined && { bio }),
-            ...(availability && {
-              availability:
-                typeof availability === 'string'
-                  ? availability
-                  : JSON.stringify(availability),
-            }),
-          },
-        });
-      } else {
-        profile = await prisma.volunteerProfile.create({
-          data: {
-            userId: session.user.id!,
-            spiritualGifts: spiritualGifts || '[]',
-            interests: interests || '[]',
-            skills: skills || '[]',
-            bio: bio || '',
-            availability: availability
-              ? typeof availability === 'string'
-                ? availability
-                : JSON.stringify(availability)
-              : '{}',
-          },
-        });
-      }
-    } catch (dbError) {
-      console.error('Database operation error:', dbError);
-      return NextResponse.json(
-        {
-          error: 'Database operation failed',
-          details: dbError instanceof Error ? dbError.message : 'Unknown error',
-        },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ profile });
-  } catch (error) {
-    console.error('Profile update error:', error);
-    return NextResponse.json(
-      {
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    );
+  if (!session) {
+    return unauthorizedResponse();
   }
-}
 
-export async function GET() {
-  try {
-    const session = await getServerSession(authOptions);
+  const body = await request.json();
 
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  // Validate request body
+  const validationResult = profileSchema.safeParse(body);
 
-    const profile = await prisma.volunteerProfile.findUnique({
+  if (!validationResult.success) {
+    logger.warn('Profile validation failed', {
+      userId: session.user.id,
+      errors: validationResult.error.flatten(),
+    });
+    return validationErrorResponse(validationResult.error.flatten());
+  }
+
+  const { spiritualGifts, interests, skills, bio, availability } =
+    validationResult.data;
+
+  const existingProfile = await prisma.volunteerProfile.findUnique({
+    where: { userId: session.user.id },
+  });
+
+  let profile;
+  if (existingProfile) {
+    profile = await prisma.volunteerProfile.update({
       where: { userId: session.user.id },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
+      data: {
+        ...(spiritualGifts && { spiritualGifts }),
+        ...(interests && { interests }),
+        ...(skills && { skills }),
+        ...(bio !== undefined && { bio }),
+        ...(availability && {
+          availability:
+            typeof availability === 'string'
+              ? availability
+              : JSON.stringify(availability),
+        }),
       },
     });
 
-    return NextResponse.json({ profile });
-  } catch (error) {
-    console.error('Profile fetch error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    logger.info('Volunteer profile updated', {
+      userId: session.user.id,
+      profileId: profile.id,
+    });
+  } else {
+    profile = await prisma.volunteerProfile.create({
+      data: {
+        userId: session.user.id!,
+        spiritualGifts: spiritualGifts || '[]',
+        interests: interests || '[]',
+        skills: skills || '[]',
+        bio: bio || '',
+        availability: availability
+          ? typeof availability === 'string'
+            ? availability
+            : JSON.stringify(availability)
+          : '{}',
+      },
+    });
+
+    logger.info('Volunteer profile created', {
+      userId: session.user.id,
+      profileId: profile.id,
+    });
   }
-}
+
+  return NextResponse.json({ profile });
+};
+
+const handleGet = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return unauthorizedResponse();
+  }
+
+  const profile = await prisma.volunteerProfile.findUnique({
+    where: { userId: session.user.id },
+    include: {
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  logger.info('Volunteer profile fetched', {
+    userId: session.user.id,
+    hasProfile: !!profile,
+  });
+
+  return NextResponse.json({ profile });
+};
+
+export const POST = withErrorHandling(
+  handlePost as (request?: NextRequest | undefined) => Promise<NextResponse>,
+  'POST /api/volunteer/profile'
+);
+export const GET = withErrorHandling(
+  handleGet as (request?: NextRequest | undefined) => Promise<NextResponse>,
+  'GET /api/volunteer/profile'
+);

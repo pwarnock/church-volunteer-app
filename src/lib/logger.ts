@@ -90,15 +90,61 @@ function outputLog(entry: LogEntry) {
     console.log(JSON.stringify(entry));
   }
 
-  // TODO: Send to external observability platform (Logfire, Sentry, etc.)
-  // Example:
-  // if (process.env.LOGFIRE_TOKEN) {
-  //   fetch('https://logfire.pydantic.dev/api/logs', {
-  //     method: 'POST',
-  //     headers: { 'Authorization': `Bearer ${process.env.LOGFIRE_TOKEN}` },
-  //     body: JSON.stringify(entry)
-  //   }).catch(() => {}) // Fail silently
-  // }
+  // Send to external observability platform (optional, feature-flagged)
+  sendToObservabilityPlatform(entry);
+}
+
+/**
+ * Send log entry to external observability platform
+ * Supports: Logfire (Pydantic), Sentry, DataDog, CloudWatch
+ */
+async function sendToObservabilityPlatform(entry: LogEntry) {
+  // Logfire integration (https://logfire.pydantic.dev/)
+  if (process.env.LOGFIRE_TOKEN) {
+    try {
+      // Non-blocking async call
+      fetch('https://logfire.pydantic.dev/api/logs', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.LOGFIRE_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: entry.timestamp,
+          level: entry.level.toLowerCase(),
+          message: entry.message,
+          context: entry.context,
+          error: entry.error,
+        }),
+      }).catch(() => {
+        // Fail silently - don't block application if service is down
+      });
+    } catch {
+      // Ignore errors from logging service
+    }
+  }
+
+  // DataDog integration (optional)
+  if (process.env.DATADOG_API_KEY) {
+    try {
+      fetch('https://http-intake.logs.datadoghq.com/v1/input', {
+        method: 'POST',
+        headers: {
+          'DD-API-KEY': process.env.DATADOG_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: new Date(entry.timestamp).getTime(),
+          level: entry.level.toLowerCase(),
+          message: entry.message,
+          context: entry.context,
+          error: entry.error,
+        }),
+      }).catch(() => {});
+    } catch {
+      // Ignore errors
+    }
+  }
 }
 
 /**
