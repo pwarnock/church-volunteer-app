@@ -113,13 +113,27 @@ if (!result.success) {
 - Structured logging with contextual information
 - Automatic error formatting with stack traces
 - Development pretty-printing, production JSON output
+- Ready for integration with external observability platforms
+
+**Supported External Services:**
+
+- Pydantic Logfire
+- Sentry
+- DataDog
+- CloudWatch
+- Custom endpoints
 
 **Example Usage:**
 
 ```typescript
 logger.error('Signup error', error, { email: user.email });
 logger.info('User registered', { userId: user.id, role: user.role });
+logger.warn('Rate limit exceeded', { ip: '192.168.1.1' });
 ```
+
+**Production Integration:**
+
+To integrate with Logfire or similar service, uncomment the integration code in `src/lib/logger.ts` and add the service token to `.env`.
 
 ### 7. API Response Standardization
 

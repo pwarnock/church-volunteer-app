@@ -5,6 +5,11 @@ import { signupSchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
 import {
+  recordAuthAttempt,
+  recordError,
+  recordRateLimitHit,
+} from '@/lib/metrics';
+import {
   rateLimitResponse,
   validationErrorResponse,
   internalErrorResponse,
@@ -13,11 +18,13 @@ import {
 } from '@/lib/api-response';
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
   try {
     // Rate limiting: 5 signup attempts per 15 minutes per IP
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
     if (!rateLimit(`signup:${ip}`, 5, 15 * 60 * 1000)) {
       logger.warn('Signup rate limit exceeded', { ip });
+      recordRateLimitHit('signup', 'anonymous');
       return rateLimitResponse(
         'Too many signup attempts. Please try again later.'
       );
@@ -60,6 +67,9 @@ export async function POST(request: NextRequest) {
       role: user.role,
     });
 
+    const duration = Date.now() - startTime;
+    recordAuthAttempt('signup', true, duration);
+
     return createdResponse(
       {
         id: user.id,
@@ -70,6 +80,13 @@ export async function POST(request: NextRequest) {
       'User created successfully'
     );
   } catch (error) {
+    const duration = Date.now() - startTime;
+    recordAuthAttempt('signup', false, duration);
+
+    if (error instanceof Error) {
+      recordError(error, { endpoint: 'signup' });
+    }
+
     const context =
       error instanceof Error && 'email' in error
         ? { email: (error as Record<string, unknown>).email }
