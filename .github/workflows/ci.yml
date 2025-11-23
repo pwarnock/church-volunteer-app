@@ -26,4 +26,7 @@ jobs:
 
       - name: Run unit tests
         run: bun test --run
+
+      - name: Generate coverage report
+        run: bun test:coverage
         continue-on-error: true
