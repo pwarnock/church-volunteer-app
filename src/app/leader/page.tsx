@@ -86,17 +86,23 @@ export default function LeaderDashboard() {
     e.preventDefault()
     
     try {
-        const response = await fetch('/api/opportunities', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...formData,
-            requirements: JSON.parse(formData.requirements),
-            leaderId: user?.id || ''
-          }),
-        })
+      // Parse requirements from comma-separated string to array
+      const requirementsArray = formData.requirements
+        .split(',')
+        .map(req => req.trim())
+        .filter(req => req.length > 0)
+      
+      const response = await fetch('/api/opportunities', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          requirements: requirementsArray,
+          leaderId: user?.id || ''
+        }),
+      })
 
       if (response.ok) {
         setShowCreateForm(false)
@@ -111,6 +117,9 @@ export default function LeaderDashboard() {
           endDate: ''
         })
         fetchOpportunities()
+      } else {
+        const errorData = await response.json()
+        console.error('Error creating opportunity:', errorData)
       }
     } catch (error) {
       console.error('Error creating opportunity:', error)
