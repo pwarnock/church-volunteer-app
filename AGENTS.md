@@ -30,8 +30,9 @@ bunx tsx prisma/seed.ts  # Populate demo data
 
 ### Testing
 ```bash
-# No test framework configured yet - add testing commands when implemented
-# Use bun test when test framework is added
+bun test                 # Run tests with Vitest
+bun test:ui             # Run tests with UI dashboard
+bun test:coverage       # Generate coverage report
 ```
 
 ### Vercel Deployment
