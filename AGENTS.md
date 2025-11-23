@@ -34,12 +34,16 @@ bun test                 # Run unit tests with Vitest
 bun test:ui             # Run tests with UI dashboard
 bun test:coverage       # Generate coverage report
 bun test:bdd            # Run BDD tests with Cucumber
+bun test:e2e            # Run E2E tests with Playwright
+bun test:e2e:ui         # Run E2E tests with UI mode
+bun test:e2e:debug      # Run E2E tests in debug mode
 ```
 
 ### Test Types
 - **Unit Tests**: Test individual functions, utilities, and components (`src/**/*.test.ts`)
 - **BDD Tests**: Test complete user workflows and features (`features/**/*.feature`)
-- See [BDD_TESTING.md](./BDD_TESTING.md) for BDD documentation
+- **E2E Tests**: Test entire application flows in real browsers (`e2e/**/*.spec.ts`)
+- See [BDD_TESTING.md](./BDD_TESTING.md) and [E2E_TESTING.md](./E2E_TESTING.md) for documentation
 
 ### Vercel Deployment
 ```bash
