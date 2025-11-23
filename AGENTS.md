@@ -64,6 +64,22 @@ bun test:e2e:debug      # Run E2E tests in debug mode
 - **Accessibility Tests**: WCAG 2.1 AA compliance (`src/__tests__/accessibility.test.ts`, `e2e/accessibility.spec.ts`)
 - See [BDD_TESTING.md](./BDD_TESTING.md), [E2E_TESTING.md](./E2E_TESTING.md), and [ACCESSIBILITY.md](./ACCESSIBILITY.md) for documentation
 
+### Test Configuration
+
+- **Test Credentials**: Centralized in `e2e/test-credentials.ts` and `features/step_definitions/authentication.steps.ts`
+- **Override Credentials**: Use environment variables (`TEST_VOLUNTEER_EMAIL`, `TEST_VOLUNTEER_PASSWORD`, etc.)
+- **Base URL**: Configure test URL with `PLAYWRIGHT_TEST_BASE_URL` (defaults to `http://localhost:3000`)
+- **Configuration Template**: See `.env.test.example` for available overrides
+
+Example running tests with custom environment:
+
+```bash
+export PLAYWRIGHT_TEST_BASE_URL="https://staging.example.com"
+export TEST_VOLUNTEER_EMAIL="test@staging.example.com"
+export TEST_VOLUNTEER_PASSWORD="staging-password"
+bun test:e2e
+```
+
 ### Vercel Deployment
 
 ```bash

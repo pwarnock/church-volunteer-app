@@ -25,9 +25,16 @@ bun test:bdd
 # Run specific feature file
 bun test:bdd features/authentication.feature
 
+# Run with custom test credentials
+export TEST_VOLUNTEER_EMAIL="custom@example.com"
+export TEST_VOLUNTEER_PASSWORD="custom-password"
+bun test:bdd
+
 # Generate HTML report
 bun test:bdd --format html:test-results/cucumber-report.html
 ```
+
+Test credentials are defined in `features/step_definitions/authentication.steps.ts` and can be overridden via environment variables.
 
 ## Structure
 

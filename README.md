@@ -183,6 +183,8 @@ bun run dev          # Start development server
 bun run build        # Build for production
 bun run start        # Start production server
 bun run lint         # Run ESLint
+bun run lint:fix     # Fix ESLint issues
+bun run format       # Format code with Prettier
 ```
 
 ### Database Commands
@@ -192,6 +194,19 @@ bunx prisma studio    # Open database browser
 bunx prisma db push   # Sync schema to database
 bunx prisma generate  # Generate Prisma client
 ```
+
+### Testing
+
+```bash
+bun test              # Run unit tests with Vitest
+bun test:coverage     # Generate coverage report
+bun test:bdd          # Run BDD tests with Cucumber
+bun test:e2e          # Run E2E tests with Playwright
+bun test:e2e:ui       # Run E2E tests with UI dashboard
+bun test:e2e:debug    # Run E2E tests in debug mode
+```
+
+See [BDD_TESTING.md](./BDD_TESTING.md), [E2E_TESTING.md](./E2E_TESTING.md), and [ACCESSIBILITY.md](./ACCESSIBILITY.md) for detailed testing documentation.
 
 ### Environment Consistency
 
@@ -240,10 +255,15 @@ bunx prisma studio
 
 ## 🔒 Security
 
-- **Password Hashing**: bcryptjs for secure password storage
-- **JWT Authentication**: Secure session management
-- **Input Validation**: Server-side validation for all forms
+- **Password Hashing**: bcryptjs (12 salt rounds) for secure password storage
+- **JWT Authentication**: NextAuth.js with secure session management
+- **Input Validation**: Server-side validation for all forms and comprehensive security tests
 - **Role Protection**: Route guards for different user types
+- **XSS Prevention**: HTML escaping and input sanitization
+- **SQL Injection Prevention**: Prisma ORM with parameterized queries
+- **Pre-commit Hooks**: ESLint, Prettier, and TypeScript type checking before commits
+
+Security practices are validated in `src/__tests__/security.test.ts`.
 
 ## 📈 Future Enhancements
 
@@ -284,8 +304,11 @@ bunx prisma studio
 
 - Follow the code style in [AGENTS.md](./AGENTS.md)
 - Use Bun for package management
-- Test your changes thoroughly
+- Pre-commit hooks run ESLint, Prettier, and TypeScript type checking automatically
+- Write tests for new features (unit, BDD, or E2E as appropriate)
+- Test your changes thoroughly using `bun test`, `bun test:bdd`, or `bun test:e2e`
 - Update documentation as needed
+- Ensure accessibility compliance with WCAG 2.1 AA standards
 
 ## 📄 License
 

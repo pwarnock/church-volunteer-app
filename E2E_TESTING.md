@@ -42,12 +42,34 @@ bun test:e2e --project=webkit
 
 The E2E tests are configured to:
 
-- Run against `http://localhost:3000` (automatically started)
+- Run against `http://localhost:3000` (automatically started, configurable via `PLAYWRIGHT_TEST_BASE_URL`)
 - Test in multiple browsers (Chromium, Firefox, WebKit)
 - Test on mobile viewports (Pixel 5, iPhone 12)
 - Screenshot failures
 - Record videos on failure
 - Generate HTML reports
+
+### Test Credentials
+
+Test credentials are centralized in `e2e/test-credentials.ts` and can be overridden with environment variables:
+
+```typescript
+// Default credentials (from e2e/test-credentials.ts)
+TEST_VOLUNTEER_EMAIL: 'volunteer@demo.com';
+TEST_VOLUNTEER_PASSWORD: 'password123';
+TEST_LEADER_EMAIL: 'leader@demo.com';
+TEST_LEADER_PASSWORD: 'password123';
+```
+
+Override in your environment:
+
+```bash
+export TEST_VOLUNTEER_EMAIL="custom@example.com"
+export TEST_VOLUNTEER_PASSWORD="custom-password"
+bun test:e2e
+```
+
+Or create a `.env.test` file from `.env.test.example`.
 
 ## Test Files
 
@@ -106,9 +128,13 @@ await page.goto('/auth/signin');
 ### Fill form fields
 
 ```typescript
-await page.fill('input[type="email"]', 'volunteer@demo.com');
-await page.fill('input[type="password"]', 'password123');
+import { TEST_CREDENTIALS } from './test-credentials';
+
+await page.fill('input[type="email"]', TEST_CREDENTIALS.volunteer.email);
+await page.fill('input[type="password"]', TEST_CREDENTIALS.volunteer.password);
 ```
+
+Always use `TEST_CREDENTIALS` from `e2e/test-credentials.ts` instead of hardcoding credentials.
 
 ### Click buttons
 
@@ -215,12 +241,19 @@ bun test:e2e
 To test against production:
 
 ```bash
-# Update playwright.config.ts baseURL
-use: {
-  baseURL: 'https://your-production-url.com',
-}
+# Set environment variable
+export PLAYWRIGHT_TEST_BASE_URL="https://your-production-url.com"
 
 # Run tests
+bun test:e2e
+```
+
+Or update credentials if production has different test accounts:
+
+```bash
+export PLAYWRIGHT_TEST_BASE_URL="https://your-production-url.com"
+export TEST_VOLUNTEER_EMAIL="prod-volunteer@example.com"
+export TEST_VOLUNTEER_PASSWORD="prod-password"
 bun test:e2e
 ```
 
