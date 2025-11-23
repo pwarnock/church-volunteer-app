@@ -3,10 +3,7 @@
   "type": "application",
   "timestamp": "2025-11-23T08:46:27.238Z",
   "version": 42,
-  "tags": [
-    "application",
-    "generated"
-  ],
+  "tags": ["application", "generated"],
   "data": {
     "opportunityId": "opp_001",
     "volunteerId": "vol_001",

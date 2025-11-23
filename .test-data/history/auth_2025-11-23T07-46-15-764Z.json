@@ -3,10 +3,7 @@
   "type": "auth",
   "timestamp": "2025-11-23T07:46:15.765Z",
   "version": 4,
-  "tags": [
-    "auth",
-    "generated"
-  ],
+  "tags": ["auth", "generated"],
   "data": {
     "user": {
       "id": "lead_001",

@@ -29,7 +29,7 @@ export function withApiHandler(
       response.headers.set('X-Response-Time', `${duration}ms`);
 
       // Record metrics
-      recordApiResponse(routeName, response.status, duration);
+      recordApiResponse(routeName, method, response.status, duration);
 
       logger.debug(`${method} ${pathname} completed`, {
         routeName,
@@ -51,7 +51,11 @@ export function withApiHandler(
       });
 
       // Record error metrics
-      recordError(routeName, error);
+      if (error instanceof Error) {
+        recordError(error, { routeName });
+      } else {
+        recordError(new Error(String(error)), { routeName });
+      }
 
       // Return standardized error response
       return NextResponse.json(

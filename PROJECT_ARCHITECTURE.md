@@ -18,6 +18,7 @@
 **Church Volunteer Connect** is a modern web application that connects church volunteers with meaningful ministry opportunities through spiritual gifts assessment and personalized matching.
 
 ### Core Features
+
 - **Role-based Authentication**: Volunteers and Ministry Leaders
 - **Spiritual Gifts Assessment**: 5-step interactive assessment with biblical context
 - **Opportunity Management**: Browse, filter, and apply for ministry opportunities
@@ -26,6 +27,7 @@
 - **Data-Driven Testing**: Comprehensive test framework with metrics collection
 
 ### Tech Stack
+
 - **Runtime**: Bun (primary) / Node.js 18+ (fallback)
 - **Frontend**: Next.js 16, React 19, TypeScript
 - **Styling**: Tailwind CSS
@@ -76,6 +78,7 @@ church-volunteer-app/
 ## 🔧 Development Workflow
 
 ### Priority 1: Environment Setup
+
 ```bash
 # Install dependencies
 bun install
@@ -92,6 +95,7 @@ bunx tsx prisma/seed.ts
 ```
 
 ### Priority 2: Development Server
+
 ```bash
 # Start development server
 bun run dev
@@ -99,6 +103,7 @@ bun run dev
 ```
 
 ### Priority 3: Code Quality
+
 ```bash
 # Lint and format code
 bun run lint:fix
@@ -109,6 +114,7 @@ bunx tsc --noEmit
 ```
 
 ### Priority 4: Testing
+
 ```bash
 # Run unit tests
 bun test
@@ -136,16 +142,19 @@ bun test:coverage
 ### Test Types
 
 #### Unit Tests (Vitest)
+
 - **Location**: `src/**/*.test.ts`
 - **Focus**: Components, hooks, utilities
 - **Command**: `bun test`
 
 #### E2E Tests (Playwright)
+
 - **Location**: `e2e/**/*.spec.ts`
 - **Focus**: Complete user workflows
 - **Command**: `bun test:e2e`
 
 #### BDD Tests (Cucumber)
+
 - **Location**: `features/**/*.feature`
 - **Focus**: Business requirements validation
 - **Command**: `bun test:bdd`
@@ -153,6 +162,7 @@ bun test:coverage
 ### Data-Driven Testing
 
 #### Test Data Factory
+
 ```typescript
 import { testDataFactory } from '@/test-data/factory';
 
@@ -162,6 +172,7 @@ const opportunity = testDataFactory.opportunity('active');
 ```
 
 #### Test Data Storage
+
 ```typescript
 import { testDataStorage } from '@/test-data/storage';
 
@@ -173,6 +184,7 @@ const loadedData = testDataStorage.load('user');
 ### Pre-push Quality Gates
 
 The comprehensive pre-push hook enforces:
+
 - **Minimum 95% test pass rate**
 - **Maximum 5 failing tests**
 - **All security tests must pass**
@@ -186,6 +198,7 @@ The comprehensive pre-push hook enforces:
 ### TypeScript Guidelines
 
 #### Import Organization
+
 ```typescript
 // External libraries first
 import { NextRequest, NextResponse } from 'next/server';
@@ -197,6 +210,7 @@ import { useSession } from 'next-auth/react';
 ```
 
 #### Component Structure
+
 ```typescript
 'use client'; // Add for client components
 
@@ -232,6 +246,7 @@ export default function ComponentName() {
 ```
 
 #### API Routes Structure
+
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -273,18 +288,21 @@ export async function POST(request: NextRequest) {
 ### Tailwind CSS Guidelines
 
 #### Responsive Design
+
 ```typescript
 // Use responsive prefixes
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 ```
 
 #### Component Styling
+
 ```typescript
 // Group related classes
 <div className="bg-white rounded-lg shadow-lg p-6">
 ```
 
 #### Semantic Colors
+
 ```typescript
 // Use semantic color classes
 <button className="bg-blue-600 hover:bg-blue-700 text-white">
@@ -298,12 +316,14 @@ export async function POST(request: NextRequest) {
 ### Environment Setup
 
 #### Development
+
 ```bash
 # Local development with SQLite
 DATABASE_URL="file:./dev.db"
 ```
 
 #### Production
+
 ```bash
 # Production with PostgreSQL on Vercel
 # Use Vercel environment variables
@@ -343,6 +363,7 @@ vercel ls
 ### Test Metrics Collection
 
 #### Real-time Monitoring
+
 ```typescript
 import { testMetricsCollector } from '@/lib/test-metrics';
 
@@ -354,6 +375,7 @@ testMetricsCollector.recordTestDataUsage('application', 'factory', false, 50);
 ```
 
 #### Anomaly Detection
+
 - **Performance**: Tests > 30s duration
 - **Coverage**: Coverage < 80%
 - **Flakiness**: Pass rate 30-70%
@@ -362,6 +384,7 @@ testMetricsCollector.recordTestDataUsage('application', 'factory', false, 50);
 ### Application Monitoring
 
 #### Error Tracking
+
 ```typescript
 import { logger } from '@/lib/logger';
 import { recordError } from '@/lib/metrics';
@@ -375,6 +398,7 @@ try {
 ```
 
 #### Performance Metrics
+
 ```typescript
 import { recordApiResponse } from '@/lib/metrics';
 
@@ -391,6 +415,7 @@ recordApiResponse('/api/endpoint', Date.now() - startTime, response.status);
 ### Authentication & Authorization
 
 #### Password Security
+
 ```typescript
 import bcrypt from 'bcryptjs';
 
@@ -402,6 +427,7 @@ const isValid = await bcrypt.compare(password, hashedPassword);
 ```
 
 #### Session Management
+
 ```typescript
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
@@ -416,6 +442,7 @@ if (!session || session.user.role !== 'LEADER') {
 ### Input Validation
 
 #### Request Validation
+
 ```typescript
 import { z } from 'zod';
 import { validationErrorResponse } from '@/lib/api-response';
@@ -433,6 +460,7 @@ if (!result.success) {
 ```
 
 #### SQL Injection Prevention
+
 ```typescript
 // Use Prisma ORM for safe database queries
 const users = await prisma.user.findMany({
@@ -445,6 +473,7 @@ const users = await prisma.user.findMany({
 ### Data Protection
 
 #### Environment Variables
+
 ```bash
 # Never commit sensitive data
 .env.local
@@ -454,6 +483,7 @@ JWT_SECRET=
 ```
 
 #### Rate Limiting
+
 ```typescript
 import { rateLimit } from '@/lib/rate-limit';
 
@@ -470,6 +500,7 @@ if (!rateLimit(`api:${userId}`, 10, 60 * 60 * 1000)) {
 ### Quality Assurance
 
 #### Pre-commit Hooks
+
 ```bash
 # Automatically runs before each commit:
 - ESLint on changed files
@@ -478,6 +509,7 @@ if (!rateLimit(`api:${userId}`, 10, 60 * 60 * 1000)) {
 ```
 
 #### Pre-push Validation
+
 ```bash
 # Comprehensive validation before push:
 - Unit tests (98.1% pass rate required)
@@ -490,6 +522,7 @@ if (!rateLimit(`api:${userId}`, 10, 60 * 60 * 1000)) {
 ### Database Management
 
 #### Schema Management
+
 ```bash
 # Push schema changes to database
 bunx prisma db push
@@ -502,6 +535,7 @@ bunx prisma studio
 ```
 
 #### Data Seeding
+
 ```bash
 # Populate with demo data
 bunx tsx prisma/seed.ts
@@ -512,6 +546,7 @@ bunx tsx prisma/seed.ts
 ## 📚 Additional Documentation
 
 ### Feature Documentation
+
 - [BDD Testing](./BDD_TESTING.md) - Behavior-driven development guide
 - [E2E Testing](./E2E_TESTING.md) - End-to-end testing guide
 - [Accessibility](./ACCESSIBILITY.md) - WCAG 2.1 AA compliance guide
@@ -519,10 +554,12 @@ bunx tsx prisma/seed.ts
 - [Observability](./OBSERVABILITY_GUIDE.md) - Monitoring and logging guide
 
 ### API Documentation
+
 - OpenAPI/Swagger schema available at `/api/docs`
 - Interactive API documentation with request/response examples
 
 ### Development Guidelines
+
 - [Agent Guidelines](./AGENTS.md) - Development agent instructions
 - [Code Style](./STYLE_GUIDE.md) - Detailed coding standards
 
@@ -531,6 +568,7 @@ bunx tsx prisma/seed.ts
 ## 🎯 Quick Reference
 
 ### Common Commands
+
 ```bash
 # Development
 bun run dev              # Start dev server
@@ -551,6 +589,7 @@ vercel env pull          # Sync environment
 ```
 
 ### Test Credentials
+
 ```bash
 # Volunteer Account
 Email: volunteer@demo.com
@@ -562,6 +601,7 @@ Password: password123
 ```
 
 ### Environment Variables
+
 ```bash
 # Required
 DATABASE_URL=           # Database connection string
@@ -575,4 +615,4 @@ SENTRY_DSN=            # Error tracking
 
 ---
 
-*Last Updated: November 23, 2024*
+_Last Updated: November 23, 2024_
