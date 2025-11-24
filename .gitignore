@@ -36,6 +36,20 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Beads test data and daemon
+.test-data/
+.test-data/*
+.beads/daemon.lock
+.beads/daemon.log
+.beads/daemon.pid
+.beads/bd.sock
+
+# Test results and reports
+test-results/
+playwright-report/
+*.webm
+*.png
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
