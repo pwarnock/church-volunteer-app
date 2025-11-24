@@ -23,7 +23,7 @@
     "validate:api": "bunx tsx scripts/validate-api-dependencies.ts",
     "test:preview": "bunx tsx scripts/enhanced-preview-testing.ts",
     "pre-push": "bunx tsx scripts/pre-push-validation.ts",
-    "postinstall": "POSTGRES_URL=\"$(grep POSTGRES_URL .env.local 2>/dev/null | cut -d '=' -f2- || echo '')\" bunx prisma generate || echo 'Prisma generate skipped (no POSTGRES_URL)'"
+    "postinstall": "POSTGRES_URL=\"$(grep POSTGRES_URL .env.local 2>/dev/null | cut -d '=' -f2- || echo '')\" bunx prisma generate || echo 'Prisma generate skipped (no POSTGRES_URL)'",
     "contract:init": "bunx tsx scripts/contract-first-dev.ts init",
     "contract:validate": "bunx tsx scripts/contract-first-dev.ts validate",
     "contract:mock": "bunx tsx src/generated/mock-server.ts",
@@ -61,6 +61,7 @@
     "@cucumber/cucumber": "^12.2.0",
     "@playwright/test": "^1.56.1",
     "@prisma/adapter-libsql": "^7.0.0",
+    "@prisma/adapter-pg": "^7.0.0",
     "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
