@@ -1,0 +1,16 @@
+{
+  "id": "auth_2025-11-23T21-50-31-455Z.json",
+  "type": "auth",
+  "timestamp": "2025-11-23T21:50:31.455Z",
+  "version": 81,
+  "tags": ["auth", "generated"],
+  "data": {
+    "user": {
+      "id": "vol_001",
+      "email": "volunteer@test.com",
+      "name": "Test Volunteer",
+      "role": "VOLUNTEER"
+    },
+    "scenario": "login_success"
+  }
+}

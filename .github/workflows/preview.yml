@@ -9,6 +9,8 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -19,12 +21,12 @@ jobs:
         run: bun install
 
       - name: Deploy to Vercel Preview
-        uses: vercel/action@v7
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: false
+        run: |
+          bun install -g vercel
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt 2>&1
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Comment PR with preview URL
         if: github.event_name == 'pull_request'
@@ -32,10 +34,15 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const vercelJson = require('.vercel/project.json');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🚀 Preview deployment created! Check the Vercel link in the workflow summary.'
-            });
+            try {
+              const deploymentUrl = fs.readFileSync('deployment-url.txt', 'utf8').trim();
+              const previewUrl = deploymentUrl.split('\n').pop();
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🚀 Preview deployment: ${previewUrl}`
+              });
+            } catch (e) {
+              console.log('Could not extract preview URL');
+            }

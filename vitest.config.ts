@@ -15,15 +15,14 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: ['./vitest.setup.ts'],
-    include: ['src/**/*.{test,test.spec}.{ts,tsx}'],
+    include: ['src/**/*.test.{ts,tsx}'],
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      '**/e2e/**',
-      '**/.next/**',
-      '**/features/**',
-      '**/test-results/**',
-      '**/*.spec.ts', // Exclude all spec.ts files (E2E tests)
+      'e2e/**',
+      '.next/**',
+      'features/**',
+      'test-results/**',
     ],
     coverage: {
       provider: 'v8',
