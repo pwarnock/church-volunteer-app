@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+    outputs:
+      preview-url: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -21,28 +23,69 @@ jobs:
         run: bun install
 
       - name: Deploy to Vercel Preview
+        id: deploy
         run: |
           bun install -g vercel
           vercel deploy --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt 2>&1
+          echo "url=$(tail -1 deployment-url.txt)" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Comment PR with preview URL
+      - name: Wait for Deployment
+        run: |
+          echo "Waiting for deployment to be ready..."
+          sleep 30
+
+      - name: Run Enhanced Preview Tests
+        id: preview-tests
+        run: |
+          bun run test:preview ${{ steps.deploy.outputs.url }} || echo "tests_failed=true" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+
+      - name: Comment PR with Test Results
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            try {
-              const deploymentUrl = fs.readFileSync('deployment-url.txt', 'utf8').trim();
-              const previewUrl = deploymentUrl.split('\n').pop();
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `🚀 Preview deployment: ${previewUrl}`
-              });
-            } catch (e) {
-              console.log('Could not extract preview URL');
+            const previewUrl = '${{ steps.deploy.outputs.url }}';
+            const testsFailed = '${{ steps.preview-tests.outputs.tests_failed }}' === 'true';
+
+            let commentBody = `## 🚀 Preview Deployment & Testing\n\n`;
+            commentBody += `**Preview URL:** ${previewUrl}\n\n`;
+
+            if (testsFailed) {
+              commentBody += `### ❌ Preview Tests Failed\n\n`;
+              commentBody += `The preview deployment failed one or more critical tests. Please review the test results and fix the issues before merging.\n\n`;
+              commentBody += `**Next Steps:**\n`;
+              commentBody += `1. Check the deployment logs for errors\n`;
+              commentBody += `2. Review the test failure details\n`;
+              commentBody += `3. Fix the issues and push a new commit\n\n`;
+              commentBody += `🚫 **This PR cannot be merged until tests pass**`;
+            } else {
+              commentBody += `### ✅ All Preview Tests Passed\n\n`;
+              commentBody += `The preview deployment passed all critical tests:\n`;
+              commentBody += `- ✅ Health check\n`;
+              commentBody += `- ✅ Smoke tests\n`;
+              commentBody += `- ✅ API endpoint tests\n`;
+              commentBody += `- ✅ User flow tests\n\n`;
+              commentBody += `🎉 **This PR is ready for review and merge**`;
             }
+
+            commentBody += `\n---\n*Generated at: ${new Date().toISOString()}*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            });
+
+      - name: Fail PR if Tests Failed
+        if: steps.preview-tests.outputs.tests_failed == 'true'
+        run: |
+          echo "❌ Preview tests failed - blocking merge"
+          exit 1

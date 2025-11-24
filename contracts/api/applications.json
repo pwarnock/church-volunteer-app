@@ -1,0 +1,12 @@
+{
+  "route": "/api/applications",
+  "methods": ["GET", "POST"],
+  "requestSchema": {
+    "type": "unknown",
+    "description": "Schema applicationSchema not found"
+  },
+  "file": "src/app/api/applications/route.ts",
+  "examples": {},
+  "version": "1.0.0",
+  "tags": ["applications"]
+}

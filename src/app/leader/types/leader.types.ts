@@ -12,11 +12,14 @@ export interface Opportunity {
   description: string;
   ministry: string;
   location: string;
-  requirements: string[];
+  requirements: string; // JSON string from database
   timeCommitment: string;
-  startDate?: string;
-  endDate?: string;
+  startDate: Date | null;
+  endDate: Date | null;
   status: string;
+  leaderId: string;
+  createdAt: Date;
+  updatedAt: Date;
   _count: {
     applications: number;
   };

@@ -12,7 +12,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true,
+    globals: false,
     environment: 'happy-dom',
     setupFiles: ['./vitest.setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
@@ -23,6 +23,7 @@ export default defineConfig({
       '.next/**',
       'features/**',
       'test-results/**',
+      '**/*.spec.ts', // Exclude Playwright spec files
     ],
     coverage: {
       provider: 'v8',

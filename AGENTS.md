@@ -1,5 +1,18 @@
 # AGENTS.md - Church Volunteer Connect Development Guidelines
 
+## 🎯 Development Philosophy
+
+This project follows **Contract-First, Data-Driven Development** with small iterations and fast feedback loops. See [DEVELOPMENT_PHILOSOPHY.md](./DEVELOPMENT_PHILOSOPHY.md) for complete principles.
+
+**Key Principles:**
+
+- **Contract-First**: Define API contracts before implementation
+- **Parallel Development**: Frontend/backend work simultaneously against contracts
+- **Data-Driven**: Decisions based on metrics and evidence
+- **Small Iterations**: Feature flags and gradual rollouts
+- **Fast Feedback**: Preview deployments and automated testing
+- **SOLID/DRY**: Clean architecture with reusable components
+
 ## 🥯 Package Manager: Bun
 
 This project uses Bun as the primary package manager. Always use `bun` instead of `npm` for faster performance.
@@ -41,6 +54,15 @@ bunx prisma db push   # Sync schema to database
 bunx prisma generate  # Generate Prisma client
 bunx prisma studio    # Open database browser
 bunx tsx prisma/seed.ts  # Populate demo data
+```
+
+### Contract-First Development
+
+```bash
+bun run contract:init     # Initialize contract-first development
+bun run contract:validate # Validate implementation against contracts
+bun run contract:mock     # Start mock server for frontend development
+bun run validate:api     # Validate API dependencies
 ```
 
 ### Testing
@@ -243,3 +265,19 @@ try {
 - Handle loading states during auth operations
 - **NextAuth Configuration**: JWT strategy, no PrismaAdapter
 - **Demo Accounts**: See README for working credentials
+
+### Contract-First Workflow
+
+1. **Define Contract**: Create/modify contract in `contracts/api/`
+2. **Generate Types**: `bun run contract:init` auto-generates TypeScript types
+3. **Frontend Development**: Use generated types + mock server (`bun run contract:mock`)
+4. **Backend Implementation**: Build routes to match contract specifications
+5. **Validation**: `bun run contract:validate` ensures compliance
+6. **CI Integration**: Automated validation prevents deployment of non-compliant code
+
+**Benefits:**
+
+- ✅ Parallel frontend/backend development
+- ✅ Type-safe API boundaries
+- ✅ Living documentation through contracts
+- ✅ Zero production API mismatches

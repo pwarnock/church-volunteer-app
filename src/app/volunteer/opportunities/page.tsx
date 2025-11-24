@@ -24,6 +24,9 @@ export default function VolunteerOpportunities() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     fetchOpportunities();
@@ -48,14 +51,25 @@ export default function VolunteerOpportunities() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ opportunityId }),
+        body: JSON.stringify({
+          opportunityId,
+          message:
+            'I am excited to serve in this ministry and believe my skills would be valuable.',
+        }),
       });
 
       if (response.ok) {
-        fetchOpportunities();
+        // Show success message and update applied status
+        alert('Application submitted successfully!');
+        setAppliedOpportunities((prev) => new Set([...prev, opportunityId]));
+      } else {
+        const errorData = await response.json();
+        console.error('Application error:', errorData);
+        alert(`Error: ${errorData.error || 'Failed to submit application'}`);
       }
     } catch (error) {
       console.error('Error applying:', error);
+      alert('Error submitting application. Please try again.');
     }
   };
 
@@ -122,6 +136,7 @@ export default function VolunteerOpportunities() {
           {opportunities.map((opportunity) => (
             <div
               key={opportunity.id}
+              data-testid={`opportunity-card-${opportunity.id}`}
               className="bg-white rounded-lg shadow-md p-6"
             >
               <div className="mb-4">
@@ -190,10 +205,18 @@ export default function VolunteerOpportunities() {
               </div>
 
               <button
+                data-testid={`apply-button-${opportunity.id}`}
                 onClick={() => applyForOpportunity(opportunity.id)}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+                disabled={appliedOpportunities.has(opportunity.id)}
+                className={`w-full py-2 px-4 rounded-lg transition-colors ${
+                  appliedOpportunities.has(opportunity.id)
+                    ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
               >
-                Apply to Serve
+                {appliedOpportunities.has(opportunity.id)
+                  ? 'Applied'
+                  : 'Apply to Serve'}
               </button>
             </div>
           ))}

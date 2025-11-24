@@ -49,7 +49,7 @@ export function useApplications() {
 
       if (response.ok) {
         setApplications((prev) =>
-          prev.map((app) =>
+          (prev || []).map((app) =>
             app.id === id ? { ...app, status: status as any } : app
           )
         );

@@ -1,0 +1,37 @@
+{
+  "route": "/api/opportunities",
+  "methods": ["GET", "POST"],
+  "requestSchema": {
+    "type": "unknown",
+    "description": "Schema opportunitySchema not found"
+  },
+  "file": "src/app/api/opportunities/route.ts",
+  "examples": {
+    "request": {
+      "title": "Youth Ministry Volunteer",
+      "description": "Help with youth ministry activities and mentoring",
+      "ministry": "Youth Ministry",
+      "location": "Church Main Building",
+      "requirements": ["Background check", "Love for working with teens"],
+      "timeCommitment": "2-3 hours per week",
+      "startDate": "2024-01-15",
+      "endDate": "2024-06-15"
+    },
+    "response": {
+      "opportunities": [
+        {
+          "id": "opp_123",
+          "title": "Youth Ministry Volunteer",
+          "description": "Help with youth ministry activities",
+          "ministry": "Youth Ministry",
+          "status": "ACTIVE",
+          "_count": {
+            "applications": 3
+          }
+        }
+      ]
+    }
+  },
+  "version": "1.0.0",
+  "tags": ["opportunities"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "test_2025-11-24T03-32-42-833Z.json",
+  "type": "test",
+  "timestamp": "2025-11-24T03:32:42.833Z",
+  "version": 43,
+  "tags": ["test", "generated"],
+  "data": {
+    "id": "test_001",
+    "name": "Test Data",
+    "timestamp": "2025-11-24T03:32:42.833Z"
+  }
+}

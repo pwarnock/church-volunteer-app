@@ -1,4 +1,13 @@
-import { afterEach, vi } from 'vitest';
+import {
+  afterEach,
+  vi,
+  test,
+  expect,
+  describe,
+  beforeEach,
+  beforeAll,
+  afterAll,
+} from 'vitest';
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 
@@ -27,3 +36,5 @@ vi.mock('next-auth/react', () => ({
   signIn: vi.fn(),
   signOut: vi.fn(),
 }));
+
+// Don't mock Playwright - let it run normally for E2E tests
