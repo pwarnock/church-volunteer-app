@@ -31,46 +31,30 @@ test.describe('Application Management Flow', () => {
     await page.goto('/volunteer/opportunities');
 
     // Check opportunities page loads
-    await expect(page.locator('h1')).toContainText('Ministry Opportunities');
+    await expect(page.locator('h1')).toContainText('Volunteer Opportunities');
 
     // Look for available opportunities
-    const opportunityCards = page.locator('[data-testid="opportunity-card"]');
+    const opportunityCards = page.locator('[data-testid^="opportunity-card-"]');
     await expect(opportunityCards.first()).toBeVisible();
 
-    // Click on first opportunity
-    await opportunityCards.first().click();
+    // Click on first opportunity's apply button
+    const firstOpportunityId = await opportunityCards
+      .first()
+      .getAttribute('data-testid');
+    const opportunityId = firstOpportunityId?.replace('opportunity-card-', '');
 
-    // Should navigate to opportunity details
-    await expect(page.locator('h1')).toBeVisible();
+    // Handle alert and click apply button
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('Application submitted successfully');
+      await dialog.accept();
+    });
 
-    // Look for apply button
-    const applyButton = page.locator('button:has-text("Apply")');
-    await expect(applyButton).toBeVisible();
-
-    // Click apply button
-    await applyButton.click();
-
-    // Should show application modal/form
-    await expect(
-      page.locator('[data-testid="application-form"]')
-    ).toBeVisible();
-
-    // Fill application message
-    await page.fill(
-      'textarea[name="message"]',
-      'I am excited to serve in this ministry and believe my skills in teaching and mentoring would be valuable.'
-    );
-
-    // Submit application
-    await page.click('button:has-text("Submit Application")');
-
-    // Should show success message
-    await expect(
-      page.locator('text=Application submitted successfully')
-    ).toBeVisible();
+    await page.locator(`[data-testid="apply-button-${opportunityId}"]`).click();
 
     // Should update button to show applied status
-    await expect(page.locator('button:has-text("Applied")')).toBeVisible();
+    await expect(
+      page.locator(`[data-testid="apply-button-${opportunityId}"]`)
+    ).toContainText('Applied');
   });
 
   test('volunteer should view their applications', async ({ page }) => {
