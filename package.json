@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "bunx prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
@@ -23,7 +23,7 @@
     "validate:api": "bunx tsx scripts/validate-api-dependencies.ts",
     "test:preview": "bunx tsx scripts/enhanced-preview-testing.ts",
     "pre-push": "bunx tsx scripts/pre-push-validation.ts",
-    "postinstall": "POSTGRES_URL=\"$(grep POSTGRES_URL .env.local 2>/dev/null | cut -d '=' -f2- || echo '')\" prisma generate || echo 'Prisma generate skipped (no POSTGRES_URL)'",
+    "postinstall": "POSTGRES_URL=\"$(grep POSTGRES_URL .env.local 2>/dev/null | cut -d '=' -f2- || echo '')\" bunx prisma generate || echo 'Prisma generate skipped (no POSTGRES_URL)'"
     "contract:init": "bunx tsx scripts/contract-first-dev.ts init",
     "contract:validate": "bunx tsx scripts/contract-first-dev.ts validate",
     "contract:mock": "bunx tsx src/generated/mock-server.ts",
