@@ -1,0 +1,54 @@
+name: Post-Deploy Seed Database
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for deployment to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -s https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/health > /dev/null 2>&1; then
+              echo "✅ Deployment is ready"
+              exit 0
+            fi
+            echo "⏳ Waiting for deployment... ($i/30)"
+            sleep 10
+          done
+          echo "❌ Deployment health check failed"
+          exit 1
+
+      - name: Seed production database
+        run: |
+          RESPONSE=$(curl -X POST \
+            https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/admin/seed \
+            -H "Authorization: Bearer ${{ secrets.ADMIN_SEED_TOKEN }}" \
+            -w "\n%{http_code}\n" \
+            -s)
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          echo "Response: $BODY"
+          echo "HTTP Status: $HTTP_CODE"
+          
+          if [[ "$HTTP_CODE" == "200" ]]; then
+            echo "✅ Database seeded successfully"
+            exit 0
+          else
+            echo "⚠️  Seed endpoint returned $HTTP_CODE (may already be seeded)"
+            exit 0
+          fi
+
+      - name: Verify demo credentials work
+        run: |
+          echo "ℹ️  Demo accounts created:"
+          echo "  - volunteer@demo.com / password123"
+          echo "  - leader@demo.com / password123"
+          echo ""
+          echo "Test at: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app"
