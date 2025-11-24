@@ -1,0 +1,12 @@
+{
+  "deploymentUrl": "https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app",
+  "healthCheck": true,
+  "smokeTests": true,
+  "apiTests": false,
+  "userFlowTests": false,
+  "issues": [
+    "API test failed: Get opportunities - Error: Get opportunities: Expected 200, got 500",
+    "User flow tests failed: Error: Opportunities API failed"
+  ],
+  "timestamp": "2025-11-24T02:46:07.477Z"
+}

@@ -136,24 +136,47 @@ export default function OpportunityList({
                   </div>
                 </div>
 
-                {opportunity.requirements &&
-                  opportunity.requirements.length > 0 && (
-                    <div className="mt-3">
-                      <span className="font-medium text-gray-700 text-sm">
-                        Requirements:
-                      </span>
-                      <div className="mt-1 flex flex-wrap gap-2">
-                        {opportunity.requirements.map((req, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-700"
-                          >
-                            {req}
+                {(() => {
+                  try {
+                    const requirements = JSON.parse(
+                      opportunity.requirements || '[]'
+                    );
+                    if (
+                      Array.isArray(requirements) &&
+                      requirements.length > 0
+                    ) {
+                      return (
+                        <div className="mt-3">
+                          <span className="font-medium text-gray-700 text-sm">
+                            Requirements:
                           </span>
-                        ))}
+                          <div className="mt-1 flex flex-wrap gap-2">
+                            {requirements.map((req: string, index: number) => (
+                              <span
+                                key={index}
+                                className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-700"
+                              >
+                                {req}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  } catch (error) {
+                    return (
+                      <div className="mt-3">
+                        <span className="font-medium text-gray-700 text-sm">
+                          Requirements:
+                        </span>
+                        <div className="mt-1 text-red-600 text-sm">
+                          Invalid requirements format
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  }
+                })()}
 
                 {(opportunity.startDate || opportunity.endDate) && (
                   <div className="mt-3 text-sm text-gray-600">

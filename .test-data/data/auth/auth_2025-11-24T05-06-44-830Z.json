@@ -1,0 +1,18 @@
+{
+  "id": "auth_2025-11-24T05-06-44-830Z.json",
+  "type": "auth",
+  "timestamp": "2025-11-24T05:06:44.830Z",
+  "version": 133,
+  "tags": ["auth", "generated"],
+  "data": {
+    "user": {
+      "id": "vol_001",
+      "email": "volunteer@test.com",
+      "name": "Test Volunteer",
+      "role": "VOLUNTEER"
+    },
+    "password": "testPassword123",
+    "hashedPassword": null,
+    "timestamp": "2025-11-24T05:06:44.830Z"
+  }
+}

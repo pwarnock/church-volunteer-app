@@ -1,0 +1,8 @@
+{
+  "route": "/api/opportunities/[id]",
+  "methods": ["DELETE"],
+  "file": "src/app/api/opportunities/[id]/route.ts",
+  "examples": {},
+  "version": "1.0.0",
+  "tags": ["opportunities"]
+}

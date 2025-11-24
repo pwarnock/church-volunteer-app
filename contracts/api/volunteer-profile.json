@@ -1,0 +1,12 @@
+{
+  "route": "/api/volunteer/profile",
+  "methods": ["GET", "POST"],
+  "requestSchema": {
+    "type": "unknown",
+    "description": "Schema profileSchema not found"
+  },
+  "file": "src/app/api/volunteer/profile/route.ts",
+  "examples": {},
+  "version": "1.0.0",
+  "tags": ["volunteers"]
+}

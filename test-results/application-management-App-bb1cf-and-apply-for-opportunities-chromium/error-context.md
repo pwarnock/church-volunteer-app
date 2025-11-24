@@ -1,0 +1,124 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+    - generic [ref=e3]:
+        - generic [ref=e4]:
+            - heading "Volunteer Opportunities" [level=1] [ref=e5]
+            - paragraph [ref=e6]: Discover meaningful ways to serve in our church community
+            - generic [ref=e7]:
+                - button "All Opportunities" [ref=e8]
+                - link "Retake Assessment" [ref=e9] [cursor=pointer]:
+                    - /url: /volunteer/assessment
+                - link "View My Gifts" [ref=e10] [cursor=pointer]:
+                    - /url: /volunteer/assessment/results
+        - generic [ref=e11]:
+            - generic [ref=e12]:
+                - generic [ref=e14]: Test Ministry
+                - heading "Integration Test Opportunity" [level=3] [ref=e15]
+                - paragraph [ref=e16]: Testing component with real data
+                - generic [ref=e17]:
+                    - generic [ref=e18]:
+                        - img [ref=e19]
+                        - text: Test Location
+                    - generic [ref=e22]:
+                        - img [ref=e23]
+                        - text: 2 hours per week
+                - generic [ref=e25]:
+                    - paragraph [ref=e26]: 'Requirements:'
+                    - paragraph [ref=e27]: '["Background check","Integration test requirement"]'
+                - button "Apply to Serve" [active] [ref=e28]
+            - generic [ref=e29]:
+                - generic [ref=e31]: Youth Ministry
+                - heading "Youth Group Mentor" [level=3] [ref=e32]
+                - paragraph [ref=e33]: Mentor high school students in weekly youth group meetings and activities.
+                - generic [ref=e34]:
+                    - generic [ref=e35]:
+                        - img [ref=e36]
+                        - text: Youth Center
+                    - generic [ref=e39]:
+                        - img [ref=e40]
+                        - text: 3 hours per week
+                - generic [ref=e42]:
+                    - paragraph [ref=e43]: 'Requirements:'
+                    - paragraph [ref=e44]: '["Background check","Experience with teenagers","Good listener"]'
+                - button "Apply to Serve" [ref=e45]
+            - generic [ref=e46]:
+                - generic [ref=e48]: Community Outreach
+                - heading "Community Outreach Volunteer" [level=3] [ref=e49]
+                - paragraph [ref=e50]: Help organize and run monthly community outreach events in local neighborhoods.
+                - generic [ref=e51]:
+                    - generic [ref=e52]:
+                        - img [ref=e53]
+                        - text: Various Locations
+                    - generic [ref=e56]:
+                        - img [ref=e57]
+                        - text: 4-6 hours per month
+                - generic [ref=e59]:
+                    - paragraph [ref=e60]: 'Requirements:'
+                    - paragraph [ref=e61]: '["Valid drivers license","Good communication skills","Flexible schedule"]'
+                - button "Apply to Serve" [ref=e62]
+            - generic [ref=e63]:
+                - generic [ref=e65]: Children Ministry
+                - heading "Sunday School Teacher" [level=3] [ref=e66]
+                - paragraph [ref=e67]: Teach children ages 5-8 during Sunday school hour. Curriculum provided.
+                - generic [ref=e68]:
+                    - generic [ref=e69]:
+                        - img [ref=e70]
+                        - text: Main Building - Classroom 2
+                    - generic [ref=e73]:
+                        - img [ref=e74]
+                        - text: 2 hours per week
+                - generic [ref=e76]:
+                    - paragraph [ref=e77]: 'Requirements:'
+                    - paragraph [ref=e78]: '["Background check","Teaching experience preferred","Love for children"]'
+                - button "Apply to Serve" [ref=e79]
+            - generic [ref=e80]:
+                - generic [ref=e82]: Youth Ministry
+                - heading "Youth Group Mentor" [level=3] [ref=e83]
+                - paragraph [ref=e84]: Mentor high school students in weekly youth group meetings and activities.
+                - generic [ref=e85]:
+                    - generic [ref=e86]:
+                        - img [ref=e87]
+                        - text: Youth Center
+                    - generic [ref=e90]:
+                        - img [ref=e91]
+                        - text: 3 hours per week
+                - generic [ref=e93]:
+                    - paragraph [ref=e94]: 'Requirements:'
+                    - paragraph [ref=e95]: '["Background check","Experience with teenagers","Good listener"]'
+                - button "Apply to Serve" [ref=e96]
+            - generic [ref=e97]:
+                - generic [ref=e99]: Community Outreach
+                - heading "Community Outreach Volunteer" [level=3] [ref=e100]
+                - paragraph [ref=e101]: Help organize and run monthly community outreach events in local neighborhoods.
+                - generic [ref=e102]:
+                    - generic [ref=e103]:
+                        - img [ref=e104]
+                        - text: Various Locations
+                    - generic [ref=e107]:
+                        - img [ref=e108]
+                        - text: 4-6 hours per month
+                - generic [ref=e110]:
+                    - paragraph [ref=e111]: 'Requirements:'
+                    - paragraph [ref=e112]: '["Valid drivers license","Good communication skills","Flexible schedule"]'
+                - button "Apply to Serve" [ref=e113]
+            - generic [ref=e114]:
+                - generic [ref=e116]: Children Ministry
+                - heading "Sunday School Teacher" [level=3] [ref=e117]
+                - paragraph [ref=e118]: Teach children ages 5-8 during Sunday school hour. Curriculum provided.
+                - generic [ref=e119]:
+                    - generic [ref=e120]:
+                        - img [ref=e121]
+                        - text: Main Building - Classroom 2
+                    - generic [ref=e124]:
+                        - img [ref=e125]
+                        - text: 2 hours per week
+                - generic [ref=e127]:
+                    - paragraph [ref=e128]: 'Requirements:'
+                    - paragraph [ref=e129]: '["Background check","Teaching experience preferred","Love for children"]'
+                - button "Apply to Serve" [ref=e130]
+    - button "Open Next.js Dev Tools" [ref=e136] [cursor=pointer]:
+        - img [ref=e137]
+    - alert [ref=e140]
+```
