@@ -23,7 +23,7 @@ bun run dev
 
 ## Production Deployment
 
-### First-Time Setup (One-time)
+### First-Time Setup (One-time, before first deployment)
 
 1. **Set GitHub Secrets** (https://github.com/pwarnock/church-volunteer-app/settings/secrets/actions)
 
@@ -33,14 +33,13 @@ bun run dev
    - `VERCEL_PROJECT_ID` - From `.vercel/project.json`
    - `NEXTAUTH_SECRET` - Generate: `openssl rand -base64 32`
    - `NEXTAUTH_URL` - Production URL: `https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app`
-   - `ADMIN_SEED_TOKEN` - Generate: `openssl rand -hex 32`
 
 2. **Verify Secrets**
    ```bash
    # CI will validate all secrets on next PR
    ```
 
-### Deployment Workflow
+### Deployment Workflow (Every deployment)
 
 ```bash
 # 1. Create feature branch
@@ -50,35 +49,37 @@ git checkout -b feature/my-feature
 git push origin feature/my-feature
 
 # 3. Open PR → GitHub Actions runs CI ✅
+#    (validates secrets exist)
 
 # 4. Get approved and merge → GitHub Actions deploys to production ✅
-
-# 5. Post-deploy seed runs automatically ✅
 ```
 
-**What happens automatically:**
+### Initial Production Seed (First time only, after first deployment)
 
-- ✅ Lint + format check
-- ✅ Unit tests run
-- ✅ Preview deployment created
-- ✅ After merge: Production deployment
-- ✅ After deploy: Database seeded (idempotent)
-
-### Manual Seed (if needed)
+After the first successful deployment:
 
 ```bash
-curl -X POST \
-  https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/admin/seed \
-  -H "Authorization: Bearer YOUR_ADMIN_SEED_TOKEN"
+# Pull production environment variables
+vercel env pull
+
+# Seed the production database with demo users
+bunx prisma db seed
 ```
+
+This is a **one-time operation**. After this:
+
+- Demo users exist permanently in production database
+- Vercel Postgres is persistent (not ephemeral)
+- No re-seeding needed on future deployments
+- Real user data accumulates over time
 
 ## Troubleshooting
 
 ### Login returns 500
 
-- Check NEXTAUTH_SECRET is set in Vercel
+- Check NEXTAUTH_SECRET is set in Vercel: `vercel env pull`
 - Check NEXTAUTH_URL matches your domain
-- Run seed endpoint to populate users
+- Verify database was seeded: `bunx prisma db seed`
 
 ### Database errors
 
@@ -101,13 +102,12 @@ curl -X POST \
 │   └── pages/api/         # API routes (legacy)
 ├── prisma/
 │   ├── schema.prisma      # Database schema
-│   └── seed.ts            # Demo data seeder
+│   └── seed.ts            # Demo data definition
 ├── .github/workflows/
 │   ├── ci.yml             # Lint + test on PRs
 │   ├── deploy.yml         # Deploy to production
 │   ├── preview.yml        # Deploy preview
-│   ├── validate-secrets.yml    # Check required env vars
-│   └── post-deploy-seed.yml    # Seed after deploy
+│   └── validate-secrets.yml    # Check required env vars
 └── .env.example           # Environment template
 ```
 

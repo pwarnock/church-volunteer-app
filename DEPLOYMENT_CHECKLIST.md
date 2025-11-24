@@ -1,12 +1,12 @@
 # Deployment Checklist & Process
 
-## Problem
+## Problem We Had
 
-We deployed to production without required environment variables, causing authentication failures.
+Deployed to production without required environment variables (NEXTAUTH_SECRET, NEXTAUTH_URL), causing authentication failures.
 
 ## Solution: Environment Validation Before Deployment
 
-### 1. Required GitHub Secrets (Must be set BEFORE any deployment)
+### 1. Required GitHub Secrets (Set BEFORE any deployment)
 
 ```
 VERCEL_TOKEN              # Vercel authentication
@@ -14,71 +14,33 @@ VERCEL_ORG_ID             # Vercel organization
 VERCEL_PROJECT_ID         # Vercel project
 NEXTAUTH_SECRET           # NextAuth encryption key (min 32 chars)
 NEXTAUTH_URL              # Production URL
-ADMIN_SEED_TOKEN          # One-time seed endpoint token
 ```
 
 **Where to set:** https://github.com/pwarnock/church-volunteer-app/settings/secrets/actions
 
-### 2. Pre-Deployment Validation Script
+### 2. Pre-Deployment Validation (Automated in CI)
 
-Create `.github/workflows/validate-env.yml`:
+File: `.github/workflows/validate-secrets.yml`
 
-```yaml
-name: Validate Environment
+Validates that all required secrets exist before allowing deployment.
 
-on:
-  pull_request:
-    branches: [main]
+### 3. Database Seeding (One-time Setup)
 
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+**Initial setup (after first production deployment):**
 
-      - name: Check required secrets
-        run: |
-          REQUIRED_SECRETS=(
-            "VERCEL_TOKEN"
-            "VERCEL_ORG_ID"
-            "VERCEL_PROJECT_ID"
-            "NEXTAUTH_SECRET"
-            "NEXTAUTH_URL"
-            "ADMIN_SEED_TOKEN"
-          )
+```bash
+# Pull production environment
+vercel env pull
 
-          for secret in "${REQUIRED_SECRETS[@]}"; do
-            if [ -z "${!secret}" ]; then
-              echo "❌ Missing required secret: $secret"
-              exit 1
-            fi
-          done
-          echo "✅ All required secrets are configured"
+# Seed the database
+bunx prisma db seed
 ```
 
-### 3. Post-Deployment Seed Script
+This is a **one-time operation**. After initial seeding:
 
-After deployment, automatically seed the database:
-
-```yaml
-name: Post-Deploy Seed
-
-on:
-  deployment_status:
-    types: [success]
-
-jobs:
-  seed:
-    if: github.event.deployment.environment == 'production'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Seed production database
-        run: |
-          curl -X POST \
-            https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/admin/seed \
-            -H "Authorization: Bearer ${{ secrets.ADMIN_SEED_TOKEN }}" \
-            -w "\n%{http_code}\n"
-```
+- Demo users exist in production
+- Data persists across future deployments
+- No further seeding needed (Vercel Postgres is persistent)
 
 ### 4. Local Development Setup
 
@@ -105,47 +67,49 @@ bun run dev
 - [ ] All GitHub Secrets are set (see step 1)
 - [ ] NEXTAUTH_SECRET is at least 32 characters
 - [ ] NEXTAUTH_URL matches production domain exactly
-- [ ] Vercel environment variables are synced via `vercel env pull`
 
-**After production deployment:**
+**After first production deployment (one-time):**
 
-- [ ] Call `/api/admin/seed` endpoint to populate demo users
-- [ ] Test login with: `volunteer@demo.com` / `password123`
-- [ ] Verify leader dashboard works with: `leader@demo.com` / `password123`
+- [ ] Pull production env: `vercel env pull`
+- [ ] Seed database: `bunx prisma db seed`
+- [ ] Test login: `volunteer@demo.com` / `password123`
+- [ ] Verify leader dashboard: `leader@demo.com` / `password123`
 
 ## Why We Got Broken
 
 1. ❌ PR #6 deployed without NEXTAUTH_SECRET/URL
-2. ❌ No pre-deployment validation
-3. ❌ No automated post-deploy seeding
-4. ❌ No clear runbook for "production ready"
+2. ❌ No validation to prevent this
+3. ❌ No clear seeding documentation
 
-## The Fix (Prevent Future Issues)
+## Prevention (What We Fixed)
 
-1. ✅ Add environment validation to CI
-2. ✅ Automate post-deploy seeding
-3. ✅ Document required variables
-4. ✅ Create rollback playbook (if needed)
-5. ✅ Add smoke tests that verify auth works
+1. ✅ CI validates all secrets before deployment (`.github/workflows/validate-secrets.yml`)
+2. ✅ Clear one-time setup instructions (this document)
+3. ✅ Local seeding works the same way as production
 
-## Rollback Procedure
+## Deployment Flow
 
-If production breaks after deployment:
-
-```bash
-# Option 1: Revert to previous commit
-git revert <bad-commit-sha>
-git push origin main
-
-# Option 2: Quick fix deploy
-vercel --prod --prebuilt
+```
+1. Create PR → CI validates secrets exist
+2. Get approval → Merge to main
+3. Auto-deploy to production via GitHub Actions
+4. (First time only) Seed database: bunx prisma db seed
+5. Done - future deployments need no seeding
 ```
 
-## Next Deployment Steps
+## Rollback
 
-1. Verify all secrets are set ✓ (we did this)
-2. Merge PR to main → auto-deploys via GitHub Actions
-3. Wait for deployment to complete (~2 min)
-4. Run seed endpoint (one-time)
-5. Test login works
-6. Done
+If production breaks:
+
+```bash
+# Revert to previous commit
+git revert <bad-commit-sha>
+git push origin main
+# Auto-deploys again
+```
+
+## Files
+
+- `.github/workflows/validate-secrets.yml` - CI validation
+- `prisma/seed.ts` - Demo data definition
+- `SETUP_GUIDE.md` - Developer onboarding
