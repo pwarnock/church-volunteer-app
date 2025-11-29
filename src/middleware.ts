@@ -58,8 +58,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next|api/auth|static|favicon.ico).*)', // Exclude static files
+    // Match all paths except static files, API auth routes, and Next.js internals
+    '/((?!_next|api/auth|static|favicon.ico).*)',
     '/api/:path*',
-    '/((?!_next|[^?]*\\.(?:html?|json|txt|xml|js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|pdf|mp4|webm|mp3|zip|tgz|gz|rar|tar|map|bin|exe|pkg|deb|rpm|dmg|pkg|msi|msix|webmanifest|txt|xml|sw).*)',
   ],
 };
