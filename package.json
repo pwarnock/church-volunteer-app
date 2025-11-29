@@ -30,7 +30,9 @@
     "contract:init": "bunx tsx scripts/contract-first-dev.ts init",
     "contract:validate": "bunx tsx scripts/contract-first-dev.ts validate",
     "contract:mock": "bunx tsx src/generated/mock-server.ts",
-    "contract:generate": "bunx tsx scripts/generate-api-contracts.ts"
+    "contract:generate": "bunx tsx scripts/generate-api-contracts.ts",
+    "setup:db": "./scripts/setup-db.sh",
+    "validate:deployment": "bunx tsx scripts/validate-deployment.ts"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",

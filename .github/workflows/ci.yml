@@ -58,6 +58,12 @@ jobs:
       - name: Build application
         run: bun run build
 
+      - name: Validate API contracts
+        run: bun run contract:validate
+
+      - name: Validate deployment gates
+        run: bun run validate:deployment
+
       - name: Run E2E tests
         run: bun test:e2e
         env:

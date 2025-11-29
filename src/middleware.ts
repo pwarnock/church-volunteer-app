@@ -1,0 +1,75 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
+
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  // Security Headers
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // HSTS only in production
+  if (process.env.NODE_ENV === 'production') {
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+
+  // Content Security Policy
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: https:",
+    "font-src 'self'",
+    "connect-src 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ');
+  
+  response.headers.set('Content-Security-Policy', csp);
+
+  // Rate limiting for API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const clientIP = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+    
+    // Apply different rate limits for different endpoints
+    if (request.nextUrl.pathname.includes('/auth/')) {
+      // Stricter rate limiting for auth endpoints
+      rateLimit({
+        identifier: `auth:${clientIP}`,
+        limit: 5,
+        windowMs: 15 * 60 * 1000, // 15 minutes
+      });
+    } else if (request.nextUrl.pathname.includes('/applications/')) {
+      // Rate limit for applications
+      rateLimit({
+        identifier: `applications:${clientIP}`,
+        limit: 10,
+        windowMs: 60 * 60 * 1000, // 1 hour
+      });
+    } else if (request.nextUrl.pathname.includes('/opportunities/')) {
+      // Rate limit for opportunity creation
+      rateLimit({
+        identifier: `opportunities:${clientIP}`,
+        limit: 20,
+        windowMs: 60 * 60 * 1000, // 1 hour
+      });
+    }
+  }
+
+  // Remove server information headers
+  response.headers.delete('Server');
+  response.headers.delete('X-Powered-By');
+
+  return response;
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next|api/auth|static|favicon.ico).*)', // Exclude static files
+    '/api/:path*',
+    '/((?!_next|[^?]*\\.(?:html?|json|txt|xml|js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|pdf|mp4|webm|mp3|zip|tgz|gz|rar|tar|map|bin|exe|pkg|deb|rpm|dmg|pkg|msi|msix|webmanifest|txt|xml|sw).*)',
+  ],
+};

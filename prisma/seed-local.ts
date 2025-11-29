@@ -1,25 +1,156 @@
-import { PrismaClient } from '../src/generated/client.js';
+import { PrismaClient } from '../src/generated/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
+import bcrypt from 'bcryptjs';
 
 // Local development only - SQLite for safety
 const adapter = new PrismaBetterSqlite3({
   url: process.env.LOCAL_DB_URL || 'file:./prisma/dev.db',
 });
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
-    log: ['query', 'error', 'warn'],
-  });
+const prisma = new PrismaClient({ adapter });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+async function main() {
+  console.log('🌱 Starting local database seeding...');
+  console.log('Models available:', Object.keys(prisma).filter(key => typeof prisma[key as keyof typeof prisma] === 'object' && key !== '_request' && key !== '_engine' && key !== '_metrics' && key !== '_accelerateEngine'));
 
-// Log database connection for debugging
-console.log('🗄️ Local development initialized with SQLite');
-console.log('📍 Database:', process.env.LOCAL_DB_URL || 'file:./prisma/dev.db');
-console.log('🔒 Production data is SAFE - using isolated local SQLite');
+  // Create demo users
+  const demoUsers = [
+    {
+      name: 'John Volunteer',
+      email: 'volunteer@demo.com',
+      password: 'password123',
+      role: 'VOLUNTEER'
+    },
+    {
+      name: 'Sarah Leader',
+      email: 'leader@demo.com', 
+      password: 'password123',
+      role: 'MINISTRY_LEADER'
+    },
+    {
+      name: 'Mike Volunteer',
+      email: 'mike@demo.com',
+      password: 'password123', 
+      role: 'VOLUNTEER'
+    }
+  ];
+
+  for (const userData of demoUsers) {
+    const hashedPassword = await bcrypt.hash(userData.password, 12)
+    
+    const user = await prisma.user.upsert({
+      where: { email: userData.email },
+      update: {},
+      create: {
+        name: userData.name,
+        email: userData.email,
+        password: hashedPassword,
+        role: userData.role
+      }
+    })
+    
+    console.log(`✅ Created user: ${user.name} (${user.email})`)
+  }
+
+  // Get created users
+  const volunteer = await prisma.user.findUnique({ where: { email: 'volunteer@demo.com' } })
+  const leader = await prisma.user.findUnique({ where: { email: 'leader@demo.com' } })
+
+  if (volunteer && leader) {
+    // Create volunteer profile
+    await prisma.volunteerProfile.upsert({
+      where: { userId: volunteer.id },
+      update: {},
+      create: {
+        userId: volunteer.id,
+        bio: 'Passionate about serving in children ministry and community outreach',
+        spiritualGifts: JSON.stringify(['Teaching', 'Shepherding', 'Service']),
+        interests: JSON.stringify(['Children Ministry', 'Community Outreach', 'Youth Programs']),
+        availability: JSON.stringify({
+          weekdays: ['Evenings'],
+          weekends: ['Saturday morning', 'Sunday afternoon']
+        }),
+        skills: JSON.stringify(['Teaching', 'Mentoring', 'Event Planning']),
+        experience: '2 years volunteering in children ministry'
+      }
+    })
+
+    // Create demo opportunities
+    const opportunities = [
+      {
+        title: 'Sunday School Teacher',
+        description: 'Teach children ages 5-8 during Sunday school hour. Curriculum provided.',
+        ministry: 'Children Ministry',
+        location: 'Main Building - Classroom 2',
+        requirements: JSON.stringify(['Background check', 'Teaching experience preferred', 'Love for children']),
+        timeCommitment: '2 hours per week',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+        leaderId: leader.id
+      },
+      {
+        title: 'Community Outreach Volunteer',
+        description: 'Help organize and run monthly community outreach events in local neighborhoods.',
+        ministry: 'Community Outreach',
+        location: 'Various Locations',
+        requirements: JSON.stringify(['Valid drivers license', 'Good communication skills', 'Flexible schedule']),
+        timeCommitment: '4-6 hours per month',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 180 days from now
+        leaderId: leader.id
+      },
+      {
+        title: 'Youth Group Mentor',
+        description: 'Mentor high school students in weekly youth group meetings and activities.',
+        ministry: 'Youth Ministry',
+        location: 'Youth Center',
+        requirements: JSON.stringify(['Background check', 'Experience with teenagers', 'Good listener']),
+        timeCommitment: '3 hours per week',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 120 * 24 * 60 * 60 * 1000), // 120 days from now
+        leaderId: leader.id
+      }
+    ];
+
+    for (const oppData of opportunities) {
+      const opportunity = await prisma.opportunity.create({
+        data: oppData
+      })
+      console.log(`✅ Created opportunity: ${opportunity.title}`)
+    }
+
+    // Create demo applications
+    const sundaySchool = await prisma.opportunity.findFirst({ 
+      where: { title: 'Sunday School Teacher' } 
+    });
+    
+    if (sundaySchool) {
+      await prisma.application.upsert({
+        where: {
+          opportunityId_volunteerId: {
+            opportunityId: sundaySchool.id,
+            volunteerId: volunteer.id
+          }
+        },
+        update: {},
+        create: {
+          opportunityId: sundaySchool.id,
+          volunteerId: volunteer.id,
+          message: 'I have experience teaching children and would love to serve in this role!'
+        }
+      })
+      console.log(`✅ Created application for ${volunteer.name}`)
+    }
+  }
+
+  console.log('🎉 Local database seeding completed!')
+}
+
+main()
+  .catch((e) => {
+    console.error('❌ Seeding error:', e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
