@@ -40,7 +40,7 @@ vi.mock('next-auth', () => ({
   getServerSession: vi.fn(),
 }));
 
-vi.mock('@/pages/api/auth/[...nextauth]', () => ({
+vi.mock('@/lib/auth', () => ({
   authOptions: {},
 }));
 
