@@ -1,0 +1,26 @@
+  // Check authorization: only MINISTRY_LEADER can delete opportunities
+  // User must be the opportunity leader
+  if (opportunity.leaderId !== session.user.id) {
+    return unauthorizedResponse();
+  }
+
+  // Only MINISTRY_LEADER can delete opportunities
+  if (session.user.role === 'VOLUNTEER') {
+    return unauthorizedResponse();
+  }
+
+  // Delete the opportunity
+  await prisma.opportunity.delete({
+    where: { id: opportunityId },
+  });
+
+  logger.info('Opportunity deleted', {
+    userId: session.user.id,
+    opportunityId,
+  });
+
+  return NextResponse.json(
+    { success: true, message: 'Opportunity deleted successfully' },
+    { status: 200 }
+  );
+}

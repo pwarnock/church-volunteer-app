@@ -29,10 +29,14 @@ async function handleDelete(
     return notFoundResponse('Opportunity');
   }
 
-  if (
-    opportunity.leaderId !== session.user.id &&
-    session.user.role !== 'ADMIN'
-  ) {
+  // Check authorization: only MINISTRY_LEADER can delete opportunities
+  // User must be the opportunity leader
+  if (opportunity.leaderId !== session.user.id) {
+    return unauthorizedResponse();
+  }
+
+  // Only MINISTRY_LEADER can delete opportunities (not VOLUNTEER)
+  if (session.user.role === 'VOLUNTEER') {
     return unauthorizedResponse();
   }
 
