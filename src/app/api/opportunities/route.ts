@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { opportunitySchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
-import { withErrorHandling } from '@/lib/api-middleware';
-import { logger } from '@/lib/logger';
-import { recordRateLimitHit } from '@/lib/metrics';
+import { trackApiError, trackUserAction } from '@/lib/logger';
 import {
   rateLimitResponse,
   validationErrorResponse,
@@ -53,10 +51,11 @@ const handlePost = async (request: NextRequest) => {
 
   // Rate limiting: 20 opportunities per 60 minutes per leader
   if (!rateLimit(`opportunities:${session.user.id}`, 20, 60 * 60 * 1000)) {
-    logger.warn('Opportunity creation rate limit exceeded', {
+    trackApiError(new Error('Rate limit exceeded'), {
+      endpoint: '/api/opportunities',
+      method: 'POST',
       userId: session.user.id,
     });
-    recordRateLimitHit('/api/opportunities', session.user.id);
     return rateLimitResponse(
       'Too many opportunities created. Please try again later.'
     );
@@ -71,9 +70,10 @@ const handlePost = async (request: NextRequest) => {
   });
 
   if (!validationResult.success) {
-    logger.warn('Opportunity validation failed', {
+    trackApiError(new Error('Validation failed'), {
+      endpoint: '/api/opportunities',
+      method: 'POST',
       userId: session.user.id,
-      errors: validationResult.error.flatten(),
     });
     return validationErrorResponse(validationResult.error.flatten());
   }
