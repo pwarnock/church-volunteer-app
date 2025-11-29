@@ -32,30 +32,20 @@ export function middleware(request: NextRequest) {
 
   // Rate limiting for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    const clientIP = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+    const clientIP = request.headers.get('x-forwarded-for') || 
+                      request.headers.get('x-real-ip') || 
+                      'unknown';
     
     // Apply different rate limits for different endpoints
     if (request.nextUrl.pathname.includes('/auth/')) {
       // Stricter rate limiting for auth endpoints
-      rateLimit({
-        identifier: `auth:${clientIP}`,
-        limit: 5,
-        windowMs: 15 * 60 * 1000, // 15 minutes
-      });
+      rateLimit(`auth:${clientIP}`, 5, 15 * 60 * 1000); // 15 minutes
     } else if (request.nextUrl.pathname.includes('/applications/')) {
       // Rate limit for applications
-      rateLimit({
-        identifier: `applications:${clientIP}`,
-        limit: 10,
-        windowMs: 60 * 60 * 1000, // 1 hour
-      });
+      rateLimit(`applications:${clientIP}`, 10, 60 * 60 * 1000); // 1 hour
     } else if (request.nextUrl.pathname.includes('/opportunities/')) {
       // Rate limit for opportunity creation
-      rateLimit({
-        identifier: `opportunities:${clientIP}`,
-        limit: 20,
-        windowMs: 60 * 60 * 1000, // 1 hour
-      });
+      rateLimit(`opportunities:${clientIP}`, 20, 60 * 60 * 1000); // 1 hour
     }
   }
 
