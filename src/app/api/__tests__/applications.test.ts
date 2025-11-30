@@ -8,6 +8,8 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
+import { generateTestScenarios } from '@/test-data/factory';
+import { generateTestScenarios } from '@/test-data/factory';
 
 // Mock dependencies before importing the route
 const mockPrisma = {
@@ -130,7 +132,6 @@ describe('Applications API - Data-Driven Testing', () => {
     });
 
     it('should generate test scenarios', () => {
-      const { generateTestScenarios } = require('@/test-data/factory');
       const scenarios = generateTestScenarios('applications');
 
       expect(scenarios).toHaveLength(3);
