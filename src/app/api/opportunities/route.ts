@@ -24,9 +24,9 @@ const handleGet = async () => {
           email: true,
         },
       },
-      _count: {
+      applications: {
         select: {
-          applications: true,
+          id: true,
         },
       },
     },
@@ -35,11 +35,19 @@ const handleGet = async () => {
     },
   });
 
+  // Transform opportunities to include count
+  const opportunitiesWithCount = opportunities.map(opportunity => ({
+    ...opportunity,
+    _count: {
+      applications: opportunity.applications.length,
+    },
+  }));
+
   logger.info('Opportunities fetched', {
-    count: opportunities.length,
+    count: opportunitiesWithCount.length,
   });
 
-  return NextResponse.json({ opportunities });
+  return NextResponse.json({ opportunities: opportunitiesWithCount });
 };
 
 const handlePost = async (request: NextRequest) => {
