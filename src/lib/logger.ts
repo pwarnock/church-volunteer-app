@@ -295,8 +295,8 @@ function outputLog(entry: LogEntry) {
     console.log(JSON.stringify(entry));
   }
 
-  // Send to external observability platform (optional, feature-flagged)
-  sendToObservabilityPlatform(entry);
+  // Send to external observability platform (disabled for now to prevent API crashes)
+  // sendToObservabilityPlatform(entry);
 }
 
 /**
