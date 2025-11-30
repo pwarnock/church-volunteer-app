@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { opportunitySchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
 import { trackApiError, trackUserAction } from '@/lib/logger';
+import { withErrorHandling } from '@/lib/api-middleware';
 import {
   rateLimitResponse,
   validationErrorResponse,
