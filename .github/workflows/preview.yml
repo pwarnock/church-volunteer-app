@@ -40,7 +40,7 @@ jobs:
       - name: Run Enhanced Preview Tests
         id: preview-tests
         run: |
-          bun run test:preview ${{ steps.deploy.outputs.url }} || echo "tests_failed=true" >> $GITHUB_OUTPUT
+          bun run test:preview "${{ steps.deploy.outputs.url }}" || echo "tests_failed=true" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
