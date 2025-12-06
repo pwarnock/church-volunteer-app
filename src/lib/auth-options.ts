@@ -4,15 +4,30 @@ import GoogleProvider from 'next-auth/providers/google';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
+// Get NEXTAUTH_URL with fallback for Vercel preview
+const getAuthUrl = (): string => {
+  if (process.env.NEXTAUTH_URL) {
+    return process.env.NEXTAUTH_URL;
+  }
+  
+  if (process.env.VERCEL_URL) {
+    const protocol = process.env.VERCEL_ENV === 'production' ? 'https' : 'https';
+    return `${protocol}://${process.env.VERCEL_URL}`;
+  }
+  
+  return 'http://localhost:3000';
+};
+
 // Ensure NEXTAUTH_SECRET is set for all environments
 const getAuthSecret = (): string => {
   const secret = process.env.NEXTAUTH_SECRET;
   if (!secret) {
     // In non-production, use a derived secret from other env vars
     if (process.env.NODE_ENV !== 'production') {
-      const fallback = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}-dev-secret`;
+      const baseUrl = getAuthUrl();
+      const fallback = `${baseUrl}-dev-secret-key`;
       console.warn(
-        'NEXTAUTH_SECRET not found, using fallback for development only. Set NEXTAUTH_SECRET in production!'
+        'NEXTAUTH_SECRET not found in environment. Using fallback derived from base URL. Set NEXTAUTH_SECRET for persistent sessions.'
       );
       return fallback;
     }
