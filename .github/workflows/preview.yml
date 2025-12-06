@@ -44,25 +44,36 @@ jobs:
           echo "Organization: $VERCEL_ORG_ID"
           echo "Project: $VERCEL_PROJECT_ID"
 
-          DEPLOYMENT_OUTPUT=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1)
+          # Run deployment with timeout and debug output
+          set +e
+          timeout 60 vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --verbose 2>&1 | tee vercel-output.txt
           DEPLOYMENT_EXIT_CODE=$?
-          echo "=== Deployment Output ==="
-          echo "$DEPLOYMENT_OUTPUT"
-          echo "=== Exit Code: $DEPLOYMENT_EXIT_CODE ==="
+          set -e
+
+          echo "=== Deployment Exit Code: $DEPLOYMENT_EXIT_CODE ==="
+          echo "=== Vercel Output ==="
+          cat vercel-output.txt
+          echo "=== End of Output ==="
 
           if [ $DEPLOYMENT_EXIT_CODE -ne 0 ]; then
-            echo "ERROR: Vercel deployment failed with exit code $DEPLOYMENT_EXIT_CODE"
+            if [ $DEPLOYMENT_EXIT_CODE -eq 124 ]; then
+              echo "ERROR: Vercel deployment timed out after 60 seconds"
+            else
+              echo "ERROR: Vercel deployment failed with exit code $DEPLOYMENT_EXIT_CODE"
+            fi
             exit 1
           fi
 
-          DEPLOYMENT_URL=$(echo "$DEPLOYMENT_OUTPUT" | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1 || echo "")
+          DEPLOYMENT_URL=$(cat vercel-output.txt | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1 || echo "")
           if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
             echo "=== Attempting JSON output parsing ==="
-            DEPLOYMENT_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --json 2>&1 | jq -r '.url // empty' || echo "")
+            timeout 60 vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --json 2>&1 | tee vercel-json.txt
+            DEPLOYMENT_URL=$(cat vercel-json.txt | jq -r '.url // empty' 2>/dev/null || echo "")
           fi
           if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
             echo "=== Attempting inspect fallback ==="
-            DEPLOYMENT_URL=$(vercel inspect --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | jq -r '.url // empty' || echo "")
+            timeout 60 vercel inspect --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee vercel-inspect.txt
+            DEPLOYMENT_URL=$(cat vercel-inspect.txt | jq -r '.url // empty' 2>/dev/null || echo "")
           fi
 
           # Validate final URL
