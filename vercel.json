@@ -5,13 +5,5 @@
     "src/app/api/**/*.ts": {
       "maxDuration": 10
     }
-  },
-  "env": {
-    "NEXTAUTH_SECRET": {
-      "description": "NextAuth.js secret key for JWT signing"
-    },
-    "NEXTAUTH_URL": {
-      "description": "NextAuth.js URL"
-    }
   }
 }
