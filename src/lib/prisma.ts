@@ -10,7 +10,8 @@ const globalForPrisma = globalThis as unknown as {
 const isProduction = process.env.NODE_ENV === 'production';
 const hasPostgres = !!(
   process.env.POSTGRES_URL ||
-  (process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith('postgresql'))
+  (process.env.DATABASE_URL &&
+    process.env.DATABASE_URL.startsWith('postgresql'))
 );
 
 // Production: PostgreSQL adapter, Local: better-sqlite3 adapter

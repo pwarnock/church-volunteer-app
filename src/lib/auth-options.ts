@@ -9,12 +9,13 @@ const getAuthUrl = (): string => {
   if (process.env.NEXTAUTH_URL) {
     return process.env.NEXTAUTH_URL;
   }
-  
+
   if (process.env.VERCEL_URL) {
-    const protocol = process.env.VERCEL_ENV === 'production' ? 'https' : 'https';
+    const protocol =
+      process.env.VERCEL_ENV === 'production' ? 'https' : 'https';
     return `${protocol}://${process.env.VERCEL_URL}`;
   }
-  
+
   return 'http://localhost:3000';
 };
 
@@ -26,14 +27,14 @@ const getAuthSecret = (): string => {
     // This is acceptable because preview environments are ephemeral
     const baseUrl = getAuthUrl();
     const fallback = `${baseUrl}-dev-secret-key`;
-    
+
     if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL) {
       // Only throw in production when not on Vercel (actual production)
       throw new Error(
         'NEXTAUTH_SECRET environment variable must be set for permanent deployments'
       );
     }
-    
+
     console.warn(
       'NEXTAUTH_SECRET not found. Using fallback derived from deployment URL. This is acceptable for ephemeral preview/test deployments.'
     );

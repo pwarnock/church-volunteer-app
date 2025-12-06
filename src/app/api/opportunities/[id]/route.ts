@@ -16,7 +16,7 @@ async function handleDelete(
   if (!session) {
     return unauthorizedResponse();
   }
-  
+
   const userRole = (session.user as any).role;
   if (userRole !== 'MINISTRY_LEADER' && userRole !== 'ADMIN') {
     return unauthorizedResponse();
@@ -34,10 +34,7 @@ async function handleDelete(
     return notFoundResponse('Opportunity');
   }
 
-  if (
-    opportunity.leaderId !== session.user.id &&
-    userRole !== 'ADMIN'
-  ) {
+  if (opportunity.leaderId !== session.user.id && userRole !== 'ADMIN') {
     return unauthorizedResponse();
   }
 
