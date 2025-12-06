@@ -25,12 +25,70 @@ jobs:
       - name: Deploy to Vercel Preview
         id: deploy
         run: |
+          # Validate required environment variables
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "ERROR: VERCEL_ORG_ID is not set"
+            exit 1
+          fi
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "ERROR: VERCEL_PROJECT_ID is not set"
+            exit 1
+          fi
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "ERROR: VERCEL_TOKEN is not set"
+            exit 1
+          fi
+
           bun install -g vercel
-          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt 2>&1
-          echo "url=$(tail -1 deployment-url.txt)" >> $GITHUB_OUTPUT
+          echo "=== Starting Vercel Deployment ==="
+          echo "Organization: $VERCEL_ORG_ID"
+          echo "Project: $VERCEL_PROJECT_ID"
+
+          # Run deployment with timeout and debug output
+          set +e
+          timeout 60 vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | tee vercel-output.txt
+          DEPLOYMENT_EXIT_CODE=$?
+          set -e
+
+          echo "=== Deployment Exit Code: $DEPLOYMENT_EXIT_CODE ==="
+          echo "=== Vercel Output ==="
+          cat vercel-output.txt
+          echo "=== End of Output ==="
+
+          if [ $DEPLOYMENT_EXIT_CODE -ne 0 ]; then
+            if [ $DEPLOYMENT_EXIT_CODE -eq 124 ]; then
+              echo "ERROR: Vercel deployment timed out after 60 seconds"
+            else
+              echo "ERROR: Vercel deployment failed with exit code $DEPLOYMENT_EXIT_CODE"
+            fi
+            exit 1
+          fi
+
+          DEPLOYMENT_URL=$(cat vercel-output.txt | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1 || echo "")
+          if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
+            echo "=== Attempting JSON output parsing ==="
+            timeout 60 vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --json 2>&1 | tee vercel-json.txt
+            DEPLOYMENT_URL=$(cat vercel-json.txt | jq -r '.url // empty' 2>/dev/null || echo "")
+          fi
+          if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
+            echo "=== Attempting inspect fallback ==="
+            timeout 60 vercel inspect --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee vercel-inspect.txt
+            DEPLOYMENT_URL=$(cat vercel-inspect.txt | jq -r '.url // empty' 2>/dev/null || echo "")
+          fi
+
+          # Validate final URL
+          if [ -z "$DEPLOYMENT_URL" ]; then
+            echo "ERROR: Failed to extract deployment URL from Vercel output"
+            echo "Check Vercel dashboard for build errors"
+            exit 1
+          fi
+
+          echo "=== Final Deployment URL: $DEPLOYMENT_URL ==="
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Wait for Deployment
         run: |

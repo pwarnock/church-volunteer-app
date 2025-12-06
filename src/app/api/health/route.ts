@@ -5,13 +5,27 @@ export const revalidate = 0; // Don't cache health checks
 
 export async function GET() {
   try {
-    // Check database connection
-    await prisma.$queryRaw`SELECT 1`;
+    const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+    let databaseStatus = 'not-configured';
+
+    // Only check database if URL is configured
+    if (databaseUrl) {
+      try {
+        await prisma.$queryRaw`SELECT 1`;
+        databaseStatus = 'connected';
+      } catch (dbError) {
+        console.error('Database connection failed:', dbError);
+        databaseStatus = 'disconnected';
+        throw dbError;
+      }
+    }
 
     return NextResponse.json({
       status: 'ok',
       timestamp: new Date().toISOString(),
-      database: 'connected',
+      database: databaseStatus,
+      hasDatabaseUrl: !!databaseUrl,
+      environment: process.env.NODE_ENV || 'unknown',
       version: '1.0.0',
     });
   } catch (error) {
@@ -21,7 +35,7 @@ export async function GET() {
       {
         status: 'error',
         timestamp: new Date().toISOString(),
-        database: 'disconnected',
+        database: 'error',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 503 }

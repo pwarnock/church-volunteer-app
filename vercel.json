@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bunx prisma generate && next build",
+  "buildCommand": "bunx prisma generate || DATABASE_URL='file:./prisma/dev.db' bunx prisma generate && next build",
   "installCommand": "bun install",
   "functions": {
     "src/app/api/**/*.ts": {
