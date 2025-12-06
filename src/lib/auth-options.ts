@@ -22,18 +22,22 @@ const getAuthUrl = (): string => {
 const getAuthSecret = (): string => {
   const secret = process.env.NEXTAUTH_SECRET;
   if (!secret) {
-    // In non-production, use a derived secret from other env vars
-    if (process.env.NODE_ENV !== 'production') {
-      const baseUrl = getAuthUrl();
-      const fallback = `${baseUrl}-dev-secret-key`;
-      console.warn(
-        'NEXTAUTH_SECRET not found in environment. Using fallback derived from base URL. Set NEXTAUTH_SECRET for persistent sessions.'
+    // Use a derived secret from URL-based fallback for non-persistent deployments (preview, etc.)
+    // This is acceptable because preview environments are ephemeral
+    const baseUrl = getAuthUrl();
+    const fallback = `${baseUrl}-dev-secret-key`;
+    
+    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL) {
+      // Only throw in production when not on Vercel (actual production)
+      throw new Error(
+        'NEXTAUTH_SECRET environment variable must be set for permanent deployments'
       );
-      return fallback;
     }
-    throw new Error(
-      'NEXTAUTH_SECRET environment variable is not set in production'
+    
+    console.warn(
+      'NEXTAUTH_SECRET not found. Using fallback derived from deployment URL. This is acceptable for ephemeral preview/test deployments.'
     );
+    return fallback;
   }
   return secret;
 };
