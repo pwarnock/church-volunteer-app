@@ -61,7 +61,7 @@ vi.mock('@/lib/api-middleware', () => ({
 }));
 
 // Import after mocking
-import { testDataFactory } from '@/test-data/factory';
+import { testDataFactory, generateTestScenarios } from '@/test-data/factory';
 import { testDataStorage } from '@/test-data/storage';
 
 describe('Applications API - Data-Driven Testing', () => {

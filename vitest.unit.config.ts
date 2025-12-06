@@ -23,8 +23,9 @@ export default defineConfig({
       '.next/**',
       'features/**',
       'test-results/**',
-      'src/__tests__/**', // Exclude ALL test files from unit runs
+      'src/__tests__/integration/**', // Exclude integration tests from unit runs
       '**/*.spec.ts', // Exclude Playwright spec files
+      '**/e2e/**/*.ts', // Explicitly exclude all e2e files
     ],
     coverage: {
       provider: 'v8',

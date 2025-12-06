@@ -82,7 +82,9 @@ class EnhancedPreviewTesting {
         console.log('✅ Health check passed');
         console.log(`   Status: ${health.status}`);
         console.log(`   Environment: ${health.environment || 'unknown'}`);
-        console.log(`   Database: ${health.hasDatabaseUrl ? '✅ configured' : '⚠️  not-configured'}`);
+        console.log(
+          `   Database: ${health.hasDatabaseUrl ? '✅ configured' : '⚠️  not-configured'}`
+        );
 
         this.testResults.healthCheck = true;
       } else {
@@ -133,7 +135,9 @@ class EnhancedPreviewTesting {
       if (response.status === 403 || response.ok) {
         console.log(`   ✅ Static assets directory accessible`);
       } else {
-        console.log(`   ⚠️  Static assets may not be accessible: ${response.status}`);
+        console.log(
+          `   ⚠️  Static assets may not be accessible: ${response.status}`
+        );
       }
 
       this.testResults.smokeTests = true;

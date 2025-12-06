@@ -8,7 +8,7 @@ import {
   beforeAll,
   afterAll,
 } from 'vitest';
-import '@testing-library/jest-dom';
+// import '@testing-library/jest-dom'; // Disabled for coverage tests due to compatibility issues
 import { cleanup } from '@testing-library/react';
 
 // Cleanup after each test

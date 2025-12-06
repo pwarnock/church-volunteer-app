@@ -23,7 +23,7 @@ jobs:
         run: bun run format:check
 
       - name: Run unit tests
-        run: bun test --run
+        run: bun test:unit
         continue-on-error: true
 
       - name: Generate coverage report

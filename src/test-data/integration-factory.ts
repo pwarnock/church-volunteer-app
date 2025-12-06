@@ -154,8 +154,11 @@ export class IntegrationTestDataFactory {
   }
 
   static async cleanupScenario(scenario: TestScenario) {
+    // Import prisma here to avoid circular dependency issues
+    const { prisma } = await import('../lib/prisma');
+
     // Clean up in correct order to respect foreign key constraints
-    if (scenario.application) {
+    if (scenario?.application?.id) {
       await prisma.application
         .delete({
           where: { id: scenario.application.id },
@@ -163,7 +166,7 @@ export class IntegrationTestDataFactory {
         .catch(() => {}); // Ignore if already deleted
     }
 
-    if (scenario.profile) {
+    if (scenario?.profile?.id) {
       await prisma.volunteerProfile
         .delete({
           where: { id: scenario.profile.id },
@@ -171,7 +174,7 @@ export class IntegrationTestDataFactory {
         .catch(() => {});
     }
 
-    if (scenario.opportunity) {
+    if (scenario?.opportunity?.id) {
       await prisma.opportunity
         .delete({
           where: { id: scenario.opportunity.id },
@@ -180,16 +183,21 @@ export class IntegrationTestDataFactory {
     }
 
     // Clean up users
-    await prisma.user
-      .deleteMany({
-        where: {
-          id: { in: [scenario.leader.id, scenario.volunteer.id] },
-        },
-      })
-      .catch(() => {});
+    if (scenario?.leader?.id && scenario?.volunteer?.id) {
+      await prisma.user
+        .deleteMany({
+          where: {
+            id: { in: [scenario.leader.id, scenario.volunteer.id] },
+          },
+        })
+        .catch(() => {});
+    }
   }
 
   static async cleanupAll() {
+    // Import prisma here to avoid circular dependency issues
+    const { prisma } = await import('../lib/prisma');
+
     // Clean up all test data in correct order
     await prisma.application.deleteMany();
     await prisma.volunteerProfile.deleteMany();
