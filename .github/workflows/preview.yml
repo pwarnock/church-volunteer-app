@@ -25,8 +25,25 @@ jobs:
       - name: Deploy to Vercel Preview
         id: deploy
         run: |
+          # Validate required environment variables
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "ERROR: VERCEL_ORG_ID is not set"
+            exit 1
+          fi
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "ERROR: VERCEL_PROJECT_ID is not set"
+            exit 1
+          fi
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "ERROR: VERCEL_TOKEN is not set"
+            exit 1
+          fi
+          
           bun install -g vercel
           echo "=== Starting Vercel Deployment ==="
+          echo "Organization: $VERCEL_ORG_ID"
+          echo "Project: $VERCEL_PROJECT_ID"
+          
           DEPLOYMENT_OUTPUT=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1)
           DEPLOYMENT_EXIT_CODE=$?
           echo "=== Deployment Output ==="
@@ -34,7 +51,7 @@ jobs:
           echo "=== Exit Code: $DEPLOYMENT_EXIT_CODE ==="
           
           if [ $DEPLOYMENT_EXIT_CODE -ne 0 ]; then
-            echo "ERROR: Vercel deployment failed"
+            echo "ERROR: Vercel deployment failed with exit code $DEPLOYMENT_EXIT_CODE"
             exit 1
           fi
           
@@ -47,6 +64,14 @@ jobs:
             echo "=== Attempting inspect fallback ==="
             DEPLOYMENT_URL=$(vercel inspect --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | jq -r '.url // empty' || echo "")
           fi
+          
+          # Validate final URL
+          if [ -z "$DEPLOYMENT_URL" ]; then
+            echo "ERROR: Failed to extract deployment URL from Vercel output"
+            echo "Check Vercel dashboard for build errors"
+            exit 1
+          fi
+          
           echo "=== Final Deployment URL: $DEPLOYMENT_URL ==="
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
         env:
