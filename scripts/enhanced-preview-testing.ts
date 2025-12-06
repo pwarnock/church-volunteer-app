@@ -80,9 +80,9 @@ class EnhancedPreviewTesting {
       if (response.ok) {
         const health = await response.json();
         console.log('✅ Health check passed');
+        console.log(`   Status: ${health.status}`);
         console.log(`   Environment: ${health.environment || 'unknown'}`);
-        console.log(`   Database: ${health.hasDatabaseUrl ? '✅' : '❌'}`);
-        console.log(`   Auth: ${health.hasNextAuthUrl ? '✅' : '❌'}`);
+        console.log(`   Database: ${health.hasDatabaseUrl ? '✅ configured' : '⚠️  not-configured'}`);
 
         this.testResults.healthCheck = true;
       } else {
