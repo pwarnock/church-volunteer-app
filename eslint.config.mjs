@@ -12,15 +12,17 @@ const eslintConfig = defineConfig([
     'out/**',
     'build/**',
     'next-env.d.ts',
-    // Added from .eslintignore:
-    'node_modules',
-    'dist',
-    'coverage',
+    // Additional ignores from .eslintignore:
+    'node_modules/**',
+    'dist/**',
+    'coverage/**',
     '.env*',
     '*.lock',
-    'prisma',
-    'public',
-    '.vercel',
+    'bun.lock',
+    'package-lock.json',
+    'prisma/**',
+    'public/**',
+    '.vercel/**',
   ]),
   {
     rules: {
