@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { authOptions } from '@/lib/auth-options';
 import { prisma } from '@/lib/prisma';
 import { withErrorHandling } from '@/lib/api-middleware';
 import { logger } from '@/lib/logger';
@@ -13,7 +13,12 @@ async function handleDelete(
   const params = await context.params;
   const session = await getServerSession(authOptions);
 
-  if (!session || session.user.role !== 'MINISTRY_LEADER') {
+  if (!session) {
+    return unauthorizedResponse();
+  }
+  
+  const userRole = (session.user as any).role;
+  if (userRole !== 'MINISTRY_LEADER' && userRole !== 'ADMIN') {
     return unauthorizedResponse();
   }
 
@@ -31,7 +36,7 @@ async function handleDelete(
 
   if (
     opportunity.leaderId !== session.user.id &&
-    session.user.role !== 'ADMIN'
+    userRole !== 'ADMIN'
   ) {
     return unauthorizedResponse();
   }
