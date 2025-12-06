@@ -1,5 +1,3 @@
-import { prisma } from '../lib/prisma';
-
 /**
  * Integration Test Data Factory
  *
@@ -25,13 +23,25 @@ export interface TestScenario {
 
 export class IntegrationTestDataFactory {
   private static counter = 0;
+  private static prismaPromise: Promise<any> | null = null;
 
   static getNextId() {
     return ++this.counter;
   }
 
+  // Helper method to get prisma client
+  private static async getPrisma() {
+    if (!this.prismaPromise) {
+      this.prismaPromise = import('../lib/prisma').then(
+        (module) => module.prisma
+      );
+    }
+    return this.prismaPromise;
+  }
+
   static async createUser(overrides?: Partial<TestUser>): Promise<TestUser> {
     const id = this.getNextId();
+    const prisma = await this.getPrisma();
     return prisma.user.create({
       data: {
         email: `test-user-${id}-${Date.now()}@test.com`,
@@ -45,6 +55,7 @@ export class IntegrationTestDataFactory {
 
   static async createLeader(overrides?: Partial<TestUser>): Promise<TestUser> {
     const id = this.getNextId();
+    const prisma = await this.getPrisma();
     return prisma.user.create({
       data: {
         email: `test-leader-${id}-${Date.now()}@test.com`,
@@ -58,6 +69,7 @@ export class IntegrationTestDataFactory {
 
   static async createOpportunity(leaderId: string, overrides?: any) {
     const id = this.getNextId();
+    const prisma = await this.getPrisma();
     const baseData = {
       title: `Test Opportunity ${id}`,
       description: `Test Description ${id}`,
@@ -88,6 +100,7 @@ export class IntegrationTestDataFactory {
 
   static async createVolunteerProfile(userId: string, overrides?: any) {
     const id = this.getNextId();
+    const prisma = await this.getPrisma();
     return prisma.volunteerProfile.create({
       data: {
         userId,
@@ -110,6 +123,7 @@ export class IntegrationTestDataFactory {
     overrides?: any
   ) {
     const id = this.getNextId();
+    const prisma = await this.getPrisma();
     return prisma.application.create({
       data: {
         opportunityId,
@@ -154,8 +168,7 @@ export class IntegrationTestDataFactory {
   }
 
   static async cleanupScenario(scenario: TestScenario) {
-    // Import prisma here to avoid circular dependency issues
-    const { prisma } = await import('../lib/prisma');
+    const prisma = await this.getPrisma();
 
     // Clean up in correct order to respect foreign key constraints
     if (scenario?.application?.id) {
@@ -195,8 +208,7 @@ export class IntegrationTestDataFactory {
   }
 
   static async cleanupAll() {
-    // Import prisma here to avoid circular dependency issues
-    const { prisma } = await import('../lib/prisma');
+    const prisma = await this.getPrisma();
 
     // Clean up all test data in correct order
     await prisma.application.deleteMany();
