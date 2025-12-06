@@ -2,13 +2,14 @@ import 'dotenv/config';
 import { defineConfig } from 'prisma/config';
 
 // Determine provider and URL based on environment
-const isProduction = process.env.NODE_ENV === 'production';
-const hasPostgresUrl = !!(process.env.POSTGRES_URL || process.env.DATABASE_URL);
+// Priority: POSTGRES_URL > DATABASE_URL > LOCAL_DB_URL > default sqlite
+const postgresUrl = process.env.POSTGRES_URL;
+const databaseUrl = process.env.DATABASE_URL;
+const localDbUrl = process.env.LOCAL_DB_URL;
 
+const hasPostgresUrl = !!(postgresUrl || databaseUrl);
 const provider = hasPostgresUrl ? 'postgresql' : 'sqlite';
-const url = hasPostgresUrl
-  ? (process.env.POSTGRES_URL || process.env.DATABASE_URL)
-  : (process.env.LOCAL_DB_URL || 'file:./prisma/dev.db');
+const url = postgresUrl || databaseUrl || localDbUrl || 'file:./prisma/dev.db';
 
 export default defineConfig({
   schema: './prisma/schema.prisma',
