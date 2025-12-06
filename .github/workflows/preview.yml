@@ -26,9 +26,13 @@ jobs:
         id: deploy
         run: |
           bun install -g vercel
-          DEPLOYMENT_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1 || echo "")
+          DEPLOYMENT_OUTPUT=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1)
+          DEPLOYMENT_URL=$(echo "$DEPLOYMENT_OUTPUT" | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1 || echo "")
           if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
-            DEPLOYMENT_URL=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | grep -oP 'https://[a-zA-Z0-9\-]+\.(vercel\.app|now\.sh|[a-zA-Z0-9\-]+\.[a-zA-Z]{2,})' | head -1)
+            DEPLOYMENT_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --json 2>&1 | jq -r '.url // empty' || echo "")
+          fi
+          if [ -z "$DEPLOYMENT_URL" ] || [ "$DEPLOYMENT_URL" = "https://vercel" ] || [[ "$DEPLOYMENT_URL" == *"vercel.com"* ]]; then
+            DEPLOYMENT_URL=$(vercel inspect --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | jq -r '.url // empty' || echo "")
           fi
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
         env:
