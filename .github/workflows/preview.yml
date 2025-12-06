@@ -26,9 +26,9 @@ jobs:
         id: deploy
         run: |
           bun install -g vercel
-          DEPLOYMENT_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | grep -oP 'https://[^\s]+(?=\.)' | head -1 || echo "")
+          DEPLOYMENT_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | grep -oP 'https://[^\s]+\.vercel\.app' | head -1 || echo "")
           if [ -z "$DEPLOYMENT_URL" ]; then
-            DEPLOYMENT_URL=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | grep -oP 'https://[^\s]+' | head -1)
+            DEPLOYMENT_URL=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | grep -oP 'https://[^\s]+\.vercel\.app' | head -1)
           fi
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
         env:
