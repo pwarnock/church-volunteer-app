@@ -1,14 +1,14 @@
 /**
  * Business Logic Tests - Main Entry Point
- * 
+ *
  * This file serves as the main entry point for business logic tests.
  * The actual test implementations have been split into focused modules:
- * 
+ *
  * - application-metrics.test.ts - Application metrics calculation and reporting
  * - opportunity-validation.test.ts - Opportunity data validation and rules
  * - volunteer-profile.test.ts - Volunteer profile data formatting and processing
  * - search-functionality.test.ts - Search algorithms and filtering logic
- * 
+ *
  * This modular approach improves maintainability and allows focused testing of specific business domains.
  */
 
@@ -30,8 +30,8 @@ describe('Business Logic Test Suite Integration', () => {
     const businessDomains = [
       'application-metrics',
       'opportunity-validation',
-      'volunteer-profile', 
-      'search-functionality'
+      'volunteer-profile',
+      'search-functionality',
     ];
 
     // Verify we have comprehensive business logic coverage
@@ -53,7 +53,7 @@ describe('Business Logic Test Suite Integration', () => {
     };
 
     // All domains should maintain isolation
-    Object.values(testIsolation).forEach(isIsolated => {
+    Object.values(testIsolation).forEach((isIsolated) => {
       expect(isIsolated).toBe(true);
     });
   });
@@ -64,10 +64,10 @@ describe('Business Logic Test Suite Integration', () => {
     // bun test business/application-metrics.test.ts
     // bun test business/opportunity-validation.test.ts
     // etc.
-    
+
     const supportedExecutions = [
       'bun test business/application-metrics.test.ts',
-      'bun test business/opportunity-validation.test.ts', 
+      'bun test business/opportunity-validation.test.ts',
       'bun test business/volunteer-profile.test.ts',
       'bun test business/search-functionality.test.ts',
     ];

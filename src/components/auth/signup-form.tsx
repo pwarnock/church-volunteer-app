@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FormField, SelectField } from '@/components/ui/form-field';
-import { GoogleAuthButton, GitHubAuthButton } from '@/components/ui/oauth-button';
+import {
+  GoogleAuthButton,
+  GitHubAuthButton,
+} from '@/components/ui/oauth-button';
 
 interface SignUpFormData {
   name: string;
@@ -26,11 +29,11 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
     confirmPassword: '',
     role: 'VOLUNTEER',
   });
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  
+
   const router = useRouter();
 
   const handleChange = (
@@ -42,7 +45,7 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
     }));
     // Clear field error when user starts typing
     if (fieldErrors[e.target.name]) {
-      setFieldErrors(prev => ({ ...prev, [e.target.name]: '' }));
+      setFieldErrors((prev) => ({ ...prev, [e.target.name]: '' }));
     }
   };
 
@@ -79,7 +82,7 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -126,10 +129,10 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
     try {
       setIsLoading(true);
       setError('');
-      
-      const result = await signIn('google', { 
+
+      const result = await signIn('google', {
         callbackUrl: redirectTo,
-        redirect: false 
+        redirect: false,
       });
 
       if (result?.error) {
@@ -151,10 +154,10 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
     try {
       setIsLoading(true);
       setError('');
-      
-      const result = await signIn('github', { 
+
+      const result = await signIn('github', {
         callbackUrl: redirectTo,
-        redirect: false 
+        redirect: false,
       });
 
       if (result?.error) {
@@ -188,17 +191,11 @@ export function SignUpForm({ redirectTo = '/dashboard' }: SignUpFormProps) {
       </div>
 
       <div className="mt-8 space-y-4">
-        <GoogleAuthButton
-          onClick={handleGoogleSignup}
-          disabled={isLoading}
-        >
+        <GoogleAuthButton onClick={handleGoogleSignup} disabled={isLoading}>
           Continue with Google
         </GoogleAuthButton>
 
-        <GitHubAuthButton
-          onClick={handleGitHubSignup}
-          disabled={isLoading}
-        >
+        <GitHubAuthButton onClick={handleGitHubSignup} disabled={isLoading}>
           Continue with GitHub
         </GitHubAuthButton>
 

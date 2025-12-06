@@ -22,23 +22,27 @@ bun run dev
 ## One-Time Setup
 
 ### 1. Install Dependencies
+
 ```bash
 bun install
 ```
 
 ### 2. Environment Setup
+
 The project uses environment-specific configuration that works out of the box:
 
 - **Development**: SQLite (local file, no setup required)
 - **Production**: PostgreSQL (via Vercel, configured automatically)
 
 The first time you run `bun run setup:db`, it will:
+
 - Create `.env.local` from the template if it doesn't exist
 - Use SQLite for local development by default
 - Generate the Prisma client
 - Seed the database with demo data
 
 ### 3. Database Setup
+
 ```bash
 # Automatic setup - detects environment and configures accordingly
 bun run setup:db
@@ -52,6 +56,7 @@ bunx tsx prisma/seed-local.ts  # Seed local data
 ## Development Workflow
 
 ### Daily Development
+
 ```bash
 # Start the development server
 bun run dev
@@ -68,6 +73,7 @@ bun tsc --noEmit
 ```
 
 ### Testing
+
 ```bash
 # Unit tests
 bun test:unit
@@ -87,7 +93,7 @@ bun test:bdd
 After database setup, you can use these accounts:
 
 - **Volunteer**: volunteer@demo.com / password123
-- **Ministry Leader**: leader@demo.com / password123  
+- **Ministry Leader**: leader@demo.com / password123
 - **Second Volunteer**: mike@demo.com / password123
 
 ## Environment Variables
@@ -100,6 +106,7 @@ cp .env.template .env.local
 ```
 
 Key variables:
+
 - `NODE_ENV`: development (default) or production
 - `LOCAL_DB_URL`: SQLite path for development
 - `NEXTAUTH_URL`: http://localhost:3000 (development) or production URL
@@ -108,6 +115,7 @@ Key variables:
 ## Production Deployment
 
 Production uses Vercel with:
+
 - PostgreSQL database (via Vercel Postgres)
 - Environment variables configured in Vercel dashboard
 - Automatic deployments from main branch
@@ -117,6 +125,7 @@ No code changes required - the same codebase works in both environments.
 ## Schema Management
 
 The project uses environment-specific schema files:
+
 - `prisma/schema-local.prisma`: For SQLite development
 - `prisma/schema-prod.prisma`: For PostgreSQL production
 - `prisma/schema.prisma`: Active schema (copied from appropriate environment file)
@@ -126,6 +135,7 @@ The setup script automatically selects the correct schema file for your environm
 ## Troubleshooting
 
 ### Database Issues
+
 ```bash
 # Reset local database
 rm -f prisma/dev.db
@@ -133,6 +143,7 @@ bun run setup:db
 ```
 
 ### Missing Dependencies
+
 ```bash
 # Reinstall everything
 rm -rf node_modules bun.lock
@@ -140,6 +151,7 @@ bun install
 ```
 
 ### Prisma Issues
+
 ```bash
 # Regenerate client
 bunx prisma generate

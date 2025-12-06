@@ -14,9 +14,7 @@ describe('Input Validation & XSS Prevention', () => {
   it('should reject emails with script tags', () => {
     const isValidEmail = (email: string) => {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return (
-        regex.test(email) && !email.includes('<') && !email.includes('>')
-      );
+      return regex.test(email) && !email.includes('<') && !email.includes('>');
     };
 
     const maliciousEmails = [
@@ -75,7 +73,7 @@ describe('Input Validation & XSS Prevention', () => {
     const maliciousUrl = 'javascript:alert("xss")';
     const sanitized = sanitizeUrl(maliciousUrl);
     expect(sanitized).toBe('#');
-    
+
     const safeUrl = 'https://example.com';
     expect(sanitizeUrl(safeUrl)).toBe(safeUrl);
   });

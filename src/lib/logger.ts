@@ -1,6 +1,6 @@
 /**
  * Logger compatibility wrapper
- * 
+ *
  * This file maintains backward compatibility while the implementation
  * has been moved to a modular structure.
  */

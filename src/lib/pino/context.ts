@@ -17,9 +17,12 @@ export interface LogContext {
   [key: string]: unknown;
 }
 
-export function createChildLogger(baseLogger: Logger, context: LogContext): Logger {
+export function createChildLogger(
+  baseLogger: Logger,
+  context: LogContext
+): Logger {
   const contextData: Record<string, any> = {};
-  
+
   if (context.userId) contextData.userId = context.userId;
   if (context.sessionId) contextData.sessionId = context.sessionId;
   if (context.requestId) contextData.requestId = context.requestId;
@@ -39,12 +42,15 @@ export function generateRequestId(): string {
 }
 
 export class RequestTracker {
-  private static activeRequests = new Map<string, { startTime: number; context: LogContext }>();
+  private static activeRequests = new Map<
+    string,
+    { startTime: number; context: LogContext }
+  >();
 
   static startRequest(requestId: string, context: LogContext = {}): void {
     this.activeRequests.set(requestId, {
       startTime: Date.now(),
-      context
+      context,
     });
   }
 
@@ -58,7 +64,7 @@ export class RequestTracker {
     return {
       ...request.context,
       requestId,
-      duration
+      duration,
     };
   }
 

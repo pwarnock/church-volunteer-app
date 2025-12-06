@@ -14,13 +14,12 @@ export interface PinoConfig {
 export function createPinoLogger(config: PinoConfig = {}): Logger {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const isTest = process.env.NODE_ENV === 'test';
-  
+
   // Log level configuration
-  const logLevel = config.level || process.env.LOG_LEVEL || (
-    isTest ? 'silent' : 
-    isDevelopment ? 'debug' : 
-    'info'
-  );
+  const logLevel =
+    config.level ||
+    process.env.LOG_LEVEL ||
+    (isTest ? 'silent' : isDevelopment ? 'debug' : 'info');
 
   // Base configuration
   const baseConfig = {

@@ -44,9 +44,7 @@ export function DashboardLayout({ session, children }: DashboardLayoutProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {children}
-        </div>
+        <div className="grid md:grid-cols-2 gap-8">{children}</div>
       </div>
     </div>
   );

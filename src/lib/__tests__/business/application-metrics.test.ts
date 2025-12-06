@@ -3,9 +3,13 @@ import { describe, it, expect } from 'vitest';
 // Test core application metrics calculation
 function calculateApplicationMetrics(applications: any[]) {
   const total = applications.length;
-  const pending = applications.filter(app => app.status === 'PENDING').length;
-  const approved = applications.filter(app => app.status === 'APPROVED').length;
-  const rejected = applications.filter(app => app.status === 'REJECTED').length;
+  const pending = applications.filter((app) => app.status === 'PENDING').length;
+  const approved = applications.filter(
+    (app) => app.status === 'APPROVED'
+  ).length;
+  const rejected = applications.filter(
+    (app) => app.status === 'REJECTED'
+  ).length;
 
   return {
     total,
@@ -102,10 +106,10 @@ describe('Application Metrics Calculation', () => {
 
     // Add engagement calculation logic
     const metrics = calculateApplicationMetrics(applications);
-    
+
     // Test basic metrics are still calculated
     expect(metrics.total).toBe(3);
-    
+
     // This would be an enhancement to add timing metrics
     // For now, ensure basic functionality works
     expect(typeof metrics.approvalRate).toBe('number');

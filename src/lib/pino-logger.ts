@@ -1,6 +1,6 @@
 /**
  * Pino Logger - Refactored for maintainability
- * 
+ *
  * This is a compatibility wrapper for the refactored pino logger module.
  * All functionality has been preserved while improving code organization.
  */

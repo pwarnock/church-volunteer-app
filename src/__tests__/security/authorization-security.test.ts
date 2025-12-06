@@ -53,21 +53,26 @@ describe('Authorization & Access Control', () => {
     const canAccess = (user: User, resource: Resource): boolean => {
       // Admin can access all
       if (user.role === 'ADMIN') return true;
-      
+
       // Owner can access their own resources
       if (user.id === resource.owner) return true;
-      
+
       // Check if user has required role
-      if (resource.requiredRole && user.role === resource.requiredRole) return true;
-      
+      if (resource.requiredRole && user.role === resource.requiredRole)
+        return true;
+
       return false;
     };
 
     const user = { id: 'user1', role: 'VOLUNTEER' };
     const admin = { id: 'admin1', role: 'ADMIN' };
-    
+
     const ownResource = { id: 'res1', owner: 'user1' };
-    const restrictedResource = { id: 'res2', owner: 'user2', requiredRole: 'MINISTRY_LEADER' };
+    const restrictedResource = {
+      id: 'res2',
+      owner: 'user2',
+      requiredRole: 'MINISTRY_LEADER',
+    };
     const publicResource = { id: 'res3', owner: 'user2' };
 
     expect(canAccess(user, ownResource)).toBe(true);
@@ -78,7 +83,7 @@ describe('Authorization & Access Control', () => {
 
   it('should validate permissions before action', () => {
     type Permission = 'read' | 'write' | 'delete' | 'admin';
-    
+
     const rolePermissions: Record<string, Permission[]> = {
       VOLUNTEER: ['read', 'write'],
       MINISTRY_LEADER: ['read', 'write', 'delete'],

@@ -7,8 +7,8 @@ function searchOpportunities(opportunities: any[], query: string) {
   }
 
   const normalizedQuery = query.toLowerCase().trim();
-  
-  return opportunities.filter(opportunity => {
+
+  return opportunities.filter((opportunity) => {
     return (
       opportunity.title?.toLowerCase().includes(normalizedQuery) ||
       opportunity.ministry?.toLowerCase().includes(normalizedQuery) ||
@@ -180,12 +180,14 @@ describe('Opportunity Search Functionality', () => {
 
     // Should return all opportunities in original order that contain 'a'
     expect(results.length).toBeGreaterThan(0);
-    
+
     // Check that order is preserved
-    const originalIndices = results.map(result => 
-      opportunities.findIndex(opp => opp.title === result.title)
+    const originalIndices = results.map((result) =>
+      opportunities.findIndex((opp) => opp.title === result.title)
     );
-    const isSorted = originalIndices.every((val, i, arr) => i === 0 || arr[i-1] <= val);
+    const isSorted = originalIndices.every(
+      (val, i, arr) => i === 0 || arr[i - 1] <= val
+    );
     expect(isSorted).toBe(true);
   });
 

@@ -5,10 +5,14 @@ function formatVolunteerProfile(profile: any) {
   try {
     return {
       ...profile,
-      spiritualGifts: profile.spiritualGifts ? JSON.parse(profile.spiritualGifts) : [],
+      spiritualGifts: profile.spiritualGifts
+        ? JSON.parse(profile.spiritualGifts)
+        : [],
       interests: profile.interests ? JSON.parse(profile.interests) : [],
       skills: profile.skills ? JSON.parse(profile.skills) : [],
-      availability: profile.availability ? JSON.parse(profile.availability) : {},
+      availability: profile.availability
+        ? JSON.parse(profile.availability)
+        : {},
       bio: profile.bio || '',
       createdAt: profile.createdAt ? new Date(profile.createdAt) : null,
       updatedAt: profile.updatedAt ? new Date(profile.updatedAt) : null,
@@ -72,7 +76,9 @@ describe('Volunteer Profile Formatting', () => {
       availability: '{}',
     };
 
-    expect(() => formatVolunteerProfile(profile)).toThrow('Invalid profile data format');
+    expect(() => formatVolunteerProfile(profile)).toThrow(
+      'Invalid profile data format'
+    );
   });
 
   it('should handle null JSON fields', () => {
@@ -101,7 +107,8 @@ describe('Volunteer Profile Formatting', () => {
       spiritualGifts: '["Teaching", "Leadership", "Pastoral Care"]',
       interests: '["Youth", "Children", "Outreach"]',
       skills: '["Teaching", "Music", "Organization"]',
-      availability: '{"monday": ["morning", "evening"], "weekend": ["morning", "afternoon"]}',
+      availability:
+        '{"monday": ["morning", "evening"], "weekend": ["morning", "afternoon"]}',
     };
 
     const formatted = formatVolunteerProfile(profile);
@@ -184,7 +191,7 @@ describe('Volunteer Profile Formatting', () => {
 
     // Should not throw, but might create invalid dates
     expect(() => formatVolunteerProfile(profile)).not.toThrow();
-    
+
     const formatted = formatVolunteerProfile(profile);
     expect(formatted.createdAt).toBeInstanceOf(Date);
     expect(formatted.updatedAt).toBeInstanceOf(Date);
@@ -212,7 +219,8 @@ describe('Volunteer Profile Formatting', () => {
       spiritualGifts: '[]',
       interests: '[]',
       skills: '[]',
-      availability: '{"preferences": {"days": ["weekend"], "times": ["morning"]}, "exceptions": {"dates": ["2024-12-25"]}}',
+      availability:
+        '{"preferences": {"days": ["weekend"], "times": ["morning"]}, "exceptions": {"dates": ["2024-12-25"]}}',
     };
 
     const formatted = formatVolunteerProfile(profile);

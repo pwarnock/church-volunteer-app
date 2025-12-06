@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
     }),
-    
+
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         try {
           // Validate credentials format
           const { email, password } = credentialsSchema.parse(credentials);
-          
+
           const user = await prisma.user.findUnique({
             where: { email: email.toLowerCase() },
           });
@@ -67,25 +67,25 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  
+
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // Update every 24 hours
   },
-  
+
   jwt: {
     maxAge: 30 * 24 * 60 * 60, // 30 days
     secret: process.env.NEXTAUTH_SECRET,
   },
-  
+
   pages: {
     signIn: '/auth/signin',
     error: '/auth/error',
     verifyRequest: '/auth/verify-request',
     newUser: '/auth/new-user',
   },
-  
+
   callbacks: {
     async signIn({ user, account, profile }) {
       // Handle OAuth account linking
@@ -97,7 +97,8 @@ export const authOptions: NextAuthOptions = {
 
         if (!existingUser) {
           // Create new user from OAuth
-          const randomPassword = Math.random().toString(36) + Date.now().toString(36);
+          const randomPassword =
+            Math.random().toString(36) + Date.now().toString(36);
           const newUser = await prisma.user.create({
             data: {
               email: user.email!,
@@ -106,7 +107,7 @@ export const authOptions: NextAuthOptions = {
               password: await bcrypt.hash(randomPassword, 12), // Random password for OAuth users
             },
           });
-          
+
           user.id = newUser.id;
           user.role = 'VOLUNTEER';
         } else {
@@ -126,7 +127,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.name = user.name;
         token.role = user.role;
-        
+
         // Add provider info
         if (account) {
           token.provider = account.provider;
@@ -155,21 +156,24 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
   },
-  
+
   events: {
     async signIn({ user, account, profile, isNewUser }) {
       if (isNewUser) {
         console.log(`New user signed up via ${account?.provider}:`, user.email);
       } else {
-        console.log(`Existing user signed in via ${account?.provider}:`, user.email);
+        console.log(
+          `Existing user signed in via ${account?.provider}:`,
+          user.email
+        );
       }
     },
-    
+
     async signOut({ session }) {
       console.log(`User signed out: ${session?.user?.email}`);
     },
   },
-  
+
   // Security settings
   useSecureCookies: process.env.NODE_ENV === 'production',
   debug: process.env.NODE_ENV === 'development',

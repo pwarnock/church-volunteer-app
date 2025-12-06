@@ -109,7 +109,7 @@ describe('SQL Injection Prevention', () => {
     const invalidQueries = [
       "'; DROP TABLE users; --",
       "' OR 1=1",
-      "UNION SELECT * FROM sensitive_data",
+      'UNION SELECT * FROM sensitive_data',
     ];
 
     validQueries.forEach((query) => {

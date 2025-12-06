@@ -5,16 +5,16 @@ interface SVGIconProps extends SVGProps<SVGSVGElement> {
   color?: string;
 }
 
-export function SVGIcon({ 
-  size = 'md', 
-  color, 
-  className = '', 
-  ...props 
+export function SVGIcon({
+  size = 'md',
+  color,
+  className = '',
+  ...props
 }: SVGIconProps) {
   const sizeClasses = {
     sm: 'w-6 h-6',
-    md: 'w-8 h-8', 
-    lg: 'w-10 h-10'
+    md: 'w-8 h-8',
+    lg: 'w-10 h-10',
   };
 
   return (

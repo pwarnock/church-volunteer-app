@@ -1,9 +1,9 @@
 /**
  * Security Tests - Main Entry Point
- * 
+ *
  * This file serves as the main entry point for security tests.
  * The actual test implementations have been split into focused modules:
- * 
+ *
  * - password-security.test.ts - Password strength, hashing, and validation
  * - input-validation-security.test.ts - Input sanitization and XSS prevention
  * - auth-security.test.ts - Authentication and session security
@@ -11,7 +11,7 @@
  * - data-protection.test.ts - Data handling and PII protection
  * - sql-injection-security.test.ts - SQL injection prevention
  * - infrastructure-security.test.ts - CORS, headers, rate limiting, and environment security
- * 
+ *
  * This modular approach improves maintainability and allows focused testing of specific security domains.
  */
 
@@ -35,12 +35,12 @@ describe('Security Test Suite Integration', () => {
   it('should cover major security domains', () => {
     const securityDomains = [
       'password-security',
-      'input-validation-security', 
+      'input-validation-security',
       'auth-security',
       'authorization-security',
       'data-protection',
       'sql-injection-security',
-      'infrastructure-security'
+      'infrastructure-security',
     ];
 
     // Verify we have comprehensive security coverage

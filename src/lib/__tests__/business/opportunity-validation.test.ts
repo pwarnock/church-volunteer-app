@@ -3,23 +3,28 @@ import { describe, it, expect } from 'vitest';
 // Test opportunity validation logic
 function validateOpportunityData(data: any) {
   const errors: string[] = [];
-  
+
   if (!data.title || data.title.trim().length === 0) {
     errors.push('Title is required');
   }
-  
+
   if (!data.ministry || data.ministry.trim().length === 0) {
     errors.push('Ministry is required');
   }
-  
+
   if (!data.timeCommitment || data.timeCommitment.trim().length === 0) {
     errors.push('Time commitment is required');
   }
-  
-  if (data.ministry && !['Children', 'Youth', 'Worship', 'Outreach', 'Administration'].includes(data.ministry)) {
+
+  if (
+    data.ministry &&
+    !['Children', 'Youth', 'Worship', 'Outreach', 'Administration'].includes(
+      data.ministry
+    )
+  ) {
     errors.push('Invalid ministry');
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors,
@@ -92,9 +97,15 @@ describe('Opportunity Validation', () => {
   });
 
   it('should accept valid ministries', () => {
-    const validMinistries = ['Children', 'Youth', 'Worship', 'Outreach', 'Administration'];
-    
-    validMinistries.forEach(ministry => {
+    const validMinistries = [
+      'Children',
+      'Youth',
+      'Worship',
+      'Outreach',
+      'Administration',
+    ];
+
+    validMinistries.forEach((ministry) => {
       const data = {
         title: 'Test',
         ministry,

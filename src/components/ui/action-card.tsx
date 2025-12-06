@@ -1,5 +1,13 @@
 import Link from 'next/link';
-import { SearchIcon, PlusIcon, ClipboardIcon, ListIcon, ChartIcon, UsersIcon, CogIcon } from './svg-icon';
+import {
+  SearchIcon,
+  PlusIcon,
+  ClipboardIcon,
+  ListIcon,
+  ChartIcon,
+  UsersIcon,
+  CogIcon,
+} from './svg-icon';
 
 interface ActionCardProps {
   icon: 'search' | 'plus' | 'clipboard' | 'list' | 'chart' | 'users' | 'cog';
@@ -37,15 +45,13 @@ export function ActionCard({
   return (
     <div className="bg-white rounded-lg shadow-lg p-8">
       <div className="text-center">
-        <div className={`w-16 h-16 ${iconBgColor} rounded-full flex items-center justify-center mx-auto mb-4`}>
+        <div
+          className={`w-16 h-16 ${iconBgColor} rounded-full flex items-center justify-center mx-auto mb-4`}
+        >
           <IconComponent className={iconColor} />
         </div>
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-          {title}
-        </h2>
-        <p className="text-gray-600 mb-6">
-          {description}
-        </p>
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">{title}</h2>
+        <p className="text-gray-600 mb-6">{description}</p>
         <Link
           href={href}
           className={`inline-block ${buttonColor} text-white px-6 py-3 rounded-lg font-semibold ${buttonHoverColor} transition-colors`}
@@ -65,7 +71,7 @@ function getButtonText(title: string): string {
     'Manage Opportunities': 'Manage Opportunities',
     'View Applications': 'View Applications',
     'Manage Profile': 'Manage Profile',
-    'Settings': 'Settings',
+    Settings: 'Settings',
   };
 
   return buttonMappings[title] || 'Get Started';

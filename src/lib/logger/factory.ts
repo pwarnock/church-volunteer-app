@@ -17,12 +17,12 @@ export class LoggerFactory {
 
   static create(config?: Partial<LoggerConfig>): Logger {
     const fullConfig = { ...LoggerFactory.defaultConfig, ...config };
-    
+
     // Set environment-based defaults
     if (typeof window === 'undefined') {
       // Server environment
       const nodeEnv = process.env.NODE_ENV || 'development';
-      
+
       if (nodeEnv === 'production') {
         fullConfig.level = LogLevel.WARN;
         fullConfig.enableColors = false;
@@ -33,12 +33,12 @@ export class LoggerFactory {
         fullConfig.enableColors = false;
         fullConfig.enableStructuredOutput = true;
       }
-      
+
       // Check for external service configuration
       if (process.env.SENTRY_DSN) {
         fullConfig.externalService = {
           name: 'sentry',
-          config: { dsn: process.env.SENTRY_DSN }
+          config: { dsn: process.env.SENTRY_DSN },
         };
       }
     } else {

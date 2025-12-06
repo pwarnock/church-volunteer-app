@@ -6,7 +6,9 @@ interface FormFieldProps {
   label: string;
   type: 'text' | 'email' | 'password';
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   required?: boolean;
   autoComplete?: string;
   error?: string;
@@ -29,10 +31,7 @@ export function FormField({
 }: FormFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-gray-700"
-      >
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
         {label}
       </label>
       <input
@@ -51,9 +50,7 @@ export function FormField({
             : 'border-gray-300 focus:border-blue-500'
         } ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
       />
-      {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }
@@ -63,7 +60,9 @@ interface SelectFieldProps {
   name: string;
   label: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   options: Array<{ value: string; label: string }>;
   disabled?: boolean;
   error?: string;
@@ -81,10 +80,7 @@ export function SelectField({
 }: SelectFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-gray-700"
-      >
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
         {label}
       </label>
       <select
@@ -105,9 +101,7 @@ export function SelectField({
           </option>
         ))}
       </select>
-      {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }

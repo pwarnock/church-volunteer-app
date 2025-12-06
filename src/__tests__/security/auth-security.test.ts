@@ -60,7 +60,7 @@ describe('Authentication Security', () => {
     };
 
     expect(isTokenValid(token, currentTokenVersion)).toBe(false);
-    
+
     token.tokenVersion = currentTokenVersion;
     expect(isTokenValid(token, currentTokenVersion)).toBe(true);
   });
@@ -76,7 +76,7 @@ describe('Authentication Security', () => {
 
     const shouldAllowLogin = (email: string): boolean => {
       const tracker = trackers.get(email);
-      
+
       if (!tracker) {
         trackers.set(email, {
           attempts: 1,
@@ -91,7 +91,8 @@ describe('Authentication Security', () => {
       }
 
       const now = new Date();
-      const timeSinceLastAttempt = now.getTime() - tracker.lastAttempt.getTime();
+      const timeSinceLastAttempt =
+        now.getTime() - tracker.lastAttempt.getTime();
       const lockoutDuration = 15 * 60 * 1000; // 15 minutes
 
       if (tracker.attempts >= 5 && timeSinceLastAttempt < lockoutDuration) {

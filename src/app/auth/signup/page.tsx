@@ -6,10 +6,10 @@ import { AuthLayout } from '@/components/auth/auth-layout';
 
 export default function SignUp() {
   const searchParams = useSearchParams();
-  
+
   // Check if user was redirected from auth message
   const message = searchParams?.get('message');
-  
+
   let authMessage;
   if (message) {
     switch (message) {
@@ -40,7 +40,7 @@ export default function SignUp() {
       message={authMessage}
       backButton={{
         href: '/auth/signin',
-        label: 'Already have an account? Sign in'
+        label: 'Already have an account? Sign in',
       }}
     >
       <SignUpForm />

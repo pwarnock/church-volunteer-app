@@ -2,7 +2,12 @@
  * Enhanced Pino logger wrapper with correlation tracking
  */
 import { baseLogger } from './config.js';
-import { LogContext, createChildLogger, generateRequestId, RequestTracker } from './context.js';
+import {
+  LogContext,
+  createChildLogger,
+  generateRequestId,
+  RequestTracker,
+} from './context.js';
 import { Logger } from 'pino';
 
 class EnhancedLogger {
@@ -30,12 +35,15 @@ class EnhancedLogger {
   }
 
   error(message: string, error?: Error, metadata?: Record<string, any>): void {
-    this.logger.error({ 
-      ...metadata, 
-      err: error,
-      errorMessage: error?.message,
-      errorName: error?.name 
-    }, message);
+    this.logger.error(
+      {
+        ...metadata,
+        err: error,
+        errorMessage: error?.message,
+        errorName: error?.name,
+      },
+      message
+    );
   }
 
   debug(message: string, metadata?: Record<string, any>): void {
@@ -46,36 +54,50 @@ class EnhancedLogger {
   logRequest(context: LogContext, metadata?: Record<string, any>): void {
     const requestId = context.requestId || generateRequestId();
     RequestTracker.startRequest(requestId, context);
-    
+
     this.info('Request started', {
       requestId,
       ...context,
-      ...metadata
+      ...metadata,
     });
   }
 
-  logResponse(requestId: string, statusCode: number, metadata?: Record<string, any>): void {
+  logResponse(
+    requestId: string,
+    statusCode: number,
+    metadata?: Record<string, any>
+  ): void {
     const context = RequestTracker.endRequest(requestId);
-    const statusCategory = statusCode < 400 ? 'success' : statusCode < 500 ? 'client_error' : 'server_error';
-    
+    const statusCategory =
+      statusCode < 400
+        ? 'success'
+        : statusCode < 500
+          ? 'client_error'
+          : 'server_error';
+
     this.info('Request completed', {
       requestId,
       statusCode,
       statusCategory,
       ...context,
-      ...metadata
+      ...metadata,
     });
   }
 
   // Performance logging
-  logPerformance(operation: string, duration: number, metadata?: Record<string, any>): void {
-    const performanceLevel = duration < 100 ? 'fast' : duration < 1000 ? 'medium' : 'slow';
-    
+  logPerformance(
+    operation: string,
+    duration: number,
+    metadata?: Record<string, any>
+  ): void {
+    const performanceLevel =
+      duration < 100 ? 'fast' : duration < 1000 ? 'medium' : 'slow';
+
     this.info(`Performance: ${operation}`, {
       operation,
       duration,
       performanceLevel,
-      ...metadata
+      ...metadata,
     });
   }
 
@@ -105,7 +127,10 @@ export function createLogger(context?: LogContext): EnhancedLogger {
   return new EnhancedLogger(context);
 }
 
-export function createRequestLogger(requestId: string, context: LogContext = {}): EnhancedLogger {
+export function createRequestLogger(
+  requestId: string,
+  context: LogContext = {}
+): EnhancedLogger {
   const fullContext = { ...context, requestId };
   return new EnhancedLogger(fullContext);
 }

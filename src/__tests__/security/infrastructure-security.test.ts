@@ -30,7 +30,8 @@ describe('CORS & Headers Security', () => {
 
   it('should set CORS headers properly', () => {
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app',
+      'Access-Control-Allow-Origin':
+        'https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Max-Age': '86400',
@@ -39,7 +40,9 @@ describe('CORS & Headers Security', () => {
     expect(corsHeaders['Access-Control-Allow-Origin']).toBeDefined();
     expect(corsHeaders['Access-Control-Allow-Methods']).toContain('GET');
     expect(corsHeaders['Access-Control-Allow-Methods']).toContain('POST');
-    expect(corsHeaders['Access-Control-Allow-Headers']).toContain('Content-Type');
+    expect(corsHeaders['Access-Control-Allow-Headers']).toContain(
+      'Content-Type'
+    );
   });
 
   it('should prevent clickjacking', () => {
@@ -49,7 +52,9 @@ describe('CORS & Headers Security', () => {
     };
 
     expect(frameOptions['X-Frame-Options']).toBe('DENY');
-    expect(frameOptions['Content-Security-Policy']).toContain('frame-ancestors');
+    expect(frameOptions['Content-Security-Policy']).toContain(
+      'frame-ancestors'
+    );
   });
 
   it('should control referrer policy', () => {
@@ -57,7 +62,9 @@ describe('CORS & Headers Security', () => {
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     };
 
-    expect(referrerPolicy['Referrer-Policy']).toBe('strict-origin-when-cross-origin');
+    expect(referrerPolicy['Referrer-Policy']).toBe(
+      'strict-origin-when-cross-origin'
+    );
   });
 
   it('should have secure cookies', () => {
@@ -127,14 +134,16 @@ describe('Rate Limiting Principles', () => {
     const isAllowed = (clientId: string): boolean => {
       const now = Date.now();
       const clientRequests = rateLimiter.requests.get(clientId) || [];
-      
+
       // Remove old requests outside the window
-      const validRequests = clientRequests.filter(time => now - time < rateLimiter.windowMs);
-      
+      const validRequests = clientRequests.filter(
+        (time) => now - time < rateLimiter.windowMs
+      );
+
       if (validRequests.length >= rateLimiter.maxRequests) {
         return false;
       }
-      
+
       validRequests.push(now);
       rateLimiter.requests.set(clientId, validRequests);
       return true;
@@ -144,7 +153,7 @@ describe('Rate Limiting Principles', () => {
     for (let i = 0; i < 100; i++) {
       expect(isAllowed('client123')).toBe(true);
     }
-    
+
     // 101st request should be blocked
     expect(isAllowed('client123')).toBe(false);
   });
@@ -179,7 +188,11 @@ describe('Environment Security', () => {
   });
 
   it('should validate environment variable formats', () => {
-    const validateEnvVar = (name: string, value: string, expectedType: string): boolean => {
+    const validateEnvVar = (
+      name: string,
+      value: string,
+      expectedType: string
+    ): boolean => {
       switch (expectedType) {
         case 'url':
           try {
@@ -197,7 +210,9 @@ describe('Environment Security', () => {
       }
     };
 
-    expect(validateEnvVar('NEXTAUTH_URL', 'https://example.com', 'url')).toBe(true);
+    expect(validateEnvVar('NEXTAUTH_URL', 'https://example.com', 'url')).toBe(
+      true
+    );
     expect(validateEnvVar('EMAIL', 'test@example.com', 'email')).toBe(true);
     expect(validateEnvVar('PORT', '3000', 'number')).toBe(true);
     expect(validateEnvVar('INVALID_URL', 'not-a-url', 'url')).toBe(false);

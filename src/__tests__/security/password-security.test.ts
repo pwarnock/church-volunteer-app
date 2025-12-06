@@ -81,10 +81,12 @@ describe('Password Security', () => {
     const commonPatterns = ['password123', 'Password123', '12345678'];
     const hasCommonPattern = (pwd: string) => {
       const normalized = pwd.toLowerCase();
-      return commonPatterns.some(pattern => normalized.includes(pattern.toLowerCase()));
+      return commonPatterns.some((pattern) =>
+        normalized.includes(pattern.toLowerCase())
+      );
     };
 
-    commonPatterns.forEach(pwd => {
+    commonPatterns.forEach((pwd) => {
       expect(hasCommonPattern(pwd)).toBe(true);
     });
   });
@@ -92,10 +94,10 @@ describe('Password Security', () => {
   it('password hash should verify correctly', async () => {
     const password = 'TestPassword123';
     const hashedPassword = await bcrypt.hash(password, 12);
-    
+
     const isValid = await bcrypt.compare(password, hashedPassword);
     expect(isValid).toBe(true);
-    
+
     const isInvalid = await bcrypt.compare('WrongPassword', hashedPassword);
     expect(isInvalid).toBe(false);
   });

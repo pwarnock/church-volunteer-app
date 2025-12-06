@@ -1,6 +1,6 @@
 /**
  * Logger - Centralized logging utility with error categorization and tracking
- * 
+ *
  * A comprehensive logging system that provides structured logging with:
  * - Error categorization and tracking
  * - Multiple output formats (console, JSON, structured)
@@ -16,28 +16,28 @@ export * from './types.js';
 export { Logger } from './core.js';
 
 // Export factory and convenience exports
-export { 
+export {
   LoggerFactory,
   logger,
   createLogger,
   createProductionLogger,
   createDevelopmentLogger,
   createTestLogger,
-  getLoggerInstance
+  getLoggerInstance,
 } from './factory.js';
 
 // Export utilities
-export { ErrorTracker, categorizeError, sanitizeForLogging } from './tracker.js';
-export { 
-  ConsoleFormatter, 
-  JsonFormatter, 
-  StructuredFormatter, 
-  PinoFormatter 
+export {
+  ErrorTracker,
+  categorizeError,
+  sanitizeForLogging,
+} from './tracker.js';
+export {
+  ConsoleFormatter,
+  JsonFormatter,
+  StructuredFormatter,
+  PinoFormatter,
 } from './formatters.js';
 
 // Re-export common enums for backward compatibility
-export {
-  ErrorCategory,
-  ErrorSeverity,
-  LogLevel
-} from './types.js';
+export { ErrorCategory, ErrorSeverity, LogLevel } from './types.js';

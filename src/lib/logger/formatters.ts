@@ -67,8 +67,8 @@ export class ConsoleFormatter {
   private colorizeLevel(level: LogLevel, text: string): string {
     const colors = {
       [LogLevel.ERROR]: '\x1b[31m', // Red
-      [LogLevel.WARN]: '\x1b[33m',  // Yellow
-      [LogLevel.INFO]: '\x1b[36m',  // Cyan
+      [LogLevel.WARN]: '\x1b[33m', // Yellow
+      [LogLevel.INFO]: '\x1b[36m', // Cyan
       [LogLevel.DEBUG]: '\x1b[90m', // Gray
     };
 
@@ -139,11 +139,16 @@ export class PinoFormatter implements LogFormatter {
 
   private getPinoLevel(level: LogLevel): number {
     switch (level) {
-      case LogLevel.ERROR: return 50;
-      case LogLevel.WARN: return 40;
-      case LogLevel.INFO: return 30;
-      case LogLevel.DEBUG: return 20;
-      default: return 30;
+      case LogLevel.ERROR:
+        return 50;
+      case LogLevel.WARN:
+        return 40;
+      case LogLevel.INFO:
+        return 30;
+      case LogLevel.DEBUG:
+        return 20;
+      default:
+        return 30;
     }
   }
 }
