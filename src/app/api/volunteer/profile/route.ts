@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/lib/auth-options';
 import { profileSchema } from '@/lib/validators';
 import { withErrorHandling } from '@/lib/api-middleware';
 import { logger } from '@/lib/logger';

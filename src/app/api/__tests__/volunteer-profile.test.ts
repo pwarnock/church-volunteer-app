@@ -30,7 +30,7 @@ vi.mock('next-auth', () => ({
   getServerSession: vi.fn(),
 }));
 
-vi.mock('@/lib/auth', () => ({
+vi.mock('@/lib/auth-options', () => ({
   authOptions: {},
 }));
 
