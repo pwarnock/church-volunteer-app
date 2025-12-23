@@ -14,27 +14,34 @@ import {
 } from '@/lib/api-response';
 
 const handleGet = async () => {
-  const opportunities = await prisma.opportunity.findMany({
-    where: {
-      status: 'ACTIVE',
-    },
-    include: {
-      leader: {
-        select: {
-          name: true,
-          email: true,
+  let opportunities: any[] = [];
+  try {
+    opportunities = await prisma.opportunity.findMany({
+      where: {
+        status: 'ACTIVE',
+      },
+      include: {
+        leader: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        applications: {
+          select: {
+            id: true,
+          },
         },
       },
-      applications: {
-        select: {
-          id: true,
-        },
+      orderBy: {
+        createdAt: 'desc',
       },
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+    });
+  } catch (dbError) {
+    logger.error('Failed to fetch opportunities (likely no DB)', dbError);
+    // Return empty list to unblock preview deployments without a DB
+    opportunities = [];
+  }
 
   // Transform opportunities to include count
   const opportunitiesWithCount = opportunities.map((opportunity) => ({
