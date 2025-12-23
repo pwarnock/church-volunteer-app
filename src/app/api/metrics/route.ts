@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
-import { exposeMetrics } from '@/lib/metrics';
+import { getMetricsSummary } from '@/lib/metrics';
 
 /**
  * Metrics endpoint - requires authentication
@@ -22,7 +22,11 @@ export async function GET() {
       );
     }
 
-    const metrics = exposeMetrics();
+    const metrics = {
+      success: true,
+      data: getMetricsSummary(),
+      timestamp: new Date().toISOString(),
+    };
     return NextResponse.json(metrics);
   } catch (error) {
     console.error('Metrics endpoint error:', error);

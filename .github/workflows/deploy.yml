@@ -22,18 +22,34 @@ jobs:
       - name: Check formatting
         run: bun run format:check
 
+      - name: Typecheck
+        run: bun run typecheck
+
       - name: Run unit tests
-        run: bun test --run
-        continue-on-error: true
+        run: bun test:unit
 
       - name: Generate coverage report
         run: bun test:coverage
         continue-on-error: true
 
+      - name: Run security tests
+        run: bun test:unit src/__tests__/security.test.ts
+
+      - name: Run accessibility tests
+        run: bun test:unit src/__tests__/accessibility.test.ts
+
+      - name: Build application
+        run: bun run build
+
+      - name: Validate API contracts
+        run: bun run contract:validate
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
+      url: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app
     steps:
       - uses: actions/checkout@v4
 
@@ -51,7 +67,23 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+      - name: Run post-deployment smoke tests
+        run: bun run test:smoke
+        continue-on-error: true
+
+      - name: Production health check
+        run: |
+          sleep 30  # Wait for deployment to propagate
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/health || echo "503")
+          if [ "$response" != "200" ]; then
+            echo "❌ Production health check failed with status: $response"
+            exit 1
+          fi
+          echo "✅ Production health check passed"
+
       - name: Deployment Summary
         run: |
           echo "✅ Production deployment complete!"
-          echo "Check deployment status at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "🚀 Application URL: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app"
+          echo "📊 Health check: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/health"
+          echo "📋 Check deployment status at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

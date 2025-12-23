@@ -31,9 +31,11 @@ jobs:
       - name: Check formatting
         run: bun run format:check
 
+      - name: Typecheck
+        run: bun run typecheck
+
       - name: Run unit tests
-        run: bun test --run
-        continue-on-error: true
+        run: bun test:unit
 
       - name: Generate coverage report
         run: bun test:coverage
@@ -57,6 +59,12 @@ jobs:
 
       - name: Build application
         run: bun run build
+
+      - name: Validate API contracts
+        run: bun run contract:validate
+
+      - name: Validate deployment gates
+        run: bun run validate:deployment
 
       - name: Run E2E tests
         run: bun test:e2e

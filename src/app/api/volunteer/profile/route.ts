@@ -17,7 +17,20 @@ const handlePost = async (request: NextRequest) => {
     return unauthorizedResponse();
   }
 
-  const body = await request.json();
+  let body;
+  try {
+    body = await request.json();
+  } catch (error) {
+    logger.error('JSON parsing failed', error, {
+      userId: session.user.id,
+      routeName: 'POST /api/volunteer/profile',
+      method: 'POST',
+    });
+    return NextResponse.json(
+      { success: false, error: 'Invalid JSON format', code: 'INVALID_JSON' },
+      { status: 400 }
+    );
+  }
 
   // Validate request body
   const validationResult = profileSchema.safeParse(body);
@@ -33,9 +46,22 @@ const handlePost = async (request: NextRequest) => {
   const { spiritualGifts, interests, skills, bio, availability } =
     validationResult.data;
 
-  const existingProfile = await prisma.volunteerProfile.findUnique({
-    where: { userId: session.user.id },
-  });
+  let existingProfile;
+  try {
+    existingProfile = await prisma.volunteerProfile.findUnique({
+      where: { userId: session.user.id },
+    });
+  } catch (error) {
+    logger.error('Database query failed', error, {
+      userId: session.user.id,
+      routeName: 'POST /api/volunteer/profile',
+      method: 'POST',
+    });
+    return NextResponse.json(
+      { success: false, error: 'Database connection failed' },
+      { status: 500 }
+    );
+  }
 
   let profile;
   if (existingProfile) {

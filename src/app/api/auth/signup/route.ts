@@ -1,32 +1,19 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { signupSchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
-import {
-  recordAuthAttempt,
-  recordError,
-  recordRateLimitHit,
-} from '@/lib/metrics';
-import {
-  rateLimitResponse,
-  validationErrorResponse,
-  internalErrorResponse,
-  createdResponse,
-  errorResponse,
-} from '@/lib/api-response';
 
 export async function POST(request: NextRequest) {
-  const startTime = Date.now();
   try {
-    // Rate limiting: 5 signup attempts per 15 minutes per IP
+    // Rate limiting: 5 signup attempts per hour per IP
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    if (!rateLimit(`signup:${ip}`, 5, 15 * 60 * 1000)) {
+    if (!rateLimit(`signup:${ip}`, 5, 60 * 60 * 1000)) {
       logger.warn('Signup rate limit exceeded', { ip });
-      recordRateLimitHit('signup', 'anonymous');
-      return rateLimitResponse(
-        'Too many signup attempts. Please try again later.'
+      return NextResponse.json(
+        { error: 'Too many signup attempts. Please try again later.' },
+        { status: 429 }
       );
     }
 
@@ -36,26 +23,33 @@ export async function POST(request: NextRequest) {
     const validationResult = signupSchema.safeParse(body);
     if (!validationResult.success) {
       logger.warn('Signup validation failed', { email: body.email });
-      return validationErrorResponse(validationResult.error.flatten());
+      return NextResponse.json(
+        { error: 'Invalid input data' },
+        { status: 400 }
+      );
     }
 
     const { name, email, password, role } = validationResult.data;
 
     const existingUser = await prisma.user.findUnique({
-      where: { email },
+      where: { email: email.toLowerCase() },
     });
 
     if (existingUser) {
       logger.warn('Signup attempted with existing email', { email });
-      return errorResponse('User already exists', 400);
+      return NextResponse.json(
+        { error: 'User already exists' },
+        { status: 400 }
+      );
     }
 
+    // Hash password with secure settings
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
       data: {
-        name,
-        email,
+        name: name.trim(),
+        email: email.toLowerCase(),
         password: hashedPassword,
         role,
       },
@@ -67,31 +61,22 @@ export async function POST(request: NextRequest) {
       role: user.role,
     });
 
-    const duration = Date.now() - startTime;
-    recordAuthAttempt('signup', true, duration);
-
-    return createdResponse(
+    // Return user without password
+    return NextResponse.json(
       {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
+        message: 'User created successfully',
       },
-      'User created successfully'
+      { status: 201 }
     );
   } catch (error) {
-    const duration = Date.now() - startTime;
-    recordAuthAttempt('signup', false, duration);
-
-    if (error instanceof Error) {
-      recordError(error, { endpoint: 'signup' });
-    }
-
-    const context =
-      error instanceof Error && 'email' in error
-        ? { email: (error as Record<string, unknown>).email }
-        : undefined;
-    logger.error('Signup error', error, context);
-    return internalErrorResponse();
+    logger.error('Signup error', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

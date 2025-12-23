@@ -16,7 +16,7 @@ export async function GET() {
       } catch (dbError) {
         console.error('Database connection failed:', dbError);
         databaseStatus = 'disconnected';
-        throw dbError;
+        // Do not throw; return degraded status for preview environments
       }
     }
 

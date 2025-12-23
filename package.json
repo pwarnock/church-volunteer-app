@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "bunx prisma generate && next build",
+    "build": "if [ -n \"$VERCEL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; elif [ -n \"$POSTGRES_URL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; else cp prisma/schema-local.prisma prisma/schema.prisma; fi && bunx prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest --config vitest.unit.config.ts",
     "test:unit": "vitest --config vitest.unit.config.ts",
     "test:integration": "vitest --config vitest.config.ts --run src/__tests__/integration/",
@@ -30,7 +31,9 @@
     "contract:init": "bunx tsx scripts/contract-first-dev.ts init",
     "contract:validate": "bunx tsx scripts/contract-first-dev.ts validate",
     "contract:mock": "bunx tsx src/generated/mock-server.ts",
-    "contract:generate": "bunx tsx scripts/generate-api-contracts.ts"
+    "contract:generate": "bunx tsx scripts/generate-api-contracts.ts",
+    "setup:db": "./scripts/setup-db.sh",
+    "validate:deployment": "bunx tsx scripts/validate-deployment.ts"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -50,7 +53,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.554.0",
-    "next": "16.0.7",
+    "next": "16.0.10",
     "next-auth": "^4.24.13",
     "next-themes": "^0.4.6",
     "react": "19.2.0",
@@ -76,13 +79,15 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "axe-playwright": "^2.2.2",
-    "better-sqlite3": "11.10.0",
+    "better-sqlite3": "12.5.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.7",
     "happy-dom": "^20.0.10",
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
     "lint-staged": "^16.2.7",
+    "pino": "^9.4.0",
+    "pino-http": "^10.2.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.17",
     "ts-node": "^10.9.2",
@@ -98,5 +103,9 @@
     "*.{json,md,css}": [
       "prettier --write"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "@sentry/cli",
+    "unrs-resolver"
+  ]
 }

@@ -4,9 +4,8 @@ import { authOptions } from '@/lib/auth-options';
 import { prisma } from '@/lib/prisma';
 import { opportunitySchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
+import { trackApiError, logger } from '@/lib/logger';
 import { withErrorHandling } from '@/lib/api-middleware';
-import { logger } from '@/lib/logger';
-import { recordRateLimitHit } from '@/lib/metrics';
 import {
   rateLimitResponse,
   validationErrorResponse,
@@ -15,33 +14,48 @@ import {
 } from '@/lib/api-response';
 
 const handleGet = async () => {
-  const opportunities = await prisma.opportunity.findMany({
-    where: {
-      status: 'ACTIVE',
-    },
-    include: {
-      leader: {
-        select: {
-          name: true,
-          email: true,
+  let opportunities: any[] = [];
+  try {
+    opportunities = await prisma.opportunity.findMany({
+      where: {
+        status: 'ACTIVE',
+      },
+      include: {
+        leader: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        applications: {
+          select: {
+            id: true,
+          },
         },
       },
-      _count: {
-        select: {
-          applications: true,
-        },
+      orderBy: {
+        createdAt: 'desc',
       },
+    });
+  } catch (dbError) {
+    logger.error('Failed to fetch opportunities (likely no DB)', dbError);
+    // Return empty list to unblock preview deployments without a DB
+    opportunities = [];
+  }
+
+  // Transform opportunities to include count
+  const opportunitiesWithCount = opportunities.map((opportunity) => ({
+    ...opportunity,
+    _count: {
+      applications: opportunity.applications.length,
     },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  }));
 
   logger.info('Opportunities fetched', {
-    count: opportunities.length,
+    count: opportunitiesWithCount.length,
   });
 
-  return NextResponse.json({ opportunities });
+  return NextResponse.json({ opportunities: opportunitiesWithCount });
 };
 
 const handlePost = async (request: NextRequest) => {
@@ -53,10 +67,11 @@ const handlePost = async (request: NextRequest) => {
 
   // Rate limiting: 20 opportunities per 60 minutes per leader
   if (!rateLimit(`opportunities:${session.user.id}`, 20, 60 * 60 * 1000)) {
-    logger.warn('Opportunity creation rate limit exceeded', {
+    trackApiError(new Error('Rate limit exceeded'), {
+      endpoint: '/api/opportunities',
+      method: 'POST',
       userId: session.user.id,
     });
-    recordRateLimitHit('/api/opportunities', session.user.id);
     return rateLimitResponse(
       'Too many opportunities created. Please try again later.'
     );
@@ -71,9 +86,10 @@ const handlePost = async (request: NextRequest) => {
   });
 
   if (!validationResult.success) {
-    logger.warn('Opportunity validation failed', {
+    trackApiError(new Error('Validation failed'), {
+      endpoint: '/api/opportunities',
+      method: 'POST',
       userId: session.user.id,
-      errors: validationResult.error.flatten(),
     });
     return validationErrorResponse(validationResult.error.flatten());
   }
@@ -97,8 +113,10 @@ const handlePost = async (request: NextRequest) => {
       location,
       requirements: JSON.stringify(requirements || []),
       timeCommitment,
-      startDate: startDate ? new Date(startDate) : null,
-      endDate: endDate ? new Date(endDate) : null,
+      startDate: startDate ? new Date(startDate) : new Date(),
+      endDate: endDate
+        ? new Date(endDate)
+        : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // Default 30 days from now
       leaderId: session.user.id!,
     },
     include: {

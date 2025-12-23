@@ -1,18 +1,87 @@
 import { z } from 'zod';
 
+// Enhanced password strength validation
+const passwordRequirements = [
+  {
+    test: (password: string) => password.length >= 8,
+    message: 'Password must be at least 8 characters long',
+  },
+  {
+    test: (password: string) => /[A-Z]/.test(password),
+    message: 'Password must contain at least one uppercase letter',
+  },
+  {
+    test: (password: string) => /[a-z]/.test(password),
+    message: 'Password must contain at least one lowercase letter',
+  },
+  {
+    test: (password: string) => /[0-9]/.test(password),
+    message: 'Password must contain at least one number',
+  },
+  {
+    test: (password: string) => !/(.)\1{2,}/.test(password),
+    message: 'Password cannot contain 3+ repeated characters in a row',
+  },
+  {
+    test: (password: string) =>
+      !/(password|123456|qwerty|admin|user)/i.test(password),
+    message: 'Password cannot contain common or weak patterns',
+  },
+];
+
+// Check password strength
+const isStrongPassword = (password: string) => {
+  const failed = passwordRequirements.filter((req) => !req.test(password));
+  return {
+    isValid: failed.length === 0,
+    errors: failed.map((req) => req.message),
+    score: calculatePasswordStrength(password),
+  };
+};
+
+// Calculate password strength score (0-100)
+const calculatePasswordStrength = (password: string): number => {
+  let score = 0;
+
+  // Length contributes up to 40 points
+  score += Math.min(password.length * 4, 40);
+
+  // Character variety
+  if (/[A-Z]/.test(password)) score += 15;
+  if (/[a-z]/.test(password)) score += 15;
+  if (/[0-9]/.test(password)) score += 15;
+  if (/[^A-Za-z0-9]/.test(password)) score += 15;
+
+  // Penalty for common patterns
+  if (/(.)\1{2,}/.test(password)) score -= 20;
+  if (/(password|123456|qwerty|admin)/i.test(password)) score -= 30;
+
+  return Math.max(0, Math.min(100, score));
+};
+
 // Auth Validators
 export const signupSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('Invalid email address').toLowerCase(),
   password: z
     .string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(100, 'Password too long'),
-  name: z.string().min(1, 'Name is required').max(100, 'Name too long'),
+    .min(8, 'Password must be at least 8 characters')
+    .max(128, 'Password too long')
+    .refine((password) => {
+      const { isValid } = isStrongPassword(password);
+      return isValid;
+    }, 'Password does not meet security requirements'),
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .max(100, 'Name too long')
+    .refine((name) => !/<script|javascript|onclick|onerror/i.test(name), {
+      message: 'Name contains invalid characters',
+    }),
   role: z.enum(['VOLUNTEER', 'MINISTRY_LEADER']).default('VOLUNTEER'),
 });
 
 export const signinSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('Invalid email address').toLowerCase(),
   password: z.string().min(1, 'Password is required'),
 });
 

@@ -26,64 +26,64 @@ export type AggregateApplication = {
 
 export type ApplicationMinAggregateOutputType = {
   id: string | null
-  status: string | null
-  message: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
   opportunityId: string | null
   volunteerId: string | null
+  message: string | null
+  status: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ApplicationMaxAggregateOutputType = {
   id: string | null
-  status: string | null
-  message: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
   opportunityId: string | null
   volunteerId: string | null
+  message: string | null
+  status: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ApplicationCountAggregateOutputType = {
   id: number
-  status: number
-  message: number
-  createdAt: number
-  updatedAt: number
   opportunityId: number
   volunteerId: number
+  message: number
+  status: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type ApplicationMinAggregateInputType = {
   id?: true
-  status?: true
-  message?: true
-  createdAt?: true
-  updatedAt?: true
   opportunityId?: true
   volunteerId?: true
+  message?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ApplicationMaxAggregateInputType = {
   id?: true
-  status?: true
-  message?: true
-  createdAt?: true
-  updatedAt?: true
   opportunityId?: true
   volunteerId?: true
+  message?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ApplicationCountAggregateInputType = {
   id?: true
-  status?: true
-  message?: true
-  createdAt?: true
-  updatedAt?: true
   opportunityId?: true
   volunteerId?: true
+  message?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -161,12 +161,12 @@ export type ApplicationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type ApplicationGroupByOutputType = {
   id: string
-  status: string
-  message: string | null
-  createdAt: Date
-  updatedAt: Date
   opportunityId: string
   volunteerId: string
+  message: string | null
+  status: string
+  createdAt: Date
+  updatedAt: Date
   _count: ApplicationCountAggregateOutputType | null
   _min: ApplicationMinAggregateOutputType | null
   _max: ApplicationMaxAggregateOutputType | null
@@ -192,24 +192,24 @@ export type ApplicationWhereInput = {
   OR?: Prisma.ApplicationWhereInput[]
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   id?: Prisma.StringFilter<"Application"> | string
-  status?: Prisma.StringFilter<"Application"> | string
-  message?: Prisma.StringNullableFilter<"Application"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   opportunityId?: Prisma.StringFilter<"Application"> | string
   volunteerId?: Prisma.StringFilter<"Application"> | string
+  message?: Prisma.StringNullableFilter<"Application"> | string | null
+  status?: Prisma.StringFilter<"Application"> | string
+  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   opportunity?: Prisma.XOR<Prisma.OpportunityScalarRelationFilter, Prisma.OpportunityWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ApplicationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  message?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   opportunity?: Prisma.OpportunityOrderByWithRelationInput
   volunteer?: Prisma.UserOrderByWithRelationInput
 }
@@ -220,24 +220,24 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   OR?: Prisma.ApplicationWhereInput[]
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
-  status?: Prisma.StringFilter<"Application"> | string
-  message?: Prisma.StringNullableFilter<"Application"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   opportunityId?: Prisma.StringFilter<"Application"> | string
   volunteerId?: Prisma.StringFilter<"Application"> | string
+  message?: Prisma.StringNullableFilter<"Application"> | string | null
+  status?: Prisma.StringFilter<"Application"> | string
+  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   opportunity?: Prisma.XOR<Prisma.OpportunityScalarRelationFilter, Prisma.OpportunityWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "opportunityId_volunteerId">
 
 export type ApplicationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  message?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ApplicationCountOrderByAggregateInput
   _max?: Prisma.ApplicationMaxOrderByAggregateInput
   _min?: Prisma.ApplicationMinOrderByAggregateInput
@@ -248,18 +248,18 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   OR?: Prisma.ApplicationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ApplicationScalarWhereWithAggregatesInput | Prisma.ApplicationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Application"> | string
-  status?: Prisma.StringWithAggregatesFilter<"Application"> | string
-  message?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   opportunityId?: Prisma.StringWithAggregatesFilter<"Application"> | string
   volunteerId?: Prisma.StringWithAggregatesFilter<"Application"> | string
+  message?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  status?: Prisma.StringWithAggregatesFilter<"Application"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
 }
 
 export type ApplicationCreateInput = {
   id?: string
-  status?: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   opportunity: Prisma.OpportunityCreateNestedOneWithoutApplicationsInput
@@ -268,18 +268,18 @@ export type ApplicationCreateInput = {
 
 export type ApplicationUncheckedCreateInput = {
   id?: string
-  status?: string
-  message?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
   opportunityId: string
   volunteerId: string
+  message?: string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ApplicationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunity?: Prisma.OpportunityUpdateOneRequiredWithoutApplicationsNestedInput
@@ -288,40 +288,40 @@ export type ApplicationUpdateInput = {
 
 export type ApplicationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ApplicationCreateManyInput = {
   id?: string
-  status?: string
-  message?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
   opportunityId: string
   volunteerId: string
+  message?: string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ApplicationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ApplicationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ApplicationListRelationFilter = {
@@ -341,32 +341,32 @@ export type ApplicationOpportunityIdVolunteerIdCompoundUniqueInput = {
 
 export type ApplicationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  message?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ApplicationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  message?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ApplicationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  message?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ApplicationCreateNestedManyWithoutVolunteerInput = {
@@ -455,8 +455,8 @@ export type ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput = {
 
 export type ApplicationCreateWithoutVolunteerInput = {
   id?: string
-  status?: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   opportunity: Prisma.OpportunityCreateNestedOneWithoutApplicationsInput
@@ -464,11 +464,11 @@ export type ApplicationCreateWithoutVolunteerInput = {
 
 export type ApplicationUncheckedCreateWithoutVolunteerInput = {
   id?: string
-  status?: string
+  opportunityId: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  opportunityId: string
 }
 
 export type ApplicationCreateOrConnectWithoutVolunteerInput = {
@@ -478,7 +478,6 @@ export type ApplicationCreateOrConnectWithoutVolunteerInput = {
 
 export type ApplicationCreateManyVolunteerInputEnvelope = {
   data: Prisma.ApplicationCreateManyVolunteerInput | Prisma.ApplicationCreateManyVolunteerInput[]
-  skipDuplicates?: boolean
 }
 
 export type ApplicationUpsertWithWhereUniqueWithoutVolunteerInput = {
@@ -502,18 +501,18 @@ export type ApplicationScalarWhereInput = {
   OR?: Prisma.ApplicationScalarWhereInput[]
   NOT?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
   id?: Prisma.StringFilter<"Application"> | string
-  status?: Prisma.StringFilter<"Application"> | string
-  message?: Prisma.StringNullableFilter<"Application"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   opportunityId?: Prisma.StringFilter<"Application"> | string
   volunteerId?: Prisma.StringFilter<"Application"> | string
+  message?: Prisma.StringNullableFilter<"Application"> | string | null
+  status?: Prisma.StringFilter<"Application"> | string
+  createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
 }
 
 export type ApplicationCreateWithoutOpportunityInput = {
   id?: string
-  status?: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   volunteer: Prisma.UserCreateNestedOneWithoutApplicationsInput
@@ -521,11 +520,11 @@ export type ApplicationCreateWithoutOpportunityInput = {
 
 export type ApplicationUncheckedCreateWithoutOpportunityInput = {
   id?: string
-  status?: string
+  volunteerId: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  volunteerId: string
 }
 
 export type ApplicationCreateOrConnectWithoutOpportunityInput = {
@@ -535,7 +534,6 @@ export type ApplicationCreateOrConnectWithoutOpportunityInput = {
 
 export type ApplicationCreateManyOpportunityInputEnvelope = {
   data: Prisma.ApplicationCreateManyOpportunityInput | Prisma.ApplicationCreateManyOpportunityInput[]
-  skipDuplicates?: boolean
 }
 
 export type ApplicationUpsertWithWhereUniqueWithoutOpportunityInput = {
@@ -556,17 +554,17 @@ export type ApplicationUpdateManyWithWhereWithoutOpportunityInput = {
 
 export type ApplicationCreateManyVolunteerInput = {
   id?: string
-  status?: string
+  opportunityId: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  opportunityId: string
 }
 
 export type ApplicationUpdateWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunity?: Prisma.OpportunityUpdateOneRequiredWithoutApplicationsNestedInput
@@ -574,35 +572,35 @@ export type ApplicationUpdateWithoutVolunteerInput = {
 
 export type ApplicationUncheckedUpdateWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ApplicationUncheckedUpdateManyWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  opportunityId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ApplicationCreateManyOpportunityInput = {
   id?: string
-  status?: string
+  volunteerId: string
   message?: string | null
+  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  volunteerId: string
 }
 
 export type ApplicationUpdateWithoutOpportunityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   volunteer?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
@@ -610,71 +608,71 @@ export type ApplicationUpdateWithoutOpportunityInput = {
 
 export type ApplicationUncheckedUpdateWithoutOpportunityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ApplicationUncheckedUpdateManyWithoutOpportunityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  message?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   opportunityId?: boolean
   volunteerId?: boolean
+  message?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   opportunity?: boolean | Prisma.OpportunityDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  message?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   opportunityId?: boolean
   volunteerId?: boolean
+  message?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   opportunity?: boolean | Prisma.OpportunityDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  message?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   opportunityId?: boolean
   volunteerId?: boolean
+  message?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   opportunity?: boolean | Prisma.OpportunityDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectScalar = {
   id?: boolean
-  status?: boolean
-  message?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   opportunityId?: boolean
   volunteerId?: boolean
+  message?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "message" | "createdAt" | "updatedAt" | "opportunityId" | "volunteerId", ExtArgs["result"]["application"]>
+export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "opportunityId" | "volunteerId" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   opportunity?: boolean | Prisma.OpportunityDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -696,12 +694,12 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    status: string
-    message: string | null
-    createdAt: Date
-    updatedAt: Date
     opportunityId: string
     volunteerId: string
+    message: string | null
+    status: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["application"]>
   composites: {}
 }
@@ -1128,12 +1126,12 @@ export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runt
  */
 export interface ApplicationFieldRefs {
   readonly id: Prisma.FieldRef<"Application", 'String'>
-  readonly status: Prisma.FieldRef<"Application", 'String'>
-  readonly message: Prisma.FieldRef<"Application", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Application", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly opportunityId: Prisma.FieldRef<"Application", 'String'>
   readonly volunteerId: Prisma.FieldRef<"Application", 'String'>
+  readonly message: Prisma.FieldRef<"Application", 'String'>
+  readonly status: Prisma.FieldRef<"Application", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Application", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Application", 'DateTime'>
 }
     
 
@@ -1363,7 +1361,6 @@ export type ApplicationCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many Applications.
    */
   data: Prisma.ApplicationCreateManyInput | Prisma.ApplicationCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1382,7 +1379,6 @@ export type ApplicationCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many Applications.
    */
   data: Prisma.ApplicationCreateManyInput | Prisma.ApplicationCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

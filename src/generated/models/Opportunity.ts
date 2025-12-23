@@ -34,9 +34,9 @@ export type OpportunityMinAggregateOutputType = {
   timeCommitment: string | null
   startDate: Date | null
   endDate: Date | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: string | null
   leaderId: string | null
 }
 
@@ -50,9 +50,9 @@ export type OpportunityMaxAggregateOutputType = {
   timeCommitment: string | null
   startDate: Date | null
   endDate: Date | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: string | null
   leaderId: string | null
 }
 
@@ -66,9 +66,9 @@ export type OpportunityCountAggregateOutputType = {
   timeCommitment: number
   startDate: number
   endDate: number
-  status: number
   createdAt: number
   updatedAt: number
+  status: number
   leaderId: number
   _all: number
 }
@@ -84,9 +84,9 @@ export type OpportunityMinAggregateInputType = {
   timeCommitment?: true
   startDate?: true
   endDate?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   leaderId?: true
 }
 
@@ -100,9 +100,9 @@ export type OpportunityMaxAggregateInputType = {
   timeCommitment?: true
   startDate?: true
   endDate?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   leaderId?: true
 }
 
@@ -116,9 +116,9 @@ export type OpportunityCountAggregateInputType = {
   timeCommitment?: true
   startDate?: true
   endDate?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   leaderId?: true
   _all?: true
 }
@@ -203,11 +203,11 @@ export type OpportunityGroupByOutputType = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate: Date | null
-  endDate: Date | null
-  status: string
+  startDate: Date
+  endDate: Date
   createdAt: Date
   updatedAt: Date
+  status: string
   leaderId: string
   _count: OpportunityCountAggregateOutputType | null
   _min: OpportunityMinAggregateOutputType | null
@@ -240,11 +240,11 @@ export type OpportunityWhereInput = {
   location?: Prisma.StringFilter<"Opportunity"> | string
   requirements?: Prisma.StringFilter<"Opportunity"> | string
   timeCommitment?: Prisma.StringFilter<"Opportunity"> | string
-  startDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  endDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  status?: Prisma.StringFilter<"Opportunity"> | string
+  startDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  status?: Prisma.StringFilter<"Opportunity"> | string
   leaderId?: Prisma.StringFilter<"Opportunity"> | string
   leader?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   applications?: Prisma.ApplicationListRelationFilter
@@ -258,11 +258,11 @@ export type OpportunityOrderByWithRelationInput = {
   location?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
   timeCommitment?: Prisma.SortOrder
-  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
   leader?: Prisma.UserOrderByWithRelationInput
   applications?: Prisma.ApplicationOrderByRelationAggregateInput
@@ -279,11 +279,11 @@ export type OpportunityWhereUniqueInput = Prisma.AtLeast<{
   location?: Prisma.StringFilter<"Opportunity"> | string
   requirements?: Prisma.StringFilter<"Opportunity"> | string
   timeCommitment?: Prisma.StringFilter<"Opportunity"> | string
-  startDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  endDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  status?: Prisma.StringFilter<"Opportunity"> | string
+  startDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  status?: Prisma.StringFilter<"Opportunity"> | string
   leaderId?: Prisma.StringFilter<"Opportunity"> | string
   leader?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   applications?: Prisma.ApplicationListRelationFilter
@@ -297,11 +297,11 @@ export type OpportunityOrderByWithAggregationInput = {
   location?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
   timeCommitment?: Prisma.SortOrder
-  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
   _count?: Prisma.OpportunityCountOrderByAggregateInput
   _max?: Prisma.OpportunityMaxOrderByAggregateInput
@@ -319,11 +319,11 @@ export type OpportunityScalarWhereWithAggregatesInput = {
   location?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
   requirements?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
   timeCommitment?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
-  startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Opportunity"> | Date | string | null
-  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Opportunity"> | Date | string | null
-  status?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
+  startDate?: Prisma.DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
+  endDate?: Prisma.DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Opportunity"> | Date | string
+  status?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
   leaderId?: Prisma.StringWithAggregatesFilter<"Opportunity"> | string
 }
 
@@ -335,11 +335,11 @@ export type OpportunityCreateInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   leader: Prisma.UserCreateNestedOneWithoutOpportunitiesInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutOpportunityInput
 }
@@ -352,11 +352,11 @@ export type OpportunityUncheckedCreateInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   leaderId: string
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
 }
@@ -369,11 +369,11 @@ export type OpportunityUpdateInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   leader?: Prisma.UserUpdateOneRequiredWithoutOpportunitiesNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutOpportunityNestedInput
 }
@@ -386,11 +386,11 @@ export type OpportunityUncheckedUpdateInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   leaderId?: Prisma.StringFieldUpdateOperationsInput | string
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
 }
@@ -403,11 +403,11 @@ export type OpportunityCreateManyInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   leaderId: string
 }
 
@@ -419,11 +419,11 @@ export type OpportunityUpdateManyMutationInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OpportunityUncheckedUpdateManyInput = {
@@ -434,11 +434,11 @@ export type OpportunityUncheckedUpdateManyInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   leaderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -462,9 +462,9 @@ export type OpportunityCountOrderByAggregateInput = {
   timeCommitment?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
 }
 
@@ -478,9 +478,9 @@ export type OpportunityMaxOrderByAggregateInput = {
   timeCommitment?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
 }
 
@@ -494,9 +494,9 @@ export type OpportunityMinOrderByAggregateInput = {
   timeCommitment?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
 }
 
@@ -547,10 +547,6 @@ export type OpportunityUncheckedUpdateManyWithoutLeaderNestedInput = {
   deleteMany?: Prisma.OpportunityScalarWhereInput | Prisma.OpportunityScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type OpportunityCreateNestedOneWithoutApplicationsInput = {
   create?: Prisma.XOR<Prisma.OpportunityCreateWithoutApplicationsInput, Prisma.OpportunityUncheckedCreateWithoutApplicationsInput>
   connectOrCreate?: Prisma.OpportunityCreateOrConnectWithoutApplicationsInput
@@ -573,11 +569,11 @@ export type OpportunityCreateWithoutLeaderInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   applications?: Prisma.ApplicationCreateNestedManyWithoutOpportunityInput
 }
 
@@ -589,11 +585,11 @@ export type OpportunityUncheckedCreateWithoutLeaderInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
 }
 
@@ -604,7 +600,6 @@ export type OpportunityCreateOrConnectWithoutLeaderInput = {
 
 export type OpportunityCreateManyLeaderInputEnvelope = {
   data: Prisma.OpportunityCreateManyLeaderInput | Prisma.OpportunityCreateManyLeaderInput[]
-  skipDuplicates?: boolean
 }
 
 export type OpportunityUpsertWithWhereUniqueWithoutLeaderInput = {
@@ -634,11 +629,11 @@ export type OpportunityScalarWhereInput = {
   location?: Prisma.StringFilter<"Opportunity"> | string
   requirements?: Prisma.StringFilter<"Opportunity"> | string
   timeCommitment?: Prisma.StringFilter<"Opportunity"> | string
-  startDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  endDate?: Prisma.DateTimeNullableFilter<"Opportunity"> | Date | string | null
-  status?: Prisma.StringFilter<"Opportunity"> | string
+  startDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
+  status?: Prisma.StringFilter<"Opportunity"> | string
   leaderId?: Prisma.StringFilter<"Opportunity"> | string
 }
 
@@ -650,11 +645,11 @@ export type OpportunityCreateWithoutApplicationsInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   leader: Prisma.UserCreateNestedOneWithoutOpportunitiesInput
 }
 
@@ -666,11 +661,11 @@ export type OpportunityUncheckedCreateWithoutApplicationsInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
   leaderId: string
 }
 
@@ -698,11 +693,11 @@ export type OpportunityUpdateWithoutApplicationsInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   leader?: Prisma.UserUpdateOneRequiredWithoutOpportunitiesNestedInput
 }
 
@@ -714,11 +709,11 @@ export type OpportunityUncheckedUpdateWithoutApplicationsInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   leaderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -730,11 +725,11 @@ export type OpportunityCreateManyLeaderInput = {
   location: string
   requirements: string
   timeCommitment: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  status?: string
+  startDate: Date | string
+  endDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: string
 }
 
 export type OpportunityUpdateWithoutLeaderInput = {
@@ -745,11 +740,11 @@ export type OpportunityUpdateWithoutLeaderInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   applications?: Prisma.ApplicationUpdateManyWithoutOpportunityNestedInput
 }
 
@@ -761,11 +756,11 @@ export type OpportunityUncheckedUpdateWithoutLeaderInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
 }
 
@@ -777,11 +772,11 @@ export type OpportunityUncheckedUpdateManyWithoutLeaderInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.StringFieldUpdateOperationsInput | string
   timeCommitment?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -825,9 +820,9 @@ export type OpportunitySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   timeCommitment?: boolean
   startDate?: boolean
   endDate?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   leaderId?: boolean
   leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   applications?: boolean | Prisma.Opportunity$applicationsArgs<ExtArgs>
@@ -844,9 +839,9 @@ export type OpportunitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   timeCommitment?: boolean
   startDate?: boolean
   endDate?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   leaderId?: boolean
   leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["opportunity"]>
@@ -861,9 +856,9 @@ export type OpportunitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   timeCommitment?: boolean
   startDate?: boolean
   endDate?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   leaderId?: boolean
   leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["opportunity"]>
@@ -878,13 +873,13 @@ export type OpportunitySelectScalar = {
   timeCommitment?: boolean
   startDate?: boolean
   endDate?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   leaderId?: boolean
 }
 
-export type OpportunityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "ministry" | "location" | "requirements" | "timeCommitment" | "startDate" | "endDate" | "status" | "createdAt" | "updatedAt" | "leaderId", ExtArgs["result"]["opportunity"]>
+export type OpportunityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "ministry" | "location" | "requirements" | "timeCommitment" | "startDate" | "endDate" | "createdAt" | "updatedAt" | "status" | "leaderId", ExtArgs["result"]["opportunity"]>
 export type OpportunityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   applications?: boolean | Prisma.Opportunity$applicationsArgs<ExtArgs>
@@ -911,11 +906,11 @@ export type $OpportunityPayload<ExtArgs extends runtime.Types.Extensions.Interna
     location: string
     requirements: string
     timeCommitment: string
-    startDate: Date | null
-    endDate: Date | null
-    status: string
+    startDate: Date
+    endDate: Date
     createdAt: Date
     updatedAt: Date
+    status: string
     leaderId: string
   }, ExtArgs["result"]["opportunity"]>
   composites: {}
@@ -1351,9 +1346,9 @@ export interface OpportunityFieldRefs {
   readonly timeCommitment: Prisma.FieldRef<"Opportunity", 'String'>
   readonly startDate: Prisma.FieldRef<"Opportunity", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Opportunity", 'DateTime'>
-  readonly status: Prisma.FieldRef<"Opportunity", 'String'>
   readonly createdAt: Prisma.FieldRef<"Opportunity", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Opportunity", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Opportunity", 'String'>
   readonly leaderId: Prisma.FieldRef<"Opportunity", 'String'>
 }
     
@@ -1584,7 +1579,6 @@ export type OpportunityCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many Opportunities.
    */
   data: Prisma.OpportunityCreateManyInput | Prisma.OpportunityCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1603,7 +1597,6 @@ export type OpportunityCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many Opportunities.
    */
   data: Prisma.OpportunityCreateManyInput | Prisma.OpportunityCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

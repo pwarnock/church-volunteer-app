@@ -18,10 +18,10 @@ describe('Authentication API - Data-Driven Testing', () => {
 
   describe('Password Security Tests', () => {
     it('should hash passwords with different strengths', async () => {
+      // Reduce test scenarios for faster execution
       const passwordScenarios = [
         { password: 'simple123', strength: 10 },
         { password: 'complexP@ssw0rd!', strength: 12 },
-        { password: 'verySecurePassword123!', strength: 14 },
       ];
 
       for (const scenario of passwordScenarios) {

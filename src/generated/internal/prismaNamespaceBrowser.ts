@@ -64,9 +64,6 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName]
  */
 
 export const TransactionIsolationLevel = {
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 } as const
 
@@ -112,9 +109,9 @@ export const OpportunityScalarFieldEnum = {
   timeCommitment: 'timeCommitment',
   startDate: 'startDate',
   endDate: 'endDate',
-  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  status: 'status',
   leaderId: 'leaderId'
 } as const
 
@@ -123,12 +120,12 @@ export type OpportunityScalarFieldEnum = (typeof OpportunityScalarFieldEnum)[key
 
 export const ApplicationScalarFieldEnum = {
   id: 'id',
-  status: 'status',
-  message: 'message',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   opportunityId: 'opportunityId',
-  volunteerId: 'volunteerId'
+  volunteerId: 'volunteerId',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
@@ -140,14 +137,6 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const NullsOrder = {

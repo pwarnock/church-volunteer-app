@@ -1269,7 +1269,6 @@ export type VolunteerProfileCreateManyArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many VolunteerProfiles.
    */
   data: Prisma.VolunteerProfileCreateManyInput | Prisma.VolunteerProfileCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1288,7 +1287,6 @@ export type VolunteerProfileCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many VolunteerProfiles.
    */
   data: Prisma.VolunteerProfileCreateManyInput | Prisma.VolunteerProfileCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

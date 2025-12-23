@@ -181,7 +181,7 @@ describe('/api/volunteer/profile', () => {
       expect(data.error).toBe('Validation failed');
     });
 
-    it.skip('should handle JSON parsing errors', async () => {
+    it('should handle JSON parsing errors', async () => {
       // Arrange
       const mockSession = { user: { id: 'volunteer1', role: 'VOLUNTEER' } };
       (getServerSession as any).mockResolvedValue(mockSession);
@@ -199,16 +199,16 @@ describe('/api/volunteer/profile', () => {
       );
       const response = await POST(request);
 
-      // Assert - JSON parsing errors are caught by middleware and return 500
-      expect(response.status).toBe(500);
+      // Assert - JSON parsing errors are caught and return 400
+      expect(response.status).toBe(400);
       const data = await response.json();
-      expect(data.error).toBe('Internal server error');
-      expect(data.code).toBe('INTERNAL_ERROR');
+      expect(data.error).toBe('Invalid JSON format');
+      expect(data.code).toBe('INVALID_JSON');
     });
   });
 
   describe('Error Handling', () => {
-    it.skip('should handle database errors gracefully', async () => {
+    it('should handle database errors gracefully', async () => {
       // Arrange
       const mockSession = { user: { id: 'volunteer1', role: 'VOLUNTEER' } };
       (getServerSession as any).mockResolvedValue(mockSession);

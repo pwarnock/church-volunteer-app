@@ -1,0 +1,87 @@
+name: Rollback Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for rollback'
+        required: true
+        type: string
+      commit_sha:
+        description: 'Commit SHA to rollback to'
+        required: true
+        type: string
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.commit_sha }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Validate commit exists
+        run: |
+          if ! git rev-parse --verify ${{ github.event.inputs.commit_sha }}; then
+            echo "❌ Invalid commit SHA: ${{ github.event.inputs.commit_sha }}"
+            exit 1
+          fi
+          echo "✅ Commit SHA validated"
+
+      - name: Run rollback tests
+        run: bun test --run
+
+      - name: Deploy rollback to Vercel
+        run: |
+          bun install -g vercel
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod --prebuilt
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Post-rollback health check
+        run: |
+          sleep 30  # Wait for deployment to propagate
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app/api/health || echo "503")
+          if [ "$response" != "200" ]; then
+            echo "❌ Rollback health check failed with status: $response"
+            echo "🚨 Manual intervention may be required"
+            exit 1
+          fi
+          echo "✅ Rollback health check passed"
+
+      - name: Create rollback issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔄 Production Rollback Completed`,
+              body: `**Commit:** ${{ github.event.inputs.commit_sha }}
+            **Reason:** ${{ github.event.inputs.reason }}
+            **Timestamp:** ${new Date().toISOString()}
+            **Health Check:** ✅ Passed
+
+            **Next Steps:**
+            - [ ] Verify application functionality
+            - [ ] Monitor for any issues
+            - [ ] Communicate rollback to stakeholders
+
+            cc: @${context.actor}`,
+              labels: ['rollback', 'production']
+            })
+
+      - name: Rollback Summary
+        run: |
+          echo "🔄 Production rollback completed!"
+          echo "📯 Rolled back to: ${{ github.event.inputs.commit_sha }}"
+          echo "📋 Reason: ${{ github.event.inputs.reason }}"
+          echo "🚀 Application URL: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app"
