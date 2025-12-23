@@ -16,9 +16,10 @@ describe('OpportunityList Component Integration', () => {
   let testLeader: any;
   let testOpportunity: any;
 
-  beforeEach(async () => {
-    // Use shared prisma client with environment-based configuration
+  // Use shared prisma client with environment-based configuration
+  const { prisma } = await import('../../lib/prisma');
 
+  beforeEach(async () => {
     // Create test leader
     testLeader = await prisma.user.create({
       data: {

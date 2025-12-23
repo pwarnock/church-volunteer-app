@@ -204,6 +204,7 @@ function reportToSentry(entry: MetricEntry) {
   }
 }
 
+
 /**
  * Expose metrics via API endpoint
  * Call this in /api/metrics route handler
