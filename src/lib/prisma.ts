@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated/client';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { PrismaLibSQL } from '@prisma/adapter-libsql';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -13,13 +13,13 @@ const hasPostgres = !!(
     process.env.DATABASE_URL.startsWith('postgresql'))
 );
 
-// Production: PostgreSQL adapter, Local: better-sqlite3 adapter
+// Production: PostgreSQL adapter, Local: libsql adapter
 const adapter = hasPostgres
   ? new PrismaPg({
       connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
     })
-  : new PrismaBetterSqlite3({
-      database: process.env.DATABASE_URL || 'file:./prisma/dev.db',
+  : new PrismaLibSQL({
+      url: process.env.DATABASE_URL?.replace('file:', 'file:') || 'file:./prisma/dev.db',
     });
 
 export const prisma =
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // Log database connection for debugging
 if (process.env.NODE_ENV === 'development') {
-  const dbType = hasPostgres ? 'PostgreSQL' : 'SQLite (better-sqlite3)';
+  const dbType = hasPostgres ? 'PostgreSQL' : 'SQLite (libsql)';
   console.log(`🗄️ Prisma client initialized with ${dbType}`);
   console.log(
     '🔒 Production data is SAFE - using local SQLite for development'
