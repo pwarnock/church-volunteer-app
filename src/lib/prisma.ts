@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated/client';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaLibSQL } from '@prisma/adapter-libsql';
+import { PrismaLibSql } from '@prisma/adapter-libsql';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -18,7 +18,7 @@ const adapter = hasPostgres
   ? new PrismaPg({
       connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
     })
-  : new PrismaLibSQL({
+  : new PrismaLibSql({
       url: process.env.DATABASE_URL?.replace('file:', 'file:') || 'file:./prisma/dev.db',
     });
 
