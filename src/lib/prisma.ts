@@ -9,14 +9,16 @@ const globalForPrisma = globalThis as unknown as {
 // Environment-based database URL selection
 const hasPostgres = !!(
   process.env.POSTGRES_URL ||
-  (process.env.DATABASE_URL &&
-    process.env.DATABASE_URL.startsWith('postgresql'))
+  process.env.VERCEL_POSTGRES_URL ||
+  (process.env.DATABASE_URL && 
+   (process.env.DATABASE_URL.startsWith('postgresql') ||
+    process.env.DATABASE_URL.startsWith('postgre')))
 );
 
-// Production: PostgreSQL adapter, Local: libsql adapter
+// Always use adapter based on environment, not schema provider
 const adapter = hasPostgres
   ? new PrismaPg({
-      connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+      connectionString: process.env.POSTGRES_URL || process.env.VERCEL_POSTGRES_URL || process.env.DATABASE_URL,
     })
   : new PrismaLibSql({
       url: process.env.DATABASE_URL?.replace('file:', 'file:') || 'file:./prisma/dev.db',
