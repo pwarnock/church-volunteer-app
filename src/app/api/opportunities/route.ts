@@ -106,8 +106,10 @@ const handlePost = async (request: NextRequest) => {
       location,
       requirements: JSON.stringify(requirements || []),
       timeCommitment,
-      startDate: startDate ? new Date(startDate) : null,
-      endDate: endDate ? new Date(endDate) : null,
+      startDate: startDate ? new Date(startDate) : new Date(),
+      endDate: endDate
+        ? new Date(endDate)
+        : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // Default 30 days from now
       leaderId: session.user.id!,
     },
     include: {

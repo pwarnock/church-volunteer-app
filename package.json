@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "bunx prisma generate && next build",
+    "build": "if [ -n \"$POSTGRES_URL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; else cp prisma/schema-local.prisma prisma/schema.prisma; fi && bunx prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

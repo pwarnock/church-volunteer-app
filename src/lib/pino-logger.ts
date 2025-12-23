@@ -9,7 +9,7 @@
  * - Performance monitoring
  */
 
-import pino, { Logger } from 'pino';
+import pinoLib, { Logger } from 'pino';
 
 // Environment configuration
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -29,18 +29,18 @@ const loggerConfig = {
       return { level: label };
     },
   },
-  timestamp: pino.stdTimeFunctions.isoTime,
+  timestamp: pinoLib.stdTimeFunctions.isoTime,
   // Don't serialize Error objects, let pino handle it
   serializers: {
-    err: pino.stdSerializers.err,
+    err: pinoLib.stdSerializers.err,
   },
 };
 
 // Create base logger
-const baseLogger = pino(loggerConfig);
+const baseLogger = pinoLib(loggerConfig);
 
 // Development pretty logger
-const developmentLogger = pino({
+const developmentLogger = pinoLib({
   ...loggerConfig,
   transport: {
     target: 'pino-pretty',
@@ -61,7 +61,7 @@ const developmentLogger = pino({
 });
 
 // Production logger (JSON output)
-const productionLogger = pino({
+const productionLogger = pinoLib({
   ...loggerConfig,
   // Add production-specific fields
   base: {
@@ -100,7 +100,7 @@ export const logger = {
     pino.debug(
       {
         ...context,
-        ...(error && { err: error }),
+        ...(error ? { err: error } : {}),
       },
       message
     );
@@ -114,7 +114,7 @@ export const logger = {
     pino.warn(
       {
         ...context,
-        ...(error && { err: error }),
+        ...(error ? { err: error } : {}),
       },
       message
     );
@@ -124,7 +124,7 @@ export const logger = {
     pino.error(
       {
         ...context,
-        ...(error && { err: error }),
+        ...(error ? { err: error } : {}),
       },
       message
     );
@@ -134,7 +134,7 @@ export const logger = {
     pino.fatal(
       {
         ...context,
-        ...(error && { err: error }),
+        ...(error ? { err: error } : {}),
       },
       message
     );

@@ -46,7 +46,7 @@ export function withApiHandler(
         routeName,
         method,
         duration,
-        userAgent: request?.headers.get('user-agent'),
+        userAgent: request?.headers.get('user-agent') || undefined,
         ip: request?.headers.get('x-forwarded-for') || 'unknown',
       });
 
