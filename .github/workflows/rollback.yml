@@ -66,16 +66,16 @@ jobs:
               repo: context.repo.repo,
               title: `🔄 Production Rollback Completed`,
               body: `**Commit:** ${{ github.event.inputs.commit_sha }}
-**Reason:** ${{ github.event.inputs.reason }}
-**Timestamp:** ${new Date().toISOString()}
-**Health Check:** ✅ Passed
+            **Reason:** ${{ github.event.inputs.reason }}
+            **Timestamp:** ${new Date().toISOString()}
+            **Health Check:** ✅ Passed
 
-**Next Steps:**
-- [ ] Verify application functionality
-- [ ] Monitor for any issues
-- [ ] Communicate rollback to stakeholders
+            **Next Steps:**
+            - [ ] Verify application functionality
+            - [ ] Monitor for any issues
+            - [ ] Communicate rollback to stakeholders
 
-cc: @${context.actor}`,
+            cc: @${context.actor}`,
               labels: ['rollback', 'production']
             })
 
