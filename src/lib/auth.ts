@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {
   },
   
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       // Handle OAuth account linking
       if (account?.provider === 'google' && user) {
         // Check if this is a new OAuth user
@@ -157,7 +157,7 @@ export const authOptions: NextAuthOptions = {
   },
   
   events: {
-    async signIn({ user, account, profile, isNewUser }) {
+    async signIn({ user, account, isNewUser }) {
       if (isNewUser) {
         console.log(`New user signed up via ${account?.provider}:`, user.email);
       } else {

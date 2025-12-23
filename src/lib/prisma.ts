@@ -7,7 +7,6 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 // Environment-based database URL selection
-const isProduction = process.env.NODE_ENV === 'production';
 const hasPostgres = !!(
   process.env.POSTGRES_URL ||
   (process.env.DATABASE_URL &&

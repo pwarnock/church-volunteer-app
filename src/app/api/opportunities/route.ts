@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
+import { prisma } from '@/lib/prisma';
 import { opportunitySchema } from '@/lib/validators';
 import { rateLimit } from '@/lib/rate-limit';
-import { trackApiError, trackUserAction, logger } from '@/lib/logger';
+import { trackApiError, logger } from '@/lib/logger';
 import { withErrorHandling } from '@/lib/api-middleware';
 import {
   rateLimitResponse,

@@ -96,12 +96,11 @@ interface LogEntry {
  */
 function classifyError(
   error: Error | string, 
-  endpoint?: string, 
-  method?: string, 
-  statusCode?: number
+  _endpoint?: string, 
+  _method?: string, 
+  _statusCode?: number
 ): ErrorClassification {
   const errorMessage = typeof error === 'string' ? error : error.message;
-  const errorName = typeof error === 'string' ? 'Error' : error.name;
 
   // Authentication errors
   if (errorMessage.includes('Unauthorized') || errorMessage.includes('Invalid credentials')) {
@@ -303,6 +302,7 @@ function outputLog(entry: LogEntry) {
  * Send log entry to external observability platform
  * Supports: Logfire (Pydantic), Sentry, DataDog, CloudWatch
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function sendToObservabilityPlatform(entry: LogEntry) {
   // Send error alerts if required
   if (entry.requiresAlert && entry.level === 'ERROR') {

@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/lib/auth-options';
 import { ErrorCategory, ErrorSeverity } from '@/lib/logger';
 
 // In production, errors would be stored in a proper error logging system
 // For now, we'll simulate with a memory store and database queries
-const errorStore = new Map<string, any>();
 
 // Simulate error data (in production, this would come from your logging system)
 const simulateErrorData = () => {
@@ -67,7 +65,7 @@ export async function GET(request: NextRequest) {
 
     // In production, this would query your error logging system
     // For demo, we'll generate sample data
-    let allErrors = simulateErrorData();
+    const allErrors = simulateErrorData();
 
     // Filter by time range
     const now = new Date();
@@ -119,7 +117,7 @@ export async function GET(request: NextRequest) {
       generatedAt: now.toISOString(),
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch error data' },
       { status: 500 }
