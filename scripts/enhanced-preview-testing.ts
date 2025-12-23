@@ -78,6 +78,14 @@ class EnhancedPreviewTesting {
       });
 
       if (response.ok) {
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          const body = await response.text();
+          throw new Error(
+            `Health check returned non-JSON (${contentType || 'unknown content-type'}): ${body.slice(0, 120)}`
+          );
+        }
+
         const health = await response.json();
         console.log('✅ Health check passed');
         console.log(`   Environment: ${health.environment || 'unknown'}`);
@@ -295,6 +303,14 @@ class EnhancedPreviewTesting {
 
     if (!opportunitiesResponse.ok) {
       throw new Error('Opportunities API failed');
+    }
+
+    const contentType = opportunitiesResponse.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      const body = await opportunitiesResponse.text();
+      throw new Error(
+        `Opportunities API returned non-JSON (${contentType || 'unknown content-type'}): ${body.slice(0, 120)}`
+      );
     }
 
     const data = await opportunitiesResponse.json();
