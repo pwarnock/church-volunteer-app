@@ -37,7 +37,7 @@ const handleGet = async () => {
   });
 
   // Transform opportunities to include count
-  const opportunitiesWithCount = opportunities.map(opportunity => ({
+  const opportunitiesWithCount = opportunities.map((opportunity) => ({
     ...opportunity,
     _count: {
       applications: opportunity.applications.length,

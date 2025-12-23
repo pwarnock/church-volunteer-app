@@ -9,10 +9,13 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  
+
   // HSTS only in production
   if (process.env.NODE_ENV === 'production') {
-    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    response.headers.set(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains'
+    );
   }
 
   // Content Security Policy
@@ -27,15 +30,16 @@ export function middleware(request: NextRequest) {
     "base-uri 'self'",
     "form-action 'self'",
   ].join('; ');
-  
+
   response.headers.set('Content-Security-Policy', csp);
 
   // Rate limiting for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    const clientIP = request.headers.get('x-forwarded-for') || 
-                      request.headers.get('x-real-ip') || 
-                      'unknown';
-    
+    const clientIP =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
     // Apply different rate limits for different endpoints
     if (request.nextUrl.pathname.includes('/auth/')) {
       // Stricter rate limiting for auth endpoints

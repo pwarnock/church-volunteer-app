@@ -247,7 +247,8 @@ export default function Dashboard() {
                     Error Tracking
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    Monitor system errors, categorize issues, and track application health.
+                    Monitor system errors, categorize issues, and track
+                    application health.
                   </p>
                   <Link
                     href="/admin/errors"

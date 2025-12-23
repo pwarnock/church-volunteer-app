@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     // Validate request body
     const validationResult = signupSchema.safeParse(body);
     if (!validationResult.success) {
@@ -62,14 +62,16 @@ export async function POST(request: NextRequest) {
     });
 
     // Return user without password
-    return NextResponse.json({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      message: 'User created successfully',
-    }, { status: 201 });
-
+    return NextResponse.json(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        message: 'User created successfully',
+      },
+      { status: 201 }
+    );
   } catch (error) {
     logger.error('Signup error', error);
     return NextResponse.json(

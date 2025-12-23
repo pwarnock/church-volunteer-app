@@ -23,17 +23,18 @@ const passwordRequirements = [
     message: 'Password cannot contain 3+ repeated characters in a row',
   },
   {
-    test: (password: string) => !/(password|123456|qwerty|admin|user)/i.test(password),
+    test: (password: string) =>
+      !/(password|123456|qwerty|admin|user)/i.test(password),
     message: 'Password cannot contain common or weak patterns',
   },
 ];
 
 // Check password strength
 const isStrongPassword = (password: string) => {
-  const failed = passwordRequirements.filter(req => !req.test(password));
+  const failed = passwordRequirements.filter((req) => !req.test(password));
   return {
     isValid: failed.length === 0,
-    errors: failed.map(req => req.message),
+    errors: failed.map((req) => req.message),
     score: calculatePasswordStrength(password),
   };
 };
@@ -41,20 +42,20 @@ const isStrongPassword = (password: string) => {
 // Calculate password strength score (0-100)
 const calculatePasswordStrength = (password: string): number => {
   let score = 0;
-  
+
   // Length contributes up to 40 points
   score += Math.min(password.length * 4, 40);
-  
+
   // Character variety
   if (/[A-Z]/.test(password)) score += 15;
   if (/[a-z]/.test(password)) score += 15;
   if (/[0-9]/.test(password)) score += 15;
   if (/[^A-Za-z0-9]/.test(password)) score += 15;
-  
+
   // Penalty for common patterns
   if (/(.)\1{2,}/.test(password)) score -= 20;
   if (/(password|123456|qwerty|admin)/i.test(password)) score -= 30;
-  
+
   return Math.max(0, Math.min(100, score));
 };
 

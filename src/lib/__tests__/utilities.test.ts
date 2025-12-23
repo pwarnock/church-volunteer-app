@@ -7,7 +7,11 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { validationErrorResponse, unauthorizedResponse, createdResponse } from '@/lib/api-response';
+import {
+  validationErrorResponse,
+  unauthorizedResponse,
+  createdResponse,
+} from '@/lib/api-response';
 // Comment out problematic import for now
 // import { calculateGiftResults, formatAssessmentResults } from '@/app/volunteer/assessment/utils/assessmentCalculator';
 
@@ -23,13 +27,13 @@ describe('API Response Utilities', () => {
 
       expect(response.status).toBe(400);
       // Note: NextResponse doesn't have statusText property
-      
+
       const json = await response.json();
       expect(json).toEqual({
         success: false,
         error: 'Validation failed',
         details: errors,
-        code: 'VALIDATION_ERROR'
+        code: 'VALIDATION_ERROR',
       });
     });
   });
@@ -40,12 +44,12 @@ describe('API Response Utilities', () => {
 
       expect(response.status).toBe(401);
       // Note: NextResponse doesn't have statusText property
-      
+
       const json = await response.json();
       expect(json).toEqual({
         success: false,
         error: 'Unauthorized',
-        code: 'UNAUTHORIZED'
+        code: 'UNAUTHORIZED',
       });
     });
   });
@@ -57,12 +61,12 @@ describe('API Response Utilities', () => {
 
       expect(response.status).toBe(201);
       // Note: NextResponse doesn't have statusText property
-      
+
       const json = await response.json();
       expect(json).toEqual({
         success: true,
         data,
-        message: 'Resource created'
+        message: 'Resource created',
       });
     });
   });
@@ -102,9 +106,9 @@ describe('Assessment Calculator Utilities', () => {
 
       const results = calculateGiftResults(gifts);
 
-      const highScore = results.find(r => r.gift === 'HighScore');
-      const mediumScore = results.find(r => r.gift === 'MediumScore');
-      const lowScore = results.find(r => r.gift === 'LowScore');
+      const highScore = results.find((r) => r.gift === 'HighScore');
+      const mediumScore = results.find((r) => r.gift === 'MediumScore');
+      const lowScore = results.find((r) => r.gift === 'LowScore');
 
       expect(highScore?.category).toBe('Strong');
       expect(mediumScore?.category).toBe('Developing');
@@ -115,12 +119,7 @@ describe('Assessment Calculator Utilities', () => {
   // Skip these tests until utilities are properly exported
   describe.skip('formatAssessmentResults', () => {
     it('should format assessment results correctly', () => {
-      const gifts = [
-        'Teaching',
-        'Leadership',
-        'Service',
-        'Mercy',
-      ];
+      const gifts = ['Teaching', 'Leadership', 'Service', 'Mercy'];
 
       const results = formatAssessmentResults(gifts);
 

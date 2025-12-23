@@ -69,29 +69,29 @@ describe('Service Layer', () => {
       // const result = await UserService.createUser(userData);
       // expect(result.email).toBe(userData.email);
       // expect(result.name).toBe(userData.name);
-      
+
       expect(userData.email).toBe('test@example.com');
     });
 
     it('should validate email format', async () => {
       const invalidEmail = 'invalid-email';
-      
+
       // await expect(UserService.createUser({ email: invalidEmail }))
       //   .rejects.toThrow('Invalid email format');
-      
+
       expect(invalidEmail).toBe('invalid-email');
     });
 
     it('should hash password before storing', async () => {
       const password = 'plainpassword';
-      
-      // const user = await UserService.createUser({ 
+
+      // const user = await UserService.createUser({
       //   email: 'test@example.com',
-      //   password 
+      //   password
       // });
       // expect(user.password).not.toBe(password);
       // expect(user.password).toMatch(/^\$2[aby]\$/); // bcrypt format
-      
+
       expect(password).toBe('plainpassword');
     });
   });
@@ -111,7 +111,7 @@ describe('Service Layer', () => {
       // const result = await OpportunityService.createOpportunity(opportunityData);
       // expect(result.title).toBe(opportunityData.title);
       // expect(result.status).toBe('ACTIVE');
-      
+
       expect(opportunityData.title).toBe('Test Opportunity');
     });
 
@@ -123,7 +123,7 @@ describe('Service Layer', () => {
 
       // await expect(OpportunityService.createOpportunity(invalidData))
       //   .rejects.toThrow('Title is required');
-      
+
       expect(invalidData.description).toBe('Test');
     });
 
@@ -133,12 +133,12 @@ describe('Service Layer', () => {
         leaderId: 'volunteer1', // Not a leader
       };
 
-      // await expect(OpportunityService.createOpportunity(opportunityData, { 
-      //   userId: 'volunteer1', 
-      //   role: 'VOLUNTEER' 
+      // await expect(OpportunityService.createOpportunity(opportunityData, {
+      //   userId: 'volunteer1',
+      //   role: 'VOLUNTEER'
       // }))
       //   .rejects.toThrow('Unauthorized');
-      
+
       expect(opportunityData.leaderId).toBe('volunteer1');
     });
   });
@@ -153,7 +153,7 @@ describe('Service Layer', () => {
 
       // const result = await ApplicationService.createApplication(applicationData);
       // expect(result.status).toBe('PENDING');
-      
+
       expect(applicationData.message).toBe('I would like to help');
     });
 
@@ -169,7 +169,7 @@ describe('Service Layer', () => {
 
       // await expect(ApplicationService.createApplication(applicationData))
       //   .rejects.toThrow('Already applied');
-      
+
       expect(applicationData.opportunityId).toBe('opp1');
     });
 
@@ -185,7 +185,7 @@ describe('Service Layer', () => {
 
       // await expect(ApplicationService.createApplication(applicationData))
       //   .rejects.toThrow('Opportunity not active');
-      
+
       expect(applicationData.opportunityId).toBe('inactive-opp');
     });
   });

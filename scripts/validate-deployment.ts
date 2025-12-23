@@ -15,19 +15,23 @@ interface DeploymentGate {
 
 const results: DeploymentGate[] = [];
 
-async function checkGate(name: string, check: () => Promise<boolean>, message: string): Promise<void> {
+async function checkGate(
+  name: string,
+  check: () => Promise<boolean>,
+  message: string
+): Promise<void> {
   try {
     const passed = await check();
     results.push({
       name,
       status: passed ? 'PASS' : 'FAIL',
-      message: passed ? `✅ ${message}` : `❌ ${message}`
+      message: passed ? `✅ ${message}` : `❌ ${message}`,
     });
   } catch (error) {
     results.push({
       name,
       status: 'FAIL',
-      message: `❌ ${message} - Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      message: `❌ ${message} - Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
     });
   }
 }
@@ -42,7 +46,7 @@ async function main() {
     async () => {
       const nodeEnv = process.env.NODE_ENV;
       const requiredEnvVars = ['NEXTAUTH_SECRET', 'NEXTAUTH_URL'];
-      
+
       if (nodeEnv === 'production') {
         requiredEnvVars.push('POSTGRES_URL');
       } else {
@@ -70,7 +74,7 @@ async function main() {
     async () => {
       const packageJsonPath = path.join(process.cwd(), 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-      
+
       // Check if build script exists
       return !!(packageJson.scripts && packageJson.scripts.build);
     },
@@ -91,7 +95,12 @@ async function main() {
   await checkGate(
     'Security Tests',
     async () => {
-      const securityTestPath = path.join(process.cwd(), 'src', '__tests__', 'security.test.ts');
+      const securityTestPath = path.join(
+        process.cwd(),
+        'src',
+        '__tests__',
+        'security.test.ts'
+      );
       return fs.existsSync(securityTestPath);
     },
     'Security test suite is implemented'
@@ -101,7 +110,14 @@ async function main() {
   await checkGate(
     'API Health Endpoint',
     async () => {
-      const healthCheckPath = path.join(process.cwd(), 'src', 'app', 'api', 'health', 'route.ts');
+      const healthCheckPath = path.join(
+        process.cwd(),
+        'src',
+        'app',
+        'api',
+        'health',
+        'route.ts'
+      );
       return fs.existsSync(healthCheckPath);
     },
     'Health check endpoint is implemented'
@@ -114,15 +130,18 @@ async function main() {
       const envLocalPath = path.join(process.cwd(), '.env.local');
       if (fs.existsSync(envLocalPath)) {
         const envContent = fs.readFileSync(envLocalPath, 'utf-8');
-        
+
         // Check if production mode is configured
         const nodeEnv = process.env.NODE_ENV;
         if (nodeEnv === 'production') {
           // In production, check for PostgreSQL URL
-          return envContent.includes('POSTGRES_URL') && !envContent.includes('dev.db');
+          return (
+            envContent.includes('POSTGRES_URL') &&
+            !envContent.includes('dev.db')
+          );
         }
       }
-      
+
       // For non-production, this gate passes
       return true;
     },
@@ -133,7 +152,12 @@ async function main() {
   await checkGate(
     'Error Handling',
     async () => {
-      const errorBoundaryPath = path.join(process.cwd(), 'src', 'app', 'error.tsx');
+      const errorBoundaryPath = path.join(
+        process.cwd(),
+        'src',
+        'app',
+        'error.tsx'
+      );
       return fs.existsSync(errorBoundaryPath);
     },
     'Error boundaries are implemented'
@@ -150,26 +174,34 @@ async function main() {
   );
 
   // Calculate results
-  const passed = results.filter(r => r.status === 'PASS').length;
-  const failed = results.filter(r => r.status === 'FAIL').length;
+  const passed = results.filter((r) => r.status === 'PASS').length;
+  const failed = results.filter((r) => r.status === 'FAIL').length;
   const total = results.length;
 
   // Print results
   console.log('\n📊 Results Summary');
   console.log('==================');
-  
-  results.forEach(result => {
-    console.log(`${result.status === 'PASS' ? '✅' : '❌'} ${result.name}: ${result.message}`);
+
+  results.forEach((result) => {
+    console.log(
+      `${result.status === 'PASS' ? '✅' : '❌'} ${result.name}: ${result.message}`
+    );
   });
 
-  console.log(`\n📈 Overall: ${passed}/${total} gates passed (${failed} failed)`);
+  console.log(
+    `\n📈 Overall: ${passed}/${total} gates passed (${failed} failed)`
+  );
 
   // Determine overall status
   if (failed === 0) {
-    console.log('\n🎉 All deployment gates passed! Ready for production deployment.');
+    console.log(
+      '\n🎉 All deployment gates passed! Ready for production deployment.'
+    );
     process.exit(0);
   } else if (failed <= 2) {
-    console.log('\n⚠️  Some gates failed. Review and fix before production deployment.');
+    console.log(
+      '\n⚠️  Some gates failed. Review and fix before production deployment.'
+    );
     process.exit(1);
   } else {
     console.log('\n🚨 Multiple gates failed. Do NOT deploy to production.');
@@ -177,7 +209,7 @@ async function main() {
   }
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error('❌ Deployment validation error:', error);
   process.exit(3);
 });

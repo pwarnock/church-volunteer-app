@@ -14,33 +14,33 @@ export enum ErrorCategory {
   AUTHENTICATION = 'AUTHENTICATION',
   AUTHORIZATION = 'AUTHORIZATION',
   SESSION_EXPIRED = 'SESSION_EXPIRED',
-  
+
   // Database Errors
   DATABASE_CONNECTION = 'DATABASE_CONNECTION',
   DATABASE_VALIDATION = 'DATABASE_VALIDATION',
   DATABASE_CONSTRAINT = 'DATABASE_CONSTRAINT',
-  
+
   // Network Errors
   NETWORK_TIMEOUT = 'NETWORK_TIMEOUT',
   NETWORK_UNAVAILABLE = 'NETWORK_UNAVAILABLE',
-  
+
   // Business Logic Errors
   VALIDATION = 'VALIDATION',
   BUSINESS_RULE = 'BUSINESS_RULE',
-  
+
   // System Errors
   INTERNAL_SERVER = 'INTERNAL_SERVER',
   CONFIGURATION = 'CONFIGURATION',
   RATE_LIMIT = 'RATE_LIMIT',
-  
+
   // External Service Errors
   EXTERNAL_API = 'EXTERNAL_API',
   PAYMENT_PROCESSING = 'PAYMENT_PROCESSING',
-  
+
   // Client Errors
   CLIENT_ERROR = 'CLIENT_ERROR',
   MALFORMED_REQUEST = 'MALFORMED_REQUEST',
-  
+
   // Security Errors
   SECURITY = 'SECURITY',
   SUSPICIOUS_ACTIVITY = 'SUSPICIOUS_ACTIVITY',
@@ -95,15 +95,18 @@ interface LogEntry {
  * Error classification rules
  */
 function classifyError(
-  error: Error | string, 
-  _endpoint?: string, 
-  _method?: string, 
+  error: Error | string,
+  _endpoint?: string,
+  _method?: string,
   _statusCode?: number
 ): ErrorClassification {
   const errorMessage = typeof error === 'string' ? error : error.message;
 
   // Authentication errors
-  if (errorMessage.includes('Unauthorized') || errorMessage.includes('Invalid credentials')) {
+  if (
+    errorMessage.includes('Unauthorized') ||
+    errorMessage.includes('Invalid credentials')
+  ) {
     return {
       category: ErrorCategory.AUTHENTICATION,
       severity: ErrorSeverity.MEDIUM,
@@ -113,7 +116,10 @@ function classifyError(
     };
   }
 
-  if (errorMessage.includes('Forbidden') || errorMessage.includes('Access denied')) {
+  if (
+    errorMessage.includes('Forbidden') ||
+    errorMessage.includes('Access denied')
+  ) {
     return {
       category: ErrorCategory.AUTHORIZATION,
       severity: ErrorSeverity.MEDIUM,
@@ -134,7 +140,10 @@ function classifyError(
   }
 
   // Database errors
-  if (errorMessage.includes('Database connection') || errorMessage.includes('connection timeout')) {
+  if (
+    errorMessage.includes('Database connection') ||
+    errorMessage.includes('connection timeout')
+  ) {
     return {
       category: ErrorCategory.DATABASE_CONNECTION,
       severity: ErrorSeverity.HIGH,
@@ -144,18 +153,25 @@ function classifyError(
     };
   }
 
-  if (errorMessage.includes('constraint violation') || errorMessage.includes('unique constraint')) {
+  if (
+    errorMessage.includes('constraint violation') ||
+    errorMessage.includes('unique constraint')
+  ) {
     return {
       category: ErrorCategory.DATABASE_CONSTRAINT,
       severity: ErrorSeverity.MEDIUM,
       isUserFacing: true,
       requiresAlert: false,
-      suggestedAction: 'This record already exists or conflicts with existing data',
+      suggestedAction:
+        'This record already exists or conflicts with existing data',
     };
   }
 
   // Rate limiting
-  if (errorMessage.includes('rate limit') || errorMessage.includes('too many requests')) {
+  if (
+    errorMessage.includes('rate limit') ||
+    errorMessage.includes('too many requests')
+  ) {
     return {
       category: ErrorCategory.RATE_LIMIT,
       severity: ErrorSeverity.LOW,
@@ -166,7 +182,10 @@ function classifyError(
   }
 
   // Validation errors
-  if (errorMessage.includes('validation') || errorMessage.includes('invalid input')) {
+  if (
+    errorMessage.includes('validation') ||
+    errorMessage.includes('invalid input')
+  ) {
     return {
       category: ErrorCategory.VALIDATION,
       severity: ErrorSeverity.LOW,
@@ -177,18 +196,26 @@ function classifyError(
   }
 
   // External API errors
-  if (errorMessage.includes('external service') || errorMessage.includes('third party')) {
+  if (
+    errorMessage.includes('external service') ||
+    errorMessage.includes('third party')
+  ) {
     return {
       category: ErrorCategory.EXTERNAL_API,
       severity: ErrorSeverity.MEDIUM,
       isUserFacing: true,
       requiresAlert: true,
-      suggestedAction: 'Service temporarily unavailable, please try again later',
+      suggestedAction:
+        'Service temporarily unavailable, please try again later',
     };
   }
 
   // Security errors
-  if (errorMessage.includes('CSRF') || errorMessage.includes('XSS') || errorMessage.includes('suspicious')) {
+  if (
+    errorMessage.includes('CSRF') ||
+    errorMessage.includes('XSS') ||
+    errorMessage.includes('suspicious')
+  ) {
     return {
       category: ErrorCategory.SECURITY,
       severity: ErrorSeverity.HIGH,
@@ -250,21 +277,21 @@ function createLogEntry(
 
   if (error) {
     entry.error = formatError(error);
-    
+
     // Classify the error
     const classification = classifyError(
-      typeof error === 'string' ? error : error, 
-      endpoint, 
-      method, 
+      typeof error === 'string' ? error : error,
+      endpoint,
+      method,
       statusCode
     );
-    
+
     entry.category = classification.category;
     entry.severity = classification.severity;
     entry.isUserFacing = classification.isUserFacing;
     entry.requiresAlert = classification.requiresAlert;
     entry.suggestedAction = classification.suggestedAction;
-    
+
     // Add classification to context
     if (entry.context) {
       entry.context.errorCategory = classification.category;
@@ -370,8 +397,12 @@ async function sendErrorAlert(entry: LogEntry) {
   const alertPayload = {
     title: `🚨 ${entry.category} Error`,
     text: `${entry.message}\n\n**Severity:** ${entry.severity}\n**Category:** ${entry.category}\n**Endpoint:** ${entry.context?.endpoint}\n**User:** ${entry.context?.userId}`,
-    priority: entry.severity === ErrorSeverity.CRITICAL ? 'high' : 
-              entry.severity === ErrorSeverity.HIGH ? 'high' : 'normal',
+    priority:
+      entry.severity === ErrorSeverity.CRITICAL
+        ? 'high'
+        : entry.severity === ErrorSeverity.HIGH
+          ? 'high'
+          : 'normal',
   };
 
   // Slack alert
@@ -422,21 +453,47 @@ export const logger = {
     outputLog(entry);
   },
 
-  warn: (message: string, context?: LogContext, error?: unknown, options?: {
-    endpoint?: string;
-    method?: string;
-    statusCode?: number;
-  }) => {
-    const entry = createLogEntry('WARN', message, context, error, options?.endpoint, options?.method, options?.statusCode);
+  warn: (
+    message: string,
+    context?: LogContext,
+    error?: unknown,
+    options?: {
+      endpoint?: string;
+      method?: string;
+      statusCode?: number;
+    }
+  ) => {
+    const entry = createLogEntry(
+      'WARN',
+      message,
+      context,
+      error,
+      options?.endpoint,
+      options?.method,
+      options?.statusCode
+    );
     outputLog(entry);
   },
 
-  error: (message: string, error?: unknown, context?: LogContext, options?: {
-    endpoint?: string;
-    method?: string;
-    statusCode?: number;
-  }) => {
-    const entry = createLogEntry('ERROR', message, context, error, options?.endpoint, options?.method, options?.statusCode);
+  error: (
+    message: string,
+    error?: unknown,
+    context?: LogContext,
+    options?: {
+      endpoint?: string;
+      method?: string;
+      statusCode?: number;
+    }
+  ) => {
+    const entry = createLogEntry(
+      'ERROR',
+      message,
+      context,
+      error,
+      options?.endpoint,
+      options?.method,
+      options?.statusCode
+    );
     outputLog(entry);
   },
 };
@@ -455,18 +512,26 @@ export const trackUserAction = (action: string, context: LogContext) => {
 /**
  * Track API errors with context
  */
-export const trackApiError = (error: unknown, context: {
-  endpoint: string;
-  method: string;
-  statusCode?: number;
-  userId?: string;
-}) => {
-  logger.error('API error', error, {
-    userId: context.userId,
-    endpoint: context.endpoint,
-    method: context.method,
-    errorCode: context.statusCode?.toString(),
-  }, context);
+export const trackApiError = (
+  error: unknown,
+  context: {
+    endpoint: string;
+    method: string;
+    statusCode?: number;
+    userId?: string;
+  }
+) => {
+  logger.error(
+    'API error',
+    error,
+    {
+      userId: context.userId,
+      endpoint: context.endpoint,
+      method: context.method,
+      errorCode: context.statusCode?.toString(),
+    },
+    context
+  );
 };
 
 /**

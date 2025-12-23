@@ -1,6 +1,6 @@
 /**
  * Pino Logger Configuration
- * 
+ *
  * High-performance structured logging with:
  * - JSON output in production
  * - Pretty printing in development
@@ -16,11 +16,9 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 // Log level configuration
-const logLevel = process.env.LOG_LEVEL || (
-  isTest ? 'silent' : 
-  isDevelopment ? 'debug' : 
-  'info'
-);
+const logLevel =
+  process.env.LOG_LEVEL ||
+  (isTest ? 'silent' : isDevelopment ? 'debug' : 'info');
 
 // Base logger configuration
 const loggerConfig = {
@@ -100,10 +98,10 @@ export interface LogContext {
 export const logger = {
   debug: (message: string, context?: LogContext, error?: Error | unknown) => {
     pino.debug(
-      { 
-        ...context, 
-        ...(error && { err: error }) 
-      }, 
+      {
+        ...context,
+        ...(error && { err: error }),
+      },
       message
     );
   },
@@ -114,30 +112,30 @@ export const logger = {
 
   warn: (message: string, context?: LogContext, error?: Error | unknown) => {
     pino.warn(
-      { 
-        ...context, 
-        ...(error && { err: error }) 
-      }, 
+      {
+        ...context,
+        ...(error && { err: error }),
+      },
       message
     );
   },
 
   error: (message: string, error?: Error | unknown, context?: LogContext) => {
     pino.error(
-      { 
-        ...context, 
-        ...(error && { err: error }) 
-      }, 
+      {
+        ...context,
+        ...(error && { err: error }),
+      },
       message
     );
   },
 
   fatal: (message: string, error?: Error | unknown, context?: LogContext) => {
     pino.fatal(
-      { 
-        ...context, 
-        ...(error && { err: error }) 
-      }, 
+      {
+        ...context,
+        ...(error && { err: error }),
+      },
       message
     );
   },
@@ -155,15 +153,15 @@ export function createChildLogger(context: LogContext): Logger {
  */
 export function createRequestLogger(requestId: string) {
   const child = pino.child({ requestId });
-  
+
   return {
-    debug: (message: string, context?: LogContext) => 
+    debug: (message: string, context?: LogContext) =>
       child.debug(context, message),
-    info: (message: string, context?: LogContext) => 
+    info: (message: string, context?: LogContext) =>
       child.info(context, message),
-    warn: (message: string, context?: LogContext, error?: Error) => 
+    warn: (message: string, context?: LogContext, error?: Error) =>
       child.warn({ ...context, err: error }, message),
-    error: (message: string, error?: Error, context?: LogContext) => 
+    error: (message: string, error?: Error, context?: LogContext) =>
       child.error({ ...context, err: error }, message),
   };
 }
@@ -171,14 +169,21 @@ export function createRequestLogger(requestId: string) {
 /**
  * Performance tracking
  */
-export function trackPerformance(operation: string, startTime: number, context?: LogContext) {
+export function trackPerformance(
+  operation: string,
+  startTime: number,
+  context?: LogContext
+) {
   const duration = performance.now() - startTime;
-  
-  pino.info({
-    operation,
-    duration: Math.round(duration * 100) / 100, // Round to 2 decimal places
-    ...context,
-  }, `Performance: ${operation} completed in ${duration.toFixed(2)}ms`);
+
+  pino.info(
+    {
+      operation,
+      duration: Math.round(duration * 100) / 100, // Round to 2 decimal places
+      ...context,
+    },
+    `Performance: ${operation} completed in ${duration.toFixed(2)}ms`
+  );
 }
 
 /**
@@ -191,26 +196,33 @@ export function logApiRequest(
   duration: number,
   context?: LogContext
 ) {
-  const level = statusCode >= 500 ? 'error' : statusCode >= 400 ? 'warn' : 'info';
-  
-  pino[level]({
-    method,
-    url,
-    statusCode,
-    duration: Math.round(duration * 100) / 100,
-    ...context,
-  }, `API ${method} ${url} - ${statusCode} (${duration.toFixed(2)}ms)`);
+  const level =
+    statusCode >= 500 ? 'error' : statusCode >= 400 ? 'warn' : 'info';
+
+  pino[level](
+    {
+      method,
+      url,
+      statusCode,
+      duration: Math.round(duration * 100) / 100,
+      ...context,
+    },
+    `API ${method} ${url} - ${statusCode} (${duration.toFixed(2)}ms)`
+  );
 }
 
 /**
  * User action tracking
  */
 export function trackUserAction(action: string, context: LogContext) {
-  pino.info({
-    action,
-    category: 'user_action',
-    ...context,
-  }, `User action: ${action}`);
+  pino.info(
+    {
+      action,
+      category: 'user_action',
+      ...context,
+    },
+    `User action: ${action}`
+  );
 }
 
 /**
@@ -218,24 +230,31 @@ export function trackUserAction(action: string, context: LogContext) {
  */
 export function trackApiError(
   error: Error | unknown,
-  context: LogContext & { endpoint?: string; method?: string; statusCode?: number }
+  context: LogContext & {
+    endpoint?: string;
+    method?: string;
+    statusCode?: number;
+  }
 ) {
   const errorMessage = error instanceof Error ? error.message : String(error);
   const errorName = error instanceof Error ? error.name : 'UnknownError';
-  
+
   // Determine error category for better monitoring
   const errorCategory = categorizeError(errorMessage);
-  
-  pino.error({
-    err: error,
-    errorName,
-    errorMessage,
-    category: errorCategory.category,
-    severity: errorCategory.severity,
-    isUserFacing: errorCategory.isUserFacing,
-    requiresAlert: errorCategory.requiresAlert,
-    ...context,
-  }, `API Error: ${errorMessage}`);
+
+  pino.error(
+    {
+      err: error,
+      errorName,
+      errorMessage,
+      category: errorCategory.category,
+      severity: errorCategory.severity,
+      isUserFacing: errorCategory.isUserFacing,
+      requiresAlert: errorCategory.requiresAlert,
+      ...context,
+    },
+    `API Error: ${errorMessage}`
+  );
 }
 
 /**
@@ -243,7 +262,10 @@ export function trackApiError(
  */
 function categorizeError(message: string) {
   // Authentication errors
-  if (message.includes('Unauthorized') || message.includes('Invalid credentials')) {
+  if (
+    message.includes('Unauthorized') ||
+    message.includes('Invalid credentials')
+  ) {
     return {
       category: 'AUTHENTICATION',
       severity: 'MEDIUM',
@@ -255,7 +277,7 @@ function categorizeError(message: string) {
   // Authorization errors
   if (message.includes('Forbidden') || message.includes('Access denied')) {
     return {
-      category: 'AUTHORIZATION', 
+      category: 'AUTHORIZATION',
       severity: 'MEDIUM',
       isUserFacing: true,
       requiresAlert: true,
@@ -263,7 +285,10 @@ function categorizeError(message: string) {
   }
 
   // Database errors
-  if (message.includes('Database connection') || message.includes('connection timeout')) {
+  if (
+    message.includes('Database connection') ||
+    message.includes('connection timeout')
+  ) {
     return {
       category: 'DATABASE_CONNECTION',
       severity: 'HIGH',
@@ -295,11 +320,14 @@ function categorizeError(message: string) {
  * Security event tracking
  */
 export function trackSecurityEvent(event: string, context: LogContext) {
-  pino.warn({
-    event,
-    category: 'security',
-    ...context,
-  }, `Security event: ${event}`);
+  pino.warn(
+    {
+      event,
+      category: 'security',
+      ...context,
+    },
+    `Security event: ${event}`
+  );
 }
 
 /**
@@ -310,12 +338,15 @@ export function trackRateLimit(
   endpoint: string,
   context?: LogContext
 ) {
-  pino.warn({
-    identifier,
-    endpoint,
-    category: 'rate_limit',
-    ...context,
-  }, `Rate limit exceeded for ${identifier} on ${endpoint}`);
+  pino.warn(
+    {
+      identifier,
+      endpoint,
+      category: 'rate_limit',
+      ...context,
+    },
+    `Rate limit exceeded for ${identifier} on ${endpoint}`
+  );
 }
 
 // Export the raw pino logger for advanced usage

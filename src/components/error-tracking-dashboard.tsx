@@ -11,10 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { 
-  ErrorCategory, 
-  ErrorSeverity 
-} from '@/lib/logger';
+import { ErrorCategory, ErrorSeverity } from '@/lib/logger';
 
 interface ErrorLog {
   id: string;
@@ -61,7 +58,7 @@ export default function ErrorTrackingDashboard() {
     try {
       const response = await fetch(`/api/admin/errors?timeRange=${timeRange}`);
       const data = await response.json();
-      
+
       setErrors(data.errors || []);
       setStats(data.stats || null);
     } catch (error) {
@@ -73,11 +70,16 @@ export default function ErrorTrackingDashboard() {
 
   const getSeverityColor = (severity: ErrorSeverity) => {
     switch (severity) {
-      case ErrorSeverity.CRITICAL: return 'destructive';
-      case ErrorSeverity.HIGH: return 'destructive';
-      case ErrorSeverity.MEDIUM: return 'default';
-      case ErrorSeverity.LOW: return 'secondary';
-      default: return 'secondary';
+      case ErrorSeverity.CRITICAL:
+        return 'destructive';
+      case ErrorSeverity.HIGH:
+        return 'destructive';
+      case ErrorSeverity.MEDIUM:
+        return 'default';
+      case ErrorSeverity.LOW:
+        return 'secondary';
+      default:
+        return 'secondary';
     }
   };
 
@@ -99,9 +101,11 @@ export default function ErrorTrackingDashboard() {
     }
   };
 
-  const filteredErrors = errors.filter(error => {
-    const categoryMatch = selectedCategory === 'all' || error.category === selectedCategory;
-    const severityMatch = selectedSeverity === 'all' || error.severity === selectedSeverity;
+  const filteredErrors = errors.filter((error) => {
+    const categoryMatch =
+      selectedCategory === 'all' || error.category === selectedCategory;
+    const severityMatch =
+      selectedSeverity === 'all' || error.severity === selectedSeverity;
     return categoryMatch && severityMatch;
   });
 
@@ -138,19 +142,23 @@ export default function ErrorTrackingDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Errors</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Errors
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.total}</div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Critical</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{stats.critical}</div>
+              <div className="text-2xl font-bold text-red-600">
+                {stats.critical}
+              </div>
             </CardContent>
           </Card>
 
@@ -160,7 +168,7 @@ export default function ErrorTrackingDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-orange-600">
-                {errors.filter(e => e.isUserFacing).length}
+                {errors.filter((e) => e.isUserFacing).length}
               </div>
             </CardContent>
           </Card>
@@ -170,7 +178,9 @@ export default function ErrorTrackingDashboard() {
               <CardTitle className="text-sm font-medium">Recent</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{stats.recentCount}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {stats.recentCount}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -184,19 +194,23 @@ export default function ErrorTrackingDashboard() {
           className="px-3 py-2 border border-gray-300 rounded-md"
         >
           <option value="all">All Categories</option>
-          {Object.values(ErrorCategory).map(category => (
-            <option key={category} value={category}>{category}</option>
+          {Object.values(ErrorCategory).map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
           ))}
         </select>
-        
+
         <select
           value={selectedSeverity}
           onChange={(e) => setSelectedSeverity(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md"
         >
           <option value="all">All Severities</option>
-          {Object.values(ErrorSeverity).map(severity => (
-            <option key={severity} value={severity}>{severity}</option>
+          {Object.values(ErrorSeverity).map((severity) => (
+            <option key={severity} value={severity}>
+              {severity}
+            </option>
           ))}
         </select>
       </div>

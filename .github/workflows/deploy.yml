@@ -47,7 +47,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: production
       url: https://church-volunteer-pdtdizlyr-pete-warnocks-projects.vercel.app
     steps:

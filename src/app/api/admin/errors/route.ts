@@ -13,10 +13,12 @@ const simulateErrorData = () => {
 
   // Generate some sample errors for demonstration
   for (let i = 0; i < 50; i++) {
-    const timestamp = new Date(now.getTime() - Math.random() * 24 * 60 * 60 * 1000);
+    const timestamp = new Date(
+      now.getTime() - Math.random() * 24 * 60 * 60 * 1000
+    );
     const categories = Object.values(ErrorCategory);
     const severities = Object.values(ErrorSeverity);
-    
+
     errors.push({
       id: `error-${i}`,
       timestamp: timestamp.toISOString(),
@@ -40,13 +42,18 @@ const simulateErrorData = () => {
         '/api/applications',
         '/api/users',
       ][Math.floor(Math.random() * 4)],
-      userId: Math.random() > 0.5 ? `user-${Math.floor(Math.random() * 1000)}` : undefined,
+      userId:
+        Math.random() > 0.5
+          ? `user-${Math.floor(Math.random() * 1000)}`
+          : undefined,
       userAgent: 'Mozilla/5.0 (simulated)',
       ip: `192.168.1.${Math.floor(Math.random() * 255)}`,
     });
   }
 
-  return errors.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  return errors.sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
 };
 
 export async function GET(request: NextRequest) {
@@ -54,10 +61,7 @@ export async function GET(request: NextRequest) {
     // Check authorization (only admin/leaders can access error dashboard)
     const session = await getServerSession(authOptions);
     if (!session || !['MINISTRY_LEADER', 'ADMIN'].includes(session.user.role)) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
@@ -86,27 +90,39 @@ export async function GET(request: NextRequest) {
         break;
     }
 
-    const filteredErrors = allErrors.filter(error => 
-      new Date(error.timestamp) >= filterTime
+    const filteredErrors = allErrors.filter(
+      (error) => new Date(error.timestamp) >= filterTime
     );
 
     // Calculate statistics
     const stats = {
       total: filteredErrors.length,
-      critical: filteredErrors.filter(e => e.severity === ErrorSeverity.CRITICAL).length,
-      high: filteredErrors.filter(e => e.severity === ErrorSeverity.HIGH).length,
-      medium: filteredErrors.filter(e => e.severity === ErrorSeverity.MEDIUM).length,
-      low: filteredErrors.filter(e => e.severity === ErrorSeverity.LOW).length,
-      byCategory: filteredErrors.reduce((acc, error) => {
-        acc[error.category] = (acc[error.category] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>),
-      byEndpoint: filteredErrors.reduce((acc, error) => {
-        acc[error.endpoint] = (acc[error.endpoint] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>),
-      recentCount: filteredErrors.filter(error => 
-        new Date(error.timestamp) >= new Date(now.getTime() - 60 * 60 * 1000)
+      critical: filteredErrors.filter(
+        (e) => e.severity === ErrorSeverity.CRITICAL
+      ).length,
+      high: filteredErrors.filter((e) => e.severity === ErrorSeverity.HIGH)
+        .length,
+      medium: filteredErrors.filter((e) => e.severity === ErrorSeverity.MEDIUM)
+        .length,
+      low: filteredErrors.filter((e) => e.severity === ErrorSeverity.LOW)
+        .length,
+      byCategory: filteredErrors.reduce(
+        (acc, error) => {
+          acc[error.category] = (acc[error.category] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+      byEndpoint: filteredErrors.reduce(
+        (acc, error) => {
+          acc[error.endpoint] = (acc[error.endpoint] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+      recentCount: filteredErrors.filter(
+        (error) =>
+          new Date(error.timestamp) >= new Date(now.getTime() - 60 * 60 * 1000)
       ).length,
     };
 
@@ -116,7 +132,6 @@ export async function GET(request: NextRequest) {
       timeRange,
       generatedAt: now.toISOString(),
     });
-
   } catch {
     return NextResponse.json(
       { error: 'Failed to fetch error data' },

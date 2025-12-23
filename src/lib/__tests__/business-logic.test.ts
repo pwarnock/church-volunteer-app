@@ -11,9 +11,13 @@ import { describe, it, expect } from 'vitest';
 // Test core business logic functions
 function calculateApplicationMetrics(applications: any[]) {
   const total = applications.length;
-  const pending = applications.filter(app => app.status === 'PENDING').length;
-  const approved = applications.filter(app => app.status === 'APPROVED').length;
-  const rejected = applications.filter(app => app.status === 'REJECTED').length;
+  const pending = applications.filter((app) => app.status === 'PENDING').length;
+  const approved = applications.filter(
+    (app) => app.status === 'APPROVED'
+  ).length;
+  const rejected = applications.filter(
+    (app) => app.status === 'REJECTED'
+  ).length;
 
   return {
     total,
@@ -28,23 +32,28 @@ function calculateApplicationMetrics(applications: any[]) {
 
 function validateOpportunityData(data: any) {
   const errors: string[] = [];
-  
+
   if (!data.title || data.title.trim().length === 0) {
     errors.push('Title is required');
   }
-  
+
   if (!data.ministry || data.ministry.trim().length === 0) {
     errors.push('Ministry is required');
   }
-  
+
   if (!data.timeCommitment || data.timeCommitment.trim().length === 0) {
     errors.push('Time commitment is required');
   }
-  
-  if (data.ministry && !['Children', 'Youth', 'Worship', 'Outreach', 'Administration'].includes(data.ministry)) {
+
+  if (
+    data.ministry &&
+    !['Children', 'Youth', 'Worship', 'Outreach', 'Administration'].includes(
+      data.ministry
+    )
+  ) {
     errors.push('Invalid ministry');
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors,
@@ -87,11 +96,12 @@ function searchOpportunities(opportunities: any[], searchTerm: string) {
   }
 
   const term = searchTerm.toLowerCase();
-  return opportunities.filter(opp => 
-    opp.title.toLowerCase().includes(term) ||
-    opp.ministry.toLowerCase().includes(term) ||
-    opp.description.toLowerCase().includes(term) ||
-    opp.location.toLowerCase().includes(term)
+  return opportunities.filter(
+    (opp) =>
+      opp.title.toLowerCase().includes(term) ||
+      opp.ministry.toLowerCase().includes(term) ||
+      opp.description.toLowerCase().includes(term) ||
+      opp.location.toLowerCase().includes(term)
   );
 }
 
@@ -253,7 +263,9 @@ describe('High-Impact Business Logic', () => {
         availability: '{}',
       };
 
-      expect(() => formatVolunteerProfile(profile)).toThrow('Invalid profile data format');
+      expect(() => formatVolunteerProfile(profile)).toThrow(
+        'Invalid profile data format'
+      );
     });
   });
 
@@ -340,7 +352,11 @@ describe('High-Impact Business Logic', () => {
       const results = searchOpportunities(opportunitiesWithMultiple, 'Youth');
 
       expect(results).toHaveLength(2);
-      expect(results.every(r => r.title.includes('Youth') || r.ministry === 'Youth')).toBe(true);
+      expect(
+        results.every(
+          (r) => r.title.includes('Youth') || r.ministry === 'Youth'
+        )
+      ).toBe(true);
     });
   });
 });
