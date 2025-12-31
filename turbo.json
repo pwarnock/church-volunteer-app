@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build:next": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "prisma/**"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint:check": {
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.mjs"],
+      "outputs": []
+    },
+    "format:run": {
+      "inputs": ["$TURBO_DEFAULT$", ".prettierrc"],
+      "outputs": []
+    },
+    "test:unit:run": {
+      "inputs": ["$TURBO_DEFAULT$", "vitest.unit.config.ts", "vitest.setup.ts"],
+      "outputs": []
+    }
+  }
+}

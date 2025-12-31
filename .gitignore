@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# turbo
+.turbo
+
 # Beads test data and daemon
 .test-data/
 .test-data/*
