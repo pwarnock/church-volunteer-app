@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function SignUp() {
+function SignUpContent() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -291,5 +291,13 @@ export default function SignUp() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function SignUp() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
+      <SignUpContent />
+    </Suspense>
   );
 }
