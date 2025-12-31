@@ -9,7 +9,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { generateTestScenarios } from '@/test-data/factory';
-import { generateTestScenarios } from '@/test-data/factory';
 
 // Mock dependencies before importing the route
 const mockPrisma = {
@@ -61,7 +60,7 @@ vi.mock('@/lib/api-middleware', () => ({
 }));
 
 // Import after mocking
-import { testDataFactory, generateTestScenarios } from '@/test-data/factory';
+import { testDataFactory } from '@/test-data/factory';
 import { testDataStorage } from '@/test-data/storage';
 
 describe('Applications API - Data-Driven Testing', () => {

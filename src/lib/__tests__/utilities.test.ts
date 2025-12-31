@@ -73,6 +73,12 @@ describe('API Response Utilities', () => {
 });
 
 describe('Assessment Calculator Utilities', () => {
+  // These tests are intentionally skipped; keep references local so TS doesn't require imports.
+  const calculateGiftResults = undefined as unknown as (...args: any[]) => any;
+  const formatAssessmentResults = undefined as unknown as (
+    ...args: any[]
+  ) => any;
+
   // Skip these tests until utilities are properly exported
   describe.skip('calculateGiftResults', () => {
     it('should calculate gift scores correctly', () => {
@@ -106,9 +112,9 @@ describe('Assessment Calculator Utilities', () => {
 
       const results = calculateGiftResults(gifts);
 
-      const highScore = results.find((r) => r.gift === 'HighScore');
-      const mediumScore = results.find((r) => r.gift === 'MediumScore');
-      const lowScore = results.find((r) => r.gift === 'LowScore');
+      const highScore = results.find((r: any) => r.gift === 'HighScore');
+      const mediumScore = results.find((r: any) => r.gift === 'MediumScore');
+      const lowScore = results.find((r: any) => r.gift === 'LowScore');
 
       expect(highScore?.category).toBe('Strong');
       expect(mediumScore?.category).toBe('Developing');
