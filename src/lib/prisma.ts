@@ -1,34 +1,45 @@
 import { PrismaClient } from '../generated/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-// For now, use SQLite for both development and production
-// TODO: Configure PostgreSQL for production when DATABASE_URL is available
-const adapter = new PrismaLibSql({
-  url:
-    process.env.DATABASE_URL?.replace('file:', 'file:') ||
-    'file:./prisma/dev.db',
-});
+function createPrismaClient(): PrismaClient {
+  // The build script (package.json "build:next") handles schema selection:
+  // - On Vercel or with POSTGRES_URL: uses schema-prod.prisma (postgresql)
+  // - Locally without POSTGRES_URL: uses schema-local.prisma (sqlite)
+  //
+  // The generated client type varies based on the schema used at build time.
+  // At runtime, we pass the appropriate options.
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
-    log:
-      process.env.NODE_ENV === 'development'
-        ? ['query', 'error', 'warn']
-        : ['error'],
+  const logConfig =
+    process.env.NODE_ENV === 'development'
+      ? ['query', 'error', 'warn']
+      : ['error'];
+
+  // When POSTGRES_URL is set, we're using Prisma Postgres (Accelerate)
+  // The accelerateUrl option is only valid when built with postgres schema
+  if (process.env.POSTGRES_URL) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new (PrismaClient as any)({
+      accelerateUrl: process.env.POSTGRES_URL,
+      log: logConfig,
+    });
+  }
+
+  // Local development with SQLite
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return new (PrismaClient as any)({
+    log: logConfig,
   });
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // Log database connection for debugging
 if (process.env.NODE_ENV === 'development') {
-  console.log('🗄️ Prisma client initialized with SQLite (libsql)');
-  console.log(
-    '🔒 Production data is SAFE - using local SQLite for development'
-  );
+  const dbType = process.env.POSTGRES_URL ? 'Prisma Postgres' : 'SQLite';
+  console.log(`🗄️ Prisma client initialized with ${dbType}`);
 }
