@@ -40,6 +40,8 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // Log database connection for debugging
 if (process.env.NODE_ENV === 'development') {
-  const dbType = process.env.PRISMA_DATABASE_URL ? 'Prisma Accelerate' : 'SQLite';
+  const dbType = process.env.PRISMA_DATABASE_URL
+    ? 'Prisma Accelerate'
+    : 'SQLite';
   console.log(`🗄️ Prisma client initialized with ${dbType}`);
 }
