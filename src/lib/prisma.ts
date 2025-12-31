@@ -17,12 +17,12 @@ function createPrismaClient(): PrismaClient {
       ? ['query', 'error', 'warn']
       : ['error'];
 
-  // When POSTGRES_URL is set, we're using Prisma Postgres (Accelerate)
-  // The accelerateUrl option is only valid when built with postgres schema
-  if (process.env.POSTGRES_URL) {
+  // When PRISMA_DATABASE_URL is set, use Prisma Accelerate for runtime queries
+  // This provides connection pooling and caching for production
+  if (process.env.PRISMA_DATABASE_URL) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return new (PrismaClient as any)({
-      accelerateUrl: process.env.POSTGRES_URL,
+      accelerateUrl: process.env.PRISMA_DATABASE_URL,
       log: logConfig,
     });
   }
@@ -40,6 +40,6 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // Log database connection for debugging
 if (process.env.NODE_ENV === 'development') {
-  const dbType = process.env.POSTGRES_URL ? 'Prisma Postgres' : 'SQLite';
+  const dbType = process.env.PRISMA_DATABASE_URL ? 'Prisma Accelerate' : 'SQLite';
   console.log(`🗄️ Prisma client initialized with ${dbType}`);
 }

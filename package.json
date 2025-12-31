@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "turbo run build:next",
-    "build:next": "if [ -n \"$VERCEL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; elif [ -n \"$POSTGRES_URL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; else cp prisma/schema-local.prisma prisma/schema.prisma; fi && bunx prisma generate && next build",
+    "build:next": "if [ -n \"$VERCEL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; elif [ -n \"$PRISMA_DATABASE_URL\" ]; then cp prisma/schema-prod.prisma prisma/schema.prisma; else cp prisma/schema-local.prisma prisma/schema.prisma; fi && bunx prisma generate && next build",
     "start": "next start",
     "lint": "turbo run lint:check",
     "lint:check": "eslint",
