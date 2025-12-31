@@ -15,6 +15,7 @@
     "format": "prettier --write .",
     "format:check": "turbo run format:run",
     "format:run": "prettier --check .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest --config vitest.unit.config.ts",
     "test:unit": "turbo run test:unit:run",
     "test:unit:run": "vitest --config vitest.unit.config.ts",
