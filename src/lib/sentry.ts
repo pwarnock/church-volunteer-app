@@ -37,9 +37,8 @@ export async function captureException(
 
   try {
     // Dynamic import to avoid bundling Sentry if disabled
-    const { captureException: sentryCaptureException } = await import(
-      '@sentry/nextjs'
-    );
+    const { captureException: sentryCaptureException } =
+      await import('@sentry/nextjs');
     sentryCaptureException(error, { contexts: { custom: context } });
   } catch (e) {
     console.error('Failed to send to Sentry:', e);
@@ -60,9 +59,8 @@ export async function captureMessage(
   }
 
   try {
-    const { captureMessage: sentryCaptureMessage, setContext } = await import(
-      '@sentry/nextjs'
-    );
+    const { captureMessage: sentryCaptureMessage, setContext } =
+      await import('@sentry/nextjs');
     sentryCaptureMessage(message, level);
     if (context) {
       setContext('custom', context);

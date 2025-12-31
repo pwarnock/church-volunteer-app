@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# turbo
+.turbo
+
 # Beads test data and daemon
 .test-data/
 .test-data/*
@@ -63,3 +66,4 @@ next-env.d.ts
 prisma/dev.db*
 prisma/prisma/dev.db*
 .env*.local
+.claude/

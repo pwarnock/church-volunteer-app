@@ -88,9 +88,11 @@ class EnhancedPreviewTesting {
 
         const health = await response.json();
         console.log('✅ Health check passed');
+        console.log(`   Status: ${health.status}`);
         console.log(`   Environment: ${health.environment || 'unknown'}`);
-        console.log(`   Database: ${health.hasDatabaseUrl ? '✅' : '❌'}`);
-        console.log(`   Auth: ${health.hasNextAuthUrl ? '✅' : '❌'}`);
+        console.log(
+          `   Database: ${health.hasDatabaseUrl ? '✅ configured' : '⚠️  not-configured'}`
+        );
 
         this.testResults.healthCheck = true;
       } else {
@@ -131,23 +133,19 @@ class EnhancedPreviewTesting {
         }
       }
 
-      // Test static assets
-      const staticAssetTests = [
-        '/_next/static/css/app/layout.css',
-        '/_next/static/chunks/webpack.js',
-      ];
+      // Test that static assets directory exists (actual hashes vary by build)
+      const response = await fetch(`${this.deploymentUrl}/_next/static/`, {
+        method: 'GET',
+        headers: { 'User-Agent': 'preview-test-agent' },
+      });
 
-      for (const asset of staticAssetTests) {
-        const response = await fetch(`${this.deploymentUrl}${asset}`, {
-          method: 'GET',
-          headers: { 'User-Agent': 'preview-test-agent' },
-        });
-
-        if (response.ok) {
-          console.log(`   ✅ Static asset: ${asset}`);
-        } else {
-          console.log(`   ⚠️  Static asset missing: ${asset}`);
-        }
+      // 403 Forbidden is expected for directory listing; success means static assets are served
+      if (response.status === 403 || response.ok) {
+        console.log(`   ✅ Static assets directory accessible`);
+      } else {
+        console.log(
+          `   ⚠️  Static assets may not be accessible: ${response.status}`
+        );
       }
 
       this.testResults.smokeTests = true;

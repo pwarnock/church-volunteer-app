@@ -1,11 +1,15 @@
+import * as dotenv from 'dotenv'
+import * as path from 'path'
 import { PrismaClient } from '../src/generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import bcrypt from 'bcryptjs'
 
-const adapter = new PrismaPg({
-  connectionString: process.env.POSTGRES_URL,
-})
+// Load environment from .env.local
+dotenv.config({ path: path.join(process.cwd(), '.env.local') })
+dotenv.config({ path: path.join(process.cwd(), '.env') })
 
+// For seeding, use direct connection via adapter-pg
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {

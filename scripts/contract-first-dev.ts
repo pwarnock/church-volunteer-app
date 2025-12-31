@@ -384,9 +384,8 @@ export type CreateOpportunityRequest = z.infer<typeof CreateOpportunitySchema>;
     console.log('🔍 Validating implementation against contracts...\n');
 
     // Import validators
-    const { APIDependencyValidator } = await import(
-      './validate-api-dependencies'
-    );
+    const { APIDependencyValidator } =
+      await import('./validate-api-dependencies');
     const validator = new APIDependencyValidator();
     const result = validator.validateDependencies();
 
