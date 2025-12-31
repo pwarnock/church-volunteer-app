@@ -9,6 +9,7 @@ A modern web application that connects church volunteers with meaningful ministr
 **Current Status**: All critical issues resolved, production-ready with comprehensive observability and monitoring.
 
 **Key Achievements**:
+
 - ✅ **66/66 tests passing** (100% success rate)
 - ✅ **Production-grade logging** with Pino structured logs
 - ✅ **Comprehensive error handling** with categorization
@@ -87,11 +88,13 @@ SENTRY_ENABLED="true"
 **Deployment Steps**:
 
 1. **Connect to Vercel**
+
    ```bash
    vercel --prod
    ```
 
 2. **Configure Environment Variables**
+
    ```bash
    vercel env pull .env.production.local
    ```
@@ -115,18 +118,21 @@ SENTRY_ENABLED="true"
 **Installation:**
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/pwarnock/church-volunteer-app.git
    cd church-volunteer-app
    ```
 
 2. **Install dependencies**
+
    ```bash
    bun install
    # or npm install if Bun not available
    ```
 
 3. **Set up PostgreSQL database**
+
    ```bash
    # Option A: Docker (recommended)
    docker run --name church-volunteer-db \
@@ -142,27 +148,32 @@ SENTRY_ENABLED="true"
    ```
 
 4. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    # Edit .env.local with your PostgreSQL connection
    ```
 
    For local development, use:
+
    ```
    DATABASE_URL="demo-db-url"
    ```
 
 5. **Initialize database**
+
    ```bash
    bunx prisma db push
    ```
 
 6. **Seed demo data**
+
    ```bash
    bunx tsx prisma/seed.ts
    ```
 
 7. **Start development server**
+
    ```bash
    bun run dev
    ```
@@ -313,6 +324,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Monitoring**: ✅ Health checks, metrics, and error tracking active
 
 **Production Features Active**:
+
 - ✅ Structured logging with Pino
 - ✅ API documentation at `/api/docs`
 - ✅ Health monitoring at `/api/health`
@@ -587,6 +599,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Monitoring**: ✅ Health checks, metrics, and error tracking active
 
 **Production Features Active**:
+
 - ✅ Structured logging with Pino
 - ✅ API documentation at `/api/docs`
 - ✅ Health monitoring at `/api/health`
@@ -820,6 +833,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Monitoring**: ✅ Health checks, metrics, and error tracking active
 
 **Production Features Active**:
+
 - ✅ Structured logging with Pino
 - ✅ API documentation at `/api/docs`
 - ✅ Health monitoring at `/api/health`

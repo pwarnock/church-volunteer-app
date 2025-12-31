@@ -278,17 +278,17 @@ function createLogEntry(
   if (error) {
     entry.error = formatError(error);
 
-        // Classify the error
-        const classification = classifyError(
-          typeof error === 'string'
-            ? error
-            : error instanceof Error
-              ? error
-              : new Error(String(error)),
-          endpoint,
-          method,
-          statusCode
-        );
+    // Classify the error
+    const classification = classifyError(
+      typeof error === 'string'
+        ? error
+        : error instanceof Error
+          ? error
+          : new Error(String(error)),
+      endpoint,
+      method,
+      statusCode
+    );
     entry.category = classification.category;
     entry.severity = classification.severity;
     entry.isUserFacing = classification.isUserFacing;
